@@ -24,6 +24,8 @@ export class RoutingStateService {
   }
 
   public getPreviousUrl(): string {
-    return this.history[this.history.length - 2] || '';
+    console.log(`All routes: ${this.history}`);
+    console.log(`Returning previous URL: ${this.history[this.history.length - 1] || ''}`);
+    return this.history[this.history.length - 1] || '';
   }
 }

@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
+import {inject, Inject, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {InjectionToken} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {UnitsService} from './units.service';
+import {UnitsService} from './services/units.service';
 import { UnitComponent } from './unit/unit.component';
 import { LoginComponent } from './login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -13,9 +14,12 @@ import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
 import {UnauthorizeInterceptor} from './http-interceptors/unauthorize-interceptor';
 import {Router, RouterState} from '@angular/router';
-import {TokenRefreshInterceptor} from './http-interceptors/token-refresh-interceptor';
-import {RefreshTokenService} from './refresh-token.service';
-import {RoutingStateService} from './routing-state.service';
+import {RefreshTokenService} from './services/refresh-token.service';
+import {RoutingStateService} from './services/routing-state.service';
+import {LoginService} from './services/login.service';
+import { CounterComponent } from './counter/counter.component';
+import {CountDownTokenService} from './services/count-down-token.service';
+import {RefTokenTimer, TokenTimer} from './injection-tokens/tokens';
 
 
 @NgModule({
@@ -24,7 +28,8 @@ import {RoutingStateService} from './routing-state.service';
     UnitComponent,
     LoginComponent,
     MenuComponent,
-    HomeComponent
+    HomeComponent,
+    CounterComponent
   ],
   imports: [
     BrowserModule,
@@ -40,30 +45,22 @@ import {RoutingStateService} from './routing-state.service';
       provide: HTTP_INTERCEPTORS,
       useFactory: (refreshToken: RefreshTokenService,
                    routeState: RoutingStateService,
-                   router: Router) => {
-        return new UnauthorizeInterceptor(refreshToken, routeState, router);
+                   router: Router,
+                   loginService: LoginService,
+                   tokenT: CountDownTokenService,
+                   refTokenT: CountDownTokenService) => {
+        return new UnauthorizeInterceptor(refreshToken, routeState, router, loginService,
+          inject(TokenTimer), inject(RefTokenTimer));
       },
       multi: true,
       deps: [
         RefreshTokenService,
         RoutingStateService,
-        Router
+        Router,
+        LoginService,
+        CountDownTokenService
       ]
-    },
-    /*{
-      provide: HTTP_INTERCEPTORS,
-      useFactory: (refreshToken: RefreshTokenService,
-                   routeState: RoutingStateService,
-                   router: Router) => {
-        return new TokenRefreshInterceptor(refreshToken, routeState, router);
-      },
-      multi: true,
-      deps: [
-        RefreshTokenService,
-        RoutingStateService,
-        Router
-      ]
-    }*/
+    }
   ],
   bootstrap: [AppComponent]
 })

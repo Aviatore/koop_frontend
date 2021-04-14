@@ -10,8 +10,11 @@ li {
   float: left;
 }
 
-li a {
-  display: block;
+li a, app-counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
   color: white;
   text-align: center;
   padding: 16px;

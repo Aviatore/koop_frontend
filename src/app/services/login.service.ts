@@ -1,13 +1,16 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Observable, ObservableInput, throwError} from 'rxjs';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {CookieService} from 'ngx-cookie-service';
 import {catchError} from 'rxjs/operators';
-import * as url from 'url';
+import {CountDownTokenService} from './count-down-token.service';
+import {RefTokenTimer, TokenTimer} from '../injection-tokens/tokens';
+
 
 export interface LoginResponse {
   token: string;
   refreshT: string;
+  tokenExp: number;
+  refTokenExp: number;
 }
 
 const loginUrl = 'http://localhost:5000/api/auth/signin';
@@ -21,12 +24,43 @@ const loginOptions: object = {
   providedIn: 'root'
 })
 export class LoginService {
-  loginResponse: LoginResponse;
+  loginResult: boolean;
+
   constructor(private httpClient: HttpClient,
-              private cookieService: CookieService) { }
+              @Inject(TokenTimer) private tokenT: CountDownTokenService,
+              @Inject(RefTokenTimer) private refTokenT: CountDownTokenService) { }
+
+  LogIn(email: string, password: string): void {
+    this.GetUserCredentials(email, password).subscribe(
+      result => {
+        console.log(`Response: ${result.body}`);
+
+        const loginResponse = result.body;
+        localStorage.setItem('token', loginResponse.token);
+        localStorage.setItem('refresh_token', loginResponse.refreshT);
+
+        this.tokenT.timeSeconds = loginResponse.tokenExp;
+        this.refTokenT.timeSeconds = loginResponse.refTokenExp;
+
+        this.loginResult = true;
+      },
+      error => {
+        console.error(error);
+        this.loginResult = false;
+      });
+  }
+
+  LogOut(): void {
+    localStorage.setItem('token', '');
+    localStorage.setItem('refresh_token', '');
+    this.loginResult = false;
+    this.tokenT.timeSeconds = 0;
+    this.refTokenT.timeSeconds = 0;
+  }
 
   GetUserCredentials(email: string, password: string): Observable<HttpResponse<LoginResponse>> {
     console.log('Sending login request ...');
+
     const loginBody = {
       Email: email,
       UserName: '',
@@ -41,28 +75,16 @@ export class LoginService {
 
   private handleError(error: HttpErrorResponse): ObservableInput<any> {
     if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
     } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong.
       console.error(
         `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+        `Returned body was: ${error.error}`);
     }
-    // Return an observable with a user-facing error message.
+
+    this.loginResult = false;
+
     return throwError(
       `Error:\n status: ${error.status}\n ${error.statusText}`);
-  }
-
-  LogIn(email: string, password: string): void {
-    this.GetUserCredentials(email, password).subscribe(
-      result => {
-        console.log(`Response: ${result.body}`);
-        this.loginResponse = result.body;
-        localStorage.setItem('token', this.loginResponse.token);
-        this.cookieService.set('refresh_token', this.loginResponse.refreshT);
-      },
-      error => console.log(error));
   }
 }

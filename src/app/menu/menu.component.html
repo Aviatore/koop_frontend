@@ -1,5 +1,8 @@
 <ul>
   <li><a [routerLink]="['home']">Home</a></li>
-  <li><a [routerLink]="['login']">Login</a></li>
+  <li><a [routerLink]="['login']"
+          (click)="LoginAction()">{{(this.loginService.loginResult ? 'logout' : 'login') | titlecase}}</a></li>
   <li><a [routerLink]="['units']">Units</a></li>
+  <li><app-counter [timer]="tokenTimer" name="Token"></app-counter></li>
+  <li><app-counter [timer]="refTokenTimer" name="RefToken"></app-counter></li>
 </ul>
