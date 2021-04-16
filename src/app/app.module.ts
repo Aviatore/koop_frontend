@@ -20,6 +20,7 @@ import {LoginService} from './services/login.service';
 import { CounterComponent } from './counter/counter.component';
 import {CountDownTokenService} from './services/count-down-token.service';
 import {RefTokenTimer, TokenTimer} from './injection-tokens/tokens';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {RefTokenTimer, TokenTimer} from './injection-tokens/tokens';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [
     UnitsService,
