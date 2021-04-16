@@ -21,6 +21,7 @@ import { CounterComponent } from './counter/counter.component';
 import {CountDownTokenService} from './services/count-down-token.service';
 import {RefTokenTimer, TokenTimer} from './injection-tokens/tokens';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserEditComponent } from './user-edit/user-edit.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
     MenuComponent,
     HomeComponent,
-    CounterComponent
+    CounterComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
