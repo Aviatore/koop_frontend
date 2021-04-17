@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Unit, UnitsService} from "../units.service";
+import {Unit, UnitsService} from "../services/units.service";
 import {Observable} from "rxjs";
 
 @Component({
@@ -13,6 +13,7 @@ export class UnitComponent implements OnInit {
   constructor(private unitS: UnitsService) { }
 
   ngOnInit(): void {
+    console.log(`Getting units ...`);
     this.units = this.unitS.GetUnits();
   }
 }
