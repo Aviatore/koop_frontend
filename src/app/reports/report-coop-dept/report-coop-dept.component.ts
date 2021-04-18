@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ReportService} from '../services/report.service';
+import {Observable} from 'rxjs';
+import {CoopDept} from '../models/coop-dept';
 
 @Component({
   selector: 'app-report-coop-dept',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportCoopDeptComponent implements OnInit {
 
-  constructor() { }
+  coopDept$: Observable<CoopDept[]>;
 
-  ngOnInit(): void {
+  constructor(private service: ReportService) {
   }
 
+  ngOnInit(): void {
+    this.coopDept$ = this.service.getReportCoopDept();
+  }
 }

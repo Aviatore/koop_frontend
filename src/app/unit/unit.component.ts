@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Unit, UnitsService} from "../services/units.service";
-import {Observable} from "rxjs";
+import {Unit, UnitsService} from '../services/units.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-unit',
