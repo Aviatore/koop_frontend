@@ -4,12 +4,13 @@ import {UnitComponent} from './unit/unit.component';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import { homePageUrl } from '../environments/environment';
 
 const routes: Routes = [
   { path: 'units', component: UnitComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: '',   redirectTo: '/home', pathMatch: 'full' },
+  { path: '',   redirectTo: homePageUrl, pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
 
