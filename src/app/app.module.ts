@@ -22,7 +22,8 @@ import {CountDownTokenService} from './services/count-down-token.service';
 import {RefTokenTimer, TokenTimer} from './injection-tokens/tokens';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
+import { ReportModule } from './reports/report.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -32,15 +33,17 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MenuComponent,
     HomeComponent,
     CounterComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    ReportModule,
+    AppRoutingModule,
   ],
   providers: [
     UnitsService,
