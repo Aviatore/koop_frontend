@@ -1,0 +1,5 @@
+<button mat-button [matMenuTriggerFor]="menu" class="text-white">Raporty</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="getCoopDept()">Długi Kooperantów</button>
+  <button mat-menu-item>Dla Paczkersów</button>
+</mat-menu>

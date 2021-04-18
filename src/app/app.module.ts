@@ -1,6 +1,5 @@
 import {inject, Inject, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {InjectionToken} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +20,14 @@ import { CounterComponent } from './counter/counter.component';
 import {CountDownTokenService} from './services/count-down-token.service';
 import {RefTokenTimer, TokenTimer} from './injection-tokens/tokens';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ReportModule } from './reports/report.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import {LOCALE_ID} from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePL from '@angular/common/locales/pl';
+registerLocaleData(localePL);
 
 
 @NgModule({
@@ -30,19 +37,23 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
     MenuComponent,
     HomeComponent,
-    CounterComponent
+    CounterComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    ReportModule,
+    AppRoutingModule,
   ],
   providers: [
     UnitsService,
     CookieService,
+    { provide: LOCALE_ID, useValue: 'pl' },
     {
       provide: HTTP_INTERCEPTORS,
       useFactory: (refreshToken: RefreshTokenService,
@@ -60,7 +71,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         RoutingStateService,
         Router,
         LoginService,
-        CountDownTokenService
+        CountDownTokenService,
       ]
     }
   ],
