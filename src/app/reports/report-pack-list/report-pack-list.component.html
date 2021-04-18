@@ -1,0 +1,17 @@
+<h2 class="text-md-center">Lista Dla Paczkersów</h2>
+<div class="table-responsive-sm px-2">
+  <table class="table-sm table-striped mx-auto w-75">
+    <thead class="text-white" style="background-color: rgb(3, 130, 17);">
+    <tr class="text-nowrap text-md-center">
+      <th scope="col">Nazwa Produktu</th>
+      <th scope="col">Nr koszyka: Ilość</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of packList$ | async">
+      <td class="text-nowrap">{{item.productName}}</td>
+      <td>{{item.productsInBaskets}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
