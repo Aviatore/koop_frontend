@@ -3,6 +3,7 @@
   <table class="table table-striped table-sm w-100">
     <thead class="text-white" style="background-color: rgb(3, 130, 17);">
     <tr class="text-nowrap text-md-center">
+      <th scope="col" style="display: none;">ID</th>
       <th scope="col">Imię</th>
       <th scope="col">Nazwisko</th>
       <th scope="col">Dług</th>
@@ -12,6 +13,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let dept of coopDept$ | async">
+      <td style="display: none;">{{dept.id}}</td>
       <td>{{dept.firstName}}</td>
       <td>{{dept.lastName}}</td>
       <td class="text-md-center">{{dept.debt | currency:'zł'}}</td>
