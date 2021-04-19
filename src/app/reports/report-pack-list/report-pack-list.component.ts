@@ -16,7 +16,7 @@ export class ReportPackListComponent implements OnInit {
 
   packList$: Observable<PackList[]>;
 
-  head = [['ID', 'Nazwa Produktu', 'Nr koszyka: Ilość']];
+  head = [['L.p.', 'Nazwa Produktu', 'Nr koszyka: Ilość']];
   data = [];
   reader: FileReader;
   fontInBase64: any;

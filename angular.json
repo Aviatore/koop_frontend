@@ -18,6 +18,12 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
+            "allowedCommonJsDependencies": [
+              "jspdf-autotable",
+              "canvg",
+              "raf",
+              "@babel/runtime-corejs3"
+            ],
             "aot": true,
             "assets": [
               "src/favicon.ico",
