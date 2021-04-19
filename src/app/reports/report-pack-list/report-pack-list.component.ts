@@ -5,7 +5,7 @@ import {ReportService} from '../services/report.service';
 
 import {jsPDF} from 'jspdf';
 import 'jspdf-autotable';
-import {DatePipe, formatDate} from '@angular/common';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-report-pack-list',
