@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {PackList} from '../models/PackList';
+import {PackList} from '../models/pack-list';
 import {ReportService} from '../services/report.service';
 
 import {jsPDF} from 'jspdf';
@@ -16,7 +16,7 @@ export class ReportPackListComponent implements OnInit {
 
   packList$: Observable<PackList[]>;
 
-  head = [['ID', 'Nazwa Produktu', 'Nr koszyka: Ilość']];
+  head = [['L.p.', 'Nazwa Produktu', 'Nr koszyka: Ilość']];
   data = [];
   reader: FileReader;
   fontInBase64: any;
@@ -69,7 +69,7 @@ export class ReportPackListComponent implements OnInit {
       styles: {
         font: fileNameWithoutExtension,    // <-- place name of your font here
         fontStyle: 'normal',
-        fontSize: 12
+        fontSize: 10
       }
     });
 

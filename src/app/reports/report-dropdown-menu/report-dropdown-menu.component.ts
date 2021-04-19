@@ -20,4 +20,8 @@ export class ReportDropdownMenuComponent implements OnInit {
   getPackList(): void {
     this.router.navigate(['report-pack-list']);
   }
+
+  getSupplierReceivables(): void {
+    this.router.navigate(['report-supplier-receivables']);
+  }
 }

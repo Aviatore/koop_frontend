@@ -3,7 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {CoopDept} from '../models/coop-dept';
 import {baseUrl} from '../../../environments/environment';
-import {PackList} from '../models/PackList';
+import {PackList} from '../models/pack-list';
+import {SupplierReceivables} from '../models/supplier-receivables';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,9 @@ export class ReportService {
 
   getReportForPackers(): Observable<PackList[]> {
     return this.http.get<PackList[]>(`${baseUrl}Report/Packers/Last/Grande`);
+  }
+
+  getReportSupplierReceivables(): Observable<SupplierReceivables[]> {
+    return this.http.get<SupplierReceivables[]>(`${baseUrl}Report/Debts/To/Suppliers`);
   }
 }

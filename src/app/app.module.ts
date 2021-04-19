@@ -11,8 +11,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CookieService} from 'ngx-cookie-service';
 import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
-import {UnauthorizeInterceptor} from './http-interceptors/unauthorize-interceptor';
-import {Router, RouterState} from '@angular/router';
+import { UnauthorizeInterceptor } from './http-interceptors/unauthorize-interceptor';
+import { Router } from '@angular/router';
 import {RefreshTokenService} from './services/refresh-token.service';
 import {RoutingStateService} from './services/routing-state.service';
 import {LoginService} from './services/login.service';
@@ -27,6 +27,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LOCALE_ID} from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePL from '@angular/common/locales/pl';
+
 registerLocaleData(localePL);
 
 
