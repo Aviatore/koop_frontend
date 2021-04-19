@@ -1,4 +1,10 @@
-<h2 class="text-md-center">Lista Dla Paczkersów</h2>
+<div class="position-relative mx-auto w-75">
+  <h2 class="text-md-center">Lista Dla Paczkersów</h2>
+  <button mat-icon-button [ngStyle]="{'color': 'rgb(3, 130, 17)'}" style="position: absolute; top: 0; right: 0;"
+          (click)="readFile()">
+    <mat-icon>picture_as_pdf</mat-icon>
+  </button>
+</div>
 <div class="table-responsive-sm px-2">
   <table class="table-sm table-striped mx-auto w-75">
     <thead class="text-white" style="background-color: rgb(3, 130, 17);">
@@ -9,11 +15,10 @@
     </thead>
     <tbody>
     <tr *ngFor="let item of packList$ | async">
-      <td class="text-nowrap">{{item.productName}}</td>
+      <td>{{item.productName}}</td>
       <td>{{item.productsInBaskets}}</td>
     </tr>
     </tbody>
   </table>
 </div>
 
-<button (click)="readFile()">Create PDF</button>

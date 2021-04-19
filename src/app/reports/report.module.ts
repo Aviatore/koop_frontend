@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { ReportService } from './services/report.service';
 import { ReportPackListComponent } from './report-pack-list/report-pack-list.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,8 @@ import { ReportPackListComponent } from './report-pack-list/report-pack-list.com
     HttpClientModule,
     MatMenuModule,
     MatButtonModule,
+    MatIconModule,
+
   ],
   providers: [
     ReportService,

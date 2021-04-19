@@ -69,7 +69,7 @@ export class ReportPackListComponent implements OnInit {
       styles: {
         font: fileNameWithoutExtension,    // <-- place name of your font here
         fontStyle: 'normal',
-        fontSize: 12
+        fontSize: 10
       }
     });
 
