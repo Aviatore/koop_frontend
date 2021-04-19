@@ -10,7 +10,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReportService } from './services/report.service';
 import { ReportPackListComponent } from './report-pack-list/report-pack-list.component';
 
-
 @NgModule({
   declarations: [
     ReportCoopDeptComponent,
@@ -25,7 +24,7 @@ import { ReportPackListComponent } from './report-pack-list/report-pack-list.com
     ReportRoutingModule,
     HttpClientModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   providers: [
     ReportService,
