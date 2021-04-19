@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {PackList} from '../models/PackList';
+import {PackList} from '../models/pack-list';
 import {ReportService} from '../services/report.service';
 
 import {jsPDF} from 'jspdf';

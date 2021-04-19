@@ -10,12 +10,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReportService } from './services/report.service';
 import { ReportPackListComponent } from './report-pack-list/report-pack-list.component';
 import {MatIconModule} from '@angular/material/icon';
+import { ReportSupplierReceivablesComponent } from './report-supplier-receivables/report-supplier-receivables.component';
 
 @NgModule({
   declarations: [
     ReportCoopDeptComponent,
     ReportDropdownMenuComponent,
-    ReportPackListComponent
+    ReportPackListComponent,
+    ReportSupplierReceivablesComponent
   ],
   exports: [
     ReportDropdownMenuComponent
