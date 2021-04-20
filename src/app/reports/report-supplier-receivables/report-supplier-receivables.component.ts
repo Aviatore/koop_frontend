@@ -21,7 +21,7 @@ export class ReportSupplierReceivablesComponent implements OnInit, AfterViewInit
     'phone'
   ];
   dataSource: MatTableDataSource<SupplierReceivables>;
-  itemsPerPage = [5, 10, 25, 100];
+  itemsPerPage = [10, 25, 50, 100];
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -49,11 +49,5 @@ export class ReportSupplierReceivablesComponent implements OnInit, AfterViewInit
         this.dataSource.sort = this.sort;
      });
   }
-
-
-  /*paginate(event: any): void {
-    this.pageIndex = event;
-    this.dataSource = this.data.slice(event * this.size - this.size, event * this.size);
-  }*/
 
 }
