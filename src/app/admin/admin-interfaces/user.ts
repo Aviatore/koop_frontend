@@ -1,12 +1,12 @@
 export interface User {
-  FirstName: string;
-  LastName: string;
-  UserName: string;
-  PhoneNumber: string;
-  Email: string;
-  NewPassword: string;
-  RepeatPassword: string;
-  Debt: number;
-  FundId: number;
-  Info: string;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  phoneNumber: string;
+  email: string;
+  newPassword: string;
+  repeatPassword: string;
+  debt: number;
+  fundId: number;
+  info: string;
 }

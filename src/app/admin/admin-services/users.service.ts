@@ -3,9 +3,10 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {User} from '../admin-interfaces/user';
 import {Urls} from '../urls';
 import {catchError} from 'rxjs/operators';
-import {ObservableInput, throwError} from 'rxjs';
+import {Observable, ObservableInput, throwError} from 'rxjs';
+import * as Url from 'url';
 
-const createUserOptions: object = {
+const getAllUsersOptions: object = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
   observe: 'response',
   responseType: 'json'
@@ -28,6 +29,10 @@ export class UsersService {
         console.error(error);
       }
     );
+  }
+  GetAllUsers(): Observable<User[]> {
+    return this.httpClient.get<User[]>(Urls.GetAllUsers).pipe(
+      catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse): ObservableInput<any> {
