@@ -11,6 +11,9 @@ import { ReportService } from './services/report.service';
 import { ReportPackListComponent } from './report-pack-list/report-pack-list.component';
 import {MatIconModule} from '@angular/material/icon';
 import { ReportSupplierReceivablesComponent } from './report-supplier-receivables/report-supplier-receivables.component';
+import { MatTableModule } from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -26,10 +29,12 @@ import { ReportSupplierReceivablesComponent } from './report-supplier-receivable
     CommonModule,
     ReportRoutingModule,
     HttpClientModule,
+    MatTableModule,
     MatMenuModule,
     MatButtonModule,
     MatIconModule,
-
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [
     ReportService,

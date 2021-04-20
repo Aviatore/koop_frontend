@@ -1,25 +1,33 @@
 <h2 class="text-md-center">Raport Należności Dostawców</h2>
 <div class="table-responsive-sm px-2">
-  <table class="table table-striped table-sm w-100">
-    <thead class="text-white" style="background-color: rgb(3, 130, 17);">
-    <tr class="text-nowrap text-md-center">
-      <th scope="col" style="display: none;">ID</th>
-      <th scope="col">Imię i Nazwisko</th>
-      <th scope="col">Identyfikator</th>
-      <th scope="col">Należność</th>
-      <th scope="col">Email</th>
-      <th scope="col">Nr telefonu</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let item of supplierReceivables$ | async">
-      <td style="display: none;">{{item.supplierId}}</td>
-      <td>{{item.supplierName}}</td>
-      <td>{{item.supplierAbbr}}</td>
-      <td class="text-md-center">{{item.receivables | currency:'zł'}}</td>
-      <td>{{item.email}}</td>
-      <td>{{item.phone}}</td>
-    </tr>
-    </tbody>
+  <table mat-table [dataSource]="dataSource" matSort class="table-striped mat-elevation-z10">
+    <ng-component matColumnDef="supplierId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let element">{{element.supplierId}}</td>
+    </ng-component>
+    <ng-component matColumnDef="supplierName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Imię i Nazwisko</th>
+      <td mat-cell *matCellDef="let element">{{element.supplierName}}</td>
+    </ng-component>
+    <ng-component matColumnDef="supplierAbbr">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Identyfikator</th>
+      <td mat-cell *matCellDef="let element">{{element.supplierAbbr}}</td>
+    </ng-component>
+    <ng-component matColumnDef="receivables">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Należność</th>
+      <td mat-cell *matCellDef="let element">{{element.receivables | currency: 'zł'}}</td>
+    </ng-component>
+    <ng-component matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Emaill</th>
+      <td mat-cell *matCellDef="let element">{{element.email}}</td>
+    </ng-component>
+    <ng-component matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nr telefonu</th>
+      <td mat-cell *matCellDef="let element">{{element.phone}}</td>
+    </ng-component>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 </div>
+<mat-paginator [pageSizeOptions]="itemsPerPage"></mat-paginator>

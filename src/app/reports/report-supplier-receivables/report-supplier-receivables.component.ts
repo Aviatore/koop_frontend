@@ -1,22 +1,59 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ReportService} from '../services/report.service';
-import {Observable} from 'rxjs';
 import {SupplierReceivables} from '../models/supplier-receivables';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-report-supplier-receivables',
   templateUrl: './report-supplier-receivables.component.html',
   styleUrls: ['./report-supplier-receivables.component.css']
 })
-export class ReportSupplierReceivablesComponent implements OnInit {
+export class ReportSupplierReceivablesComponent implements OnInit, AfterViewInit {
 
-  supplierReceivables$: Observable<SupplierReceivables[]>;
+  displayedColumns: string[] = [
+    // 'supplierId',
+    'supplierName',
+    'supplierAbbr',
+    'receivables',
+    'email',
+    'phone'
+  ];
+  dataSource: MatTableDataSource<SupplierReceivables>;
+  itemsPerPage = [5, 10, 25, 100];
+
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private service: ReportService) {
+    this.getDataFromObservable();
   }
 
   ngOnInit(): void {
-    this.supplierReceivables$ = this.service.getReportSupplierReceivables();
   }
+
+  getDataFromObservable(): void {
+    this.service.getReportSupplierReceivables()
+      .subscribe((data) => {
+        this.dataSource = new MatTableDataSource(data);
+      });
+  }
+
+  ngAfterViewInit(): void {
+    this.service.getReportSupplierReceivables()
+      .subscribe((data) => {
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+     });
+  }
+
+
+  /*paginate(event: any): void {
+    this.pageIndex = event;
+    this.dataSource = this.data.slice(event * this.size - this.size, event * this.size);
+  }*/
 
 }
