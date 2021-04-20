@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {User} from '../admin-interfaces/user';
 import {UsersService} from '../admin-services/users.service';
 
@@ -16,7 +16,7 @@ export class UserEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.userData = this.formBuilder.group({
-      firstName: [''],
+      firstName: ['', Validators.minLength(5)],
       lastName: [''],
       userName: [''],
       phoneNumber: [''],
@@ -27,6 +27,10 @@ export class UserEditComponent implements OnInit {
       fundId: [''],
       info: ['']
     });
+  }
+
+  get firstName(): any {
+    return this.userData.get('firstName');
   }
 
   onSubmit(): void {
