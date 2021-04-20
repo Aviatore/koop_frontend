@@ -10,10 +10,10 @@ import {MatSort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-report-coop-dept',
-  templateUrl: './report-coop-dept.component.html',
-  styleUrls: ['./report-coop-dept.component.css']
+  templateUrl: './report-coop-debt.component.html',
+  styleUrls: ['./report-coop-debt.component.css']
 })
-export class ReportCoopDeptComponent implements OnInit, AfterViewInit {
+export class ReportCoopDebtComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = [
     // 'id',
