@@ -1,0 +1,32 @@
+<div class="container mw-100 mt-5">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="container bg-light border border-secondary rounded">
+        <div class="row">
+          <div class="col-md-12 text-secondary mt-3">
+            <i class="fas fa-user"></i> Users
+          </div>
+          <div class="col-md-12 text-success">
+            List all users
+          </div>
+          <div class="col-md-12">
+            <a routerLink="admin/new" class="text-success">Add new user</a>
+          </div><br><br>
+          <div class="col-md-12 text-secondary">
+            <i class="fas fa-shipping-fast"></i> Suppliers
+          </div>
+          <div class="col-md-12 text-success">
+            List all suppliers
+          </div>
+          <div class="col-md-12 text-success mb-3">
+            Add new supplier
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
