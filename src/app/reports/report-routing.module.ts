@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {ReportCoopDebtComponent} from './report-coop-dept/report-coop-debt.component';
+import {ReportCoopDebtComponent} from './report-coop-debt/report-coop-debt.component';
 import {ReportPackListComponent} from './report-pack-list/report-pack-list.component';
 import {ReportSupplierReceivablesComponent} from './report-supplier-receivables/report-supplier-receivables.component';
 
