@@ -14,7 +14,7 @@ export class ReportDropdownMenuComponent implements OnInit {
   }
 
   getCoopDept(): void {
-    this.router.navigate(['report-coop-dept']);
+    this.router.navigate(['report-coop-debt']);
   }
 
   getPackList(): void {
