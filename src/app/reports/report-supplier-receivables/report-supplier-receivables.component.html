@@ -1,6 +1,6 @@
 <h2 class="text-md-center">Raport Należności Dostawców</h2>
 <div class="table-responsive-sm px-2">
-  <table mat-table [dataSource]="supplierReceivables$" class="table-striped mat-elevation-z10">
+  <table mat-table [dataSource]="dataSource" class="table-striped mat-elevation-z10">
     <ng-component matColumnDef="supplierId">
       <th mat-header-cell *matHeaderCellDef>ID</th>
       <td mat-cell *matCellDef="let element">{{element.supplierId}}</td>

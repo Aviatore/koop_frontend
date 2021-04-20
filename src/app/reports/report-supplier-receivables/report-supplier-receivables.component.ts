@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ReportService} from '../services/report.service';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {SupplierReceivables} from '../models/supplier-receivables';
 
 @Component({
@@ -10,7 +10,6 @@ import {SupplierReceivables} from '../models/supplier-receivables';
 })
 export class ReportSupplierReceivablesComponent implements OnInit {
 
-  supplierReceivables$: Observable<SupplierReceivables[]>;
   displayedColumns: string[] = [
     // 'supplierId',
     'supplierName',
@@ -19,16 +18,33 @@ export class ReportSupplierReceivablesComponent implements OnInit {
     'email',
     'phone'
   ];
-  size = 10;
+  size = 3;
   pageIndex = 0;
-  dataSource: Observable<SupplierReceivables[]>;
+  dataSource: SupplierReceivables[];
+  // data: SupplierReceivables[] = [];
 
   constructor(private service: ReportService) {
   }
 
   ngOnInit(): void {
-    this.supplierReceivables$ = this.service.getReportSupplierReceivables();
-    this.dataSource = this.supplierReceivables$;
+    this.getDataFromObservable();
+    console.log();
   }
+
+  getDataFromObservable(): void {
+    this.service.getReportSupplierReceivables()
+      .subscribe((data) => {
+        this.dataSource = this.sliceDataSource(data);
+      });
+  }
+
+  sliceDataSource(suppliers: SupplierReceivables[]): SupplierReceivables[] {
+    return  suppliers.slice(0, 3);
+  }
+
+  /*paginate(event: any): void {
+    this.pageIndex = event;
+    this.dataSource = this.data.slice(event * this.size - this.size, event * this.size);
+  }*/
 
 }
