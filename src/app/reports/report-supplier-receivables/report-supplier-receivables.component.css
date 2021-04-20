@@ -18,3 +18,7 @@ table {
 .mat-cell {
   padding: 0 5px 0 5px;
 }
+
+::ng-deep .mat-sort-header-arrow {
+  color: #aeef9b !important;
+}
