@@ -1,33 +1,65 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs';
 import {PackList} from '../models/pack-list';
 import {ReportService} from '../services/report.service';
 
 import {jsPDF} from 'jspdf';
 import 'jspdf-autotable';
-import { formatDate } from '@angular/common';
+import {formatDate} from '@angular/common';
+import {MatTableDataSource} from '@angular/material/table';
+import {SupplierReceivables} from '../models/supplier-receivables';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-report-pack-list',
   templateUrl: './report-pack-list.component.html',
   styleUrls: ['./report-pack-list.component.css']
 })
-export class ReportPackListComponent implements OnInit {
+export class ReportPackListComponent implements OnInit, AfterViewInit {
+
+  displayedColumns: string[] = [
+    'productName',
+    'productsInBaskets'
+  ];
+  dataSource: MatTableDataSource<PackList>;
+  itemsPerPage = [10, 25, 50, 100];
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   packList$: Observable<PackList[]>;
 
-  head = [['L.p.', 'Nazwa Produktu', 'Nr koszyka: Ilość']];
+  // data for PDF generator
+  head = [['L.p.', 'Nazwa Produktu', 'Nr koszyka: ilość']];
   data = [];
   reader: FileReader;
   fontInBase64: any;
 
   constructor(private service: ReportService) {
+    this.getDataFromObservable();
   }
 
   ngOnInit(): void {
     this.packList$ = this.service.getReportForPackers();
     this.data = this.getDataForPdf();
     this.reader = new FileReader();
+  }
+
+  getDataFromObservable(): void {
+    this.service.getReportForPackers()
+      .subscribe((data) => {
+        this.dataSource = new MatTableDataSource(data);
+      });
+  }
+
+  ngAfterViewInit(): void {
+    this.service.getReportForPackers()
+      .subscribe((data) => {
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
   }
 
   async readFile(): Promise<void> {

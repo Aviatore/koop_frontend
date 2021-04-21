@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ReportRoutingModule } from './report-routing.module';
-import { ReportCoopDeptComponent } from './report-coop-dept/report-coop-dept.component';
+import { ReportCoopDebtComponent } from './report-coop-debt/report-coop-debt.component';
 import { ReportDropdownMenuComponent } from './report-dropdown-menu/report-dropdown-menu.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,12 +12,14 @@ import { ReportPackListComponent } from './report-pack-list/report-pack-list.com
 import {MatIconModule} from '@angular/material/icon';
 import { ReportSupplierReceivablesComponent } from './report-supplier-receivables/report-supplier-receivables.component';
 import { MatTableModule } from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatSortModule} from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import {MatListModule} from '@angular/material/list';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
-    ReportCoopDeptComponent,
+    ReportCoopDebtComponent,
     ReportDropdownMenuComponent,
     ReportPackListComponent,
     ReportSupplierReceivablesComponent
@@ -35,6 +37,8 @@ import {MatSortModule} from '@angular/material/sort';
     MatIconModule,
     MatPaginatorModule,
     MatSortModule,
+    MatListModule,
+    MatSidenavModule
   ],
   providers: [
     ReportService,
