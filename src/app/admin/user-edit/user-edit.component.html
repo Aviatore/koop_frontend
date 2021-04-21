@@ -10,28 +10,70 @@
             <h4 class="text-right">Create new user</h4>
           </div>
           <div class="row mt-2">
-            <div class="col-md-4"><label class="labels">First name</label><input type="text" class="form-control is-invalid" formControlName="firstName" placeholder="First name" value="" #inFirstName autocomplete="given-name"></div>
-            <div *ngIf="firstName.invalid && firstName.touched">Err</div>
-            <div class="col-md-4"><label class="labels">Last name</label><input type="text" class="form-control is-valid" formControlName="lastName" value="" placeholder="Last name" #inLastName autocomplete="family-name"></div>
-            <div class="col-md-4"><label class="labels">User name</label><input type="text" class="form-control is-invalid" formControlName="userName" value="" placeholder="User name" autocomplete="username"></div>
+            <div class="col-md-4">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="First name" value="" #inFirstName autocomplete="given-name">
+                <label for="firstName">First name</label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-floating">
+                <input type="text" class="form-control is-valid" id="lastName" formControlName="lastName" value="" placeholder="Last name" #inLastName autocomplete="family-name">
+                <label for="lastName">Last name</label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-floating">
+                <input type="text" class="form-control is-invalid" id="userName"  formControlName="userName" value="" placeholder="User name" autocomplete="username">
+                <label for="userName">User name</label>
+              </div>
+            </div>
           </div>
           <div class="row mt-2">
-            <div class="col-md-6"><label class="labels">Phone number</label><input type="text" class="form-control" formControlName="phoneNumber" placeholder="Phone number" value="" autocomplete="tel-local"></div>
-            <div class="col-md-6"><label class="labels">E-mail</label><input type="text" class="form-control" formControlName="email" placeholder="E-mail" value="" #inEmail autocomplete="email"></div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber" placeholder="Phone number" value="" autocomplete="tel-local">
+                <label for="phoneNumber">Phone number</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="email" formControlName="email" placeholder="E-mail" value="" #inEmail autocomplete="email">
+                <label for="email">E-mail</label>
+              </div>
+            </div>
           </div>
           <div class="row mt-2">
-            <div class="col-md-6"><label class="labels">Password</label><input type="password" class="form-control" formControlName="newPassword" placeholder="Password" value="" autocomplete="new-password"></div>
-            <div class="col-md-6"><label class="labels">Repeat password</label><input type="password" class="form-control" formControlName="repeatPassword" placeholder="Password" value="" autocomplete="new-password"></div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="password" class="form-control" id="newPassword" formControlName="newPassword" placeholder="Password" value="" autocomplete="new-password">
+                <label for="newPassword">Password</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="password" class="form-control" id="repeatPassword" formControlName="repeatPassword" placeholder="Password" value="" autocomplete="new-password">
+                <label for="repeatPassword">Repeat password</label>
+              </div>
+            </div>
           </div>
 
           <div class="row mt-3">
-            <div class="col-md-6"><label class="labels">Debt</label><input type="number" class="form-control" formControlName="debt" value="" placeholder="Debt"></div>
-            <div class="col-md-6"><label class="labels">Fund</label>
-              <select class="custom-select form-control">
-                <option selected>Choose ...</option>
-                <option value="1">10</option>
-                <option value="2">30</option>
-              </select>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="debt" formControlName="debt" value="" placeholder="Debt">
+                <label for="debt">Debt</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <select class="custom-select form-control" id="fund">
+                  <option selected>Choose ...</option>
+                  <option value="1">10</option>
+                  <option value="2">30</option>
+                </select>
+                <label for="fund">Fund</label>
+              </div>
             </div>
           </div>
           <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" (click)="onSubmit()">Submit</button></div>
@@ -41,7 +83,10 @@
         <div class="p-3 py-5">
           <div class="col-md-12">
             <div class="d-flex justify-content-between align-items-center experience"><span>Profile description</span></div><br>
-            <textarea class="form-control" formControlName="info" name="info" rows="12" placeholder="Write something about ..."></textarea>
+            <div class="form-floating">
+              <textarea class="form-control" id="info" formControlName="info" name="info" rows="12" placeholder="Write something about ..." style="height: 25vh"></textarea>
+              <label for="info">Write something about ...</label>
+            </div>
           </div>
         </div>
       </div>
