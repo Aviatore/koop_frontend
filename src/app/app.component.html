@@ -6,10 +6,10 @@
     <mat-sidenav-content>
       <app-menu (sidenavToggle)="sidenav.toggle()"></app-menu>
     <main>
-      <!--<div class="logo-bar"><img src="assets/img/koop-logo.png" alt="" style="height: 200px"></div>
-      <div class="under-logo-bar">&nbsp;</div>-->
+      <div class="logo-container">
+        <div class="logo"><img class="logo-img" src="assets/img/koop-logo.png" alt=""></div>
+      </div>
       <router-outlet></router-outlet>
-      <!--<div class="footer">Copyright © Koop</div>-->
     </main>
     </mat-sidenav-content>
   </mat-sidenav-container>
