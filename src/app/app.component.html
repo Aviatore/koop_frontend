@@ -1,2 +1,19 @@
-<app-menu></app-menu>
-<router-outlet></router-outlet>
+<app-layout>
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav position="end" role="navigation">
+      <app-hamburger-menu (sidenavClose)="sidenav.close()"></app-hamburger-menu>
+    </mat-sidenav>
+    <mat-sidenav-content class="bg-main">
+      <app-menu (sidenavToggle)="sidenav.toggle()"></app-menu>
+    <main>
+      <div class="logo-bar"><img src="assets/img/koop-logo.png" alt="" style="height: 200px"></div>
+      <div class="under-logo-bar">&nbsp;</div>
+      <router-outlet></router-outlet>
+      <div class="footer">Copyright © Koop</div>
+    </main>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</app-layout>
+
+

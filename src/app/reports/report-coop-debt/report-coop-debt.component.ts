@@ -9,7 +9,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 
 @Component({
-  selector: 'app-report-coop-dept',
+  selector: 'app-report-coop-debt',
   templateUrl: './report-coop-debt.component.html',
   styleUrls: ['./report-coop-debt.component.css']
 })
