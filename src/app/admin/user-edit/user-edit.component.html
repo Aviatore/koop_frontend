@@ -12,20 +12,38 @@
           <div class="row mt-2">
             <div class="col-md-4">
               <div class="form-floating">
-                <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="First name" value="" #inFirstName autocomplete="given-name">
+                <input type="text" class="form-control" [class.is-invalid]="submitted && field.firstName.invalid && field.firstName.touched" id="firstName" formControlName="firstName" placeholder="First name" value="" #inFirstName autocomplete="given-name">
                 <label for="firstName">First name</label>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-floating">
-                <input type="text" class="form-control is-valid" id="lastName" formControlName="lastName" value="" placeholder="Last name" #inLastName autocomplete="family-name">
-                <label for="lastName">Last name</label>
+              <div class="mb-3">
+                <div *ngIf="submitted && field.firstName.invalid && field.firstName.touched" class="text-danger small">
+                  <div *ngIf="field.firstName.errors.required">First name is required</div>
+                  <div *ngIf="field.firstName.errors.minlength">First name must be at least 3 characters long</div>
+                </div>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-floating">
-                <input type="text" class="form-control is-invalid" id="userName"  formControlName="userName" value="" placeholder="User name" autocomplete="username">
+                <input type="text" class="form-control" [class.is-invalid]="submitted && field.lastName.invalid && field.lastName.touched" id="lastName" formControlName="lastName" value="" placeholder="Last name" #inLastName autocomplete="family-name">
+                <label for="lastName">Last name</label>
+              </div>
+              <div class="mb-3">
+                <div *ngIf="submitted && field.lastName.invalid && field.lastName.touched" class="text-danger small">
+                  <div *ngIf="field.lastName.errors.required">Last name is required</div>
+                  <div *ngIf="field.lastName.errors.minlength">Last name must be at least 3 characters long</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-floating">
+                <input type="text" class="form-control" [class.is-invalid]="submitted && field.userName.invalid && field.userName.touched" id="userName"  formControlName="userName" value="" placeholder="User name" autocomplete="username">
                 <label for="userName">User name</label>
+              </div>
+              <div class="mb-3">
+                <div *ngIf="submitted && field.userName.invalid && field.userName.touched" class="text-danger small">
+                  <div *ngIf="field.userName.errors.required">User name is required</div>
+                  <div *ngIf="field.userName.errors.minlength">User name must be at least 3 characters long</div>
+                </div>
               </div>
             </div>
           </div>
@@ -38,22 +56,36 @@
             </div>
             <div class="col-md-6">
               <div class="form-floating">
-                <input type="text" class="form-control" id="email" formControlName="email" placeholder="E-mail" value="" #inEmail autocomplete="email">
+                <input type="email" class="form-control" id="email" [class.is-invalid]="submitted && field.email.invalid && field.email.touched" formControlName="email" placeholder="E-mail" value="" #inEmail autocomplete="email">
                 <label for="email">E-mail</label>
+              </div>
+              <div class="mb-3">
+                <div *ngIf="submitted && field.email.invalid && field.email.touched" class="text-danger small">
+                  <div *ngIf="field.email.errors.required">E-mail is required</div>
+                  <div *ngIf="field.email.errors.email">E-mail is not valid</div>
+                </div>
               </div>
             </div>
           </div>
           <div class="row mt-2">
             <div class="col-md-6">
               <div class="form-floating">
-                <input type="password" class="form-control" id="newPassword" formControlName="newPassword" placeholder="Password" value="" autocomplete="new-password">
+                <input type="password" class="form-control" [class.is-invalid]="submitted && field.newPassword.invalid && field.newPassword.touched" id="newPassword" formControlName="newPassword" placeholder="Password" value="" autocomplete="new-password">
                 <label for="newPassword">Password</label>
+              </div>
+              <div *ngIf="submitted && field.newPassword.invalid && field.newPassword.touched" class="text-danger small">
+                <div *ngIf="field.newPassword.errors.required">You must provide the password</div>
+                <div *ngIf="field.newPassword.errors.minlength">The password must be at least 8 characters long</div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-floating">
-                <input type="password" class="form-control" id="repeatPassword" formControlName="repeatPassword" placeholder="Password" value="" autocomplete="new-password">
+                <input type="password" class="form-control" [class.is-invalid]="submitted && field.repeatPassword.invalid && field.repeatPassword.touched" id="repeatPassword" formControlName="repeatPassword" placeholder="Password" value="" autocomplete="new-password">
                 <label for="repeatPassword">Repeat password</label>
+              </div>
+              <div *ngIf="submitted && field.repeatPassword.invalid && field.repeatPassword.touched" class="text-danger small">
+                <div *ngIf="field.repeatPassword.errors.required">You must repeat the password</div>
+                <div *ngIf="field.repeatPassword.errors.compare">Provided passwords are not equal</div>
               </div>
             </div>
           </div>
@@ -67,12 +99,15 @@
             </div>
             <div class="col-md-6">
               <div class="form-floating">
-                <select class="custom-select form-control" id="fund">
+                <select class="custom-select form-control" id="fund" [class.is-invalid]="submitted && field.fundId.invalid && field.fundId.touched" formControlName="fundId">
                   <option selected>Choose ...</option>
                   <option value="1">10</option>
                   <option value="2">30</option>
                 </select>
                 <label for="fund">Fund</label>
+              </div>
+              <div *ngIf="submitted && field.fundId.invalid && field.fundId.touched" class="text-danger small">
+                <div *ngIf="field.fundId.errors.required">You must select a fund</div>
               </div>
             </div>
           </div>
