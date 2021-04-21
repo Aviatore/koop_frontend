@@ -1,2 +1,18 @@
-<app-menu></app-menu>
-<router-outlet></router-outlet>
+<app-layout>
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav position="end" role="navigation">
+      <app-hamburger-menu (sidenavClose)="sidenav.close()"></app-hamburger-menu>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <app-menu (sidenavToggle)="sidenav.toggle()"></app-menu>
+    <main>
+      <div class="logo-container">
+        <div class="logo"><img class="logo-img" src="assets/img/koop-logo.png" alt=""></div>
+      </div>
+      <router-outlet></router-outlet>
+    </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</app-layout>
+
+

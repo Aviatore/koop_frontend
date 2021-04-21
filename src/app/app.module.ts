@@ -29,6 +29,16 @@ import {LOCALE_ID} from '@angular/core';
 import {registerLocaleData} from '@angular/common';
 import localePL from '@angular/common/locales/pl';
 import {MatPaginatorIntl} from '@angular/material/paginator';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import { LayoutComponent } from './layout/layout.component';
+import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 registerLocaleData(localePL);
 
@@ -42,6 +52,8 @@ registerLocaleData(localePL);
     HomeComponent,
     CounterComponent,
     PageNotFoundComponent,
+    LayoutComponent,
+    HamburgerMenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +64,14 @@ registerLocaleData(localePL);
     NgbModule,
     ReportModule,
     AppRoutingModule,
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatGridListModule,
+    FlexLayoutModule,
+    MatMenuModule
   ],
   providers: [
     UnitsService,
