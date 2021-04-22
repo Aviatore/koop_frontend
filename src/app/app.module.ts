@@ -29,6 +29,7 @@ import {LOCALE_ID} from '@angular/core';
 import {registerLocaleData} from '@angular/common';
 import localePL from '@angular/common/locales/pl';
 import {MatPaginatorIntl} from '@angular/material/paginator';
+import { ProductComponent } from './product/product.component';
 
 registerLocaleData(localePL);
 
@@ -42,6 +43,7 @@ registerLocaleData(localePL);
     HomeComponent,
     CounterComponent,
     PageNotFoundComponent,
+    ProductComponent,
   ],
   imports: [
     BrowserModule,
