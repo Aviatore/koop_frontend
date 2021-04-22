@@ -25,4 +25,8 @@ export class ReportDropdownMenuComponent implements OnInit {
   getSupplierReceivables(): void {
     this.router.navigate([AppUrl.ROUTE.getReportSupReceivables]);
   }
+
+  getGrandeOrder(): void {
+    this.router.navigate([AppUrl.ROUTE.getReportGrandeOrder]);
+  }
 }
