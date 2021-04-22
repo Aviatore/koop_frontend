@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {AppUrl} from '../../urls/app-url';
 
 @Component({
   selector: 'app-report-dropdown-menu',
@@ -14,14 +15,14 @@ export class ReportDropdownMenuComponent implements OnInit {
   }
 
   getCoopDept(): void {
-    this.router.navigate(['report-coop-debt']);
+    this.router.navigate([AppUrl.ROUTE.getReportCoopDebt]);
   }
 
   getPackList(): void {
-    this.router.navigate(['report-pack-list']);
+    this.router.navigate([AppUrl.ROUTE.getReportPackList]);
   }
 
   getSupplierReceivables(): void {
-    this.router.navigate(['report-supplier-receivables']);
+    this.router.navigate([AppUrl.ROUTE.getReportSupReceivables]);
   }
 }

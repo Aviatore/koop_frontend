@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {homePageUrl} from '../../environments/environment';
+import {AppUrl} from '../urls/app-url';
 
 @Component({
   selector: 'app-page-not-found',
@@ -8,7 +8,7 @@ import {homePageUrl} from '../../environments/environment';
 })
 export class PageNotFoundComponent implements OnInit {
 
-  homePage = homePageUrl;
+  homePage = AppUrl.HOME_PAGE_URL;
 
   constructor() {
   }
