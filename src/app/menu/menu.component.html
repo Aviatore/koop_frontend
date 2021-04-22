@@ -1,15 +1,15 @@
 <mat-toolbar class="navi-bar">
   <div>
-    <a [routerLink]="['home']" class="logo-link">Koop</a>
+    <a [routerLink]="[urls.getHome]" class="logo-link">Koop</a>
   </div>
   <span class="navi-bar-spacer"></span>
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
     <ul fxLayout fxLayoutGap="15px" class="navigation-items">
-      <li><a [routerLink]="['units']" class="top-link">Units</a></li>
+      <li><a [routerLink]="[urls.getUnits]" class="top-link">Units</a></li>
       <li>
         <app-report-dropdown-menu></app-report-dropdown-menu>
       </li>
-      <li><a  [routerLink]="['login']" class="top-link"
+      <li><a  [routerLink]="[urls.getLogin]" class="top-link"
               (click)="LoginAction()">{{(this.loginService.loginResult ? 'logout' : 'login') | titlecase}}</a></li>
     </ul>
   </div>

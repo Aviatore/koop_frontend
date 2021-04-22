@@ -3,6 +3,7 @@ import {LoginService} from '../services/login.service';
 import {Inject} from '@angular/core';
 import {CountDownTokenService} from '../services/count-down-token.service';
 import {RefTokenTimer, TokenTimer} from '../injection-tokens/tokens';
+import {AppUrl} from '../urls/app-url';
 
 @Component({
   selector: 'app-menu',
@@ -14,6 +15,8 @@ export class MenuComponent implements OnInit {
   loginService: LoginService;
   tokenTimer: CountDownTokenService;
   refTokenTimer: CountDownTokenService;
+
+  urls = AppUrl.ROUTE;
 
   @Output() public sidenavToggle = new EventEmitter();
 
