@@ -44,6 +44,7 @@ export class ReportGrandeOrderComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    console.log(this.grandeOrder);
   }
 
   ngAfterViewInit(): void {
@@ -65,6 +66,8 @@ export class ReportGrandeOrderComponent implements OnInit, AfterViewInit {
         this.dataSource = new MatTableDataSource(o.grandeOrderItem);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+
+        return this.grandeOrder;
       });
   }
 }
