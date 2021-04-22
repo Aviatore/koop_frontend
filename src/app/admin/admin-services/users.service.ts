@@ -5,6 +5,7 @@ import {Urls} from '../urls';
 import {catchError} from 'rxjs/operators';
 import {Observable, ObservableInput, throwError} from 'rxjs';
 import * as Url from 'url';
+import {Funds} from '../admin-interfaces/funds';
 
 const getAllUsersOptions: object = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -35,8 +36,14 @@ export class UsersService {
       }
     );
   }
+
   GetAllUsers(): Observable<User[]> {
     return this.httpClient.get<User[]>(Urls.GetAllUsers).pipe(
+      catchError(this.handleError));
+  }
+
+  GetAllUnits(): Observable<Funds[]> {
+    return this.httpClient.get<Funds[]>(Urls.GetAllFunds).pipe(
       catchError(this.handleError));
   }
 

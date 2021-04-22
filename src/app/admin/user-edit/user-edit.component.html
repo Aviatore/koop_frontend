@@ -101,8 +101,9 @@
               <div class="form-floating">
                 <select class="custom-select form-control" id="fund" [class.is-invalid]="submitted && field.fundId.invalid && field.fundId.touched" formControlName="fundId">
                   <option selected>Choose ...</option>
-                  <option value="1">10</option>
-                  <option value="2">30</option>
+                  <option *ngFor="let item of funds | async" [value]="item.fundId">
+                    {{item.value}}
+                  </option>
                 </select>
                 <label for="fund">Fund</label>
               </div>

@@ -3,6 +3,8 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {User} from '../admin-interfaces/user';
 import {UsersService} from '../admin-services/users.service';
 import {RxwebValidators} from '@rxweb/reactive-form-validators';
+import {Observable} from 'rxjs';
+import {Funds} from '../admin-interfaces/funds';
 
 @Component({
   selector: 'app-user-edit',
@@ -11,12 +13,15 @@ import {RxwebValidators} from '@rxweb/reactive-form-validators';
 })
 export class UserEditComponent implements OnInit {
   submitted = false;
+  funds: Observable<Funds[]>;
   userData;
 
   constructor(private formBuilder: FormBuilder,
               private usersService: UsersService) { }
 
   ngOnInit(): void {
+    this.funds = this.usersService.GetAllUnits();
+
     this.userData = this.formBuilder.group({
       firstName: ['', [
         Validators.required,
