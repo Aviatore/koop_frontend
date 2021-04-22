@@ -82,6 +82,7 @@ export class UserEditComponent implements OnInit {
     } else {
       this.submitted = false;
 
+      // console.log(`Raw data: ${JSON.stringify(this.userData.getRawValue())}`);
       this.usersService.CreateUser(this.userData.getRawValue());
     }
   }

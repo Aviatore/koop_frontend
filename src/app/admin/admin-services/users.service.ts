@@ -12,6 +12,10 @@ const getAllUsersOptions: object = {
   responseType: 'json'
 };
 
+const createUserOptions: object = {
+  headers: new HttpHeaders().set('Content-Type', 'application/json')
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,7 +24,8 @@ export class UsersService {
   }
 
   CreateUser(user: User): void {
-    this.httpClient.post<User>(Urls.CreateUserUrl, user).pipe(
+    console.log(`Raw data: ${JSON.stringify(user)}`);
+    this.httpClient.post<User>(Urls.CreateUserUrl, user, createUserOptions).pipe(
       catchError(this.handleError)).subscribe(
         result => {
           console.log(`User created.`);
@@ -40,8 +45,9 @@ export class UsersService {
       console.error('An error occurred:', error.error.message);
     } else {
       console.error(
-        `Backend returned code ${error.status}, ` +
-        `Returned body was: ${error.error}`);
+        `Backend returned code ${error.status},\n` +
+        `Returned body was: ${error.error},\n` +
+        `Error message: ${error.message}`);
     }
 
     return throwError(
