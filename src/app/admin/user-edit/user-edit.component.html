@@ -63,6 +63,7 @@
                 <div *ngIf="submitted && field.email.invalid && field.email.touched" class="text-danger small">
                   <div *ngIf="field.email.errors.required">E-mail is required</div>
                   <div *ngIf="field.email.errors.email">E-mail is not valid</div>
+                  <div *ngIf="field.email.errors.uniqueEmail">Provided email already exists</div>
                 </div>
               </div>
             </div>
@@ -104,6 +105,7 @@
                   <option *ngFor="let item of funds | async" [value]="item.fundId">
                     {{item.value}}
                   </option>
+                  <!--<option value="1">10</option>-->
                 </select>
                 <label for="fund">Fund</label>
               </div>
@@ -112,7 +114,12 @@
               </div>
             </div>
           </div>
-          <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" (click)="onSubmit()">Submit</button></div>
+          <div class="mt-5"><button class="btn btn-primary profile-button" type="button" (click)="onSubmit()">Submit</button></div>
+
+          <div class="alert alert-dismissible fade mt-3" [class.show]="alertVisibility > 0" [ngClass]="us.responseResult.statusCode === 200 ? 'alert-success' : 'alert-danger'" role="alert">
+            {{us.responseResult.message}}
+          </div>
+
         </div>
       </div>
       <div class="col-md-4">
