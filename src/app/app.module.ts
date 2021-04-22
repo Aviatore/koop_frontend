@@ -33,7 +33,6 @@ import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
 import {MaterialModule} from './material/material.module';
 
-
 registerLocaleData(localePL);
 
 
@@ -58,7 +57,7 @@ registerLocaleData(localePL);
     NgbModule,
     ReportModule,
     MaterialModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [
     UnitsService,

@@ -16,13 +16,17 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { ReportGrandeOrderComponent } from './report-grande-order/report-grande-order.component';
+import {NgReplacePipeModule} from 'angular-pipes';
+
 
 @NgModule({
   declarations: [
     ReportCoopDebtComponent,
     ReportDropdownMenuComponent,
     ReportPackListComponent,
-    ReportSupplierReceivablesComponent
+    ReportSupplierReceivablesComponent,
+    ReportGrandeOrderComponent
   ],
   exports: [
     ReportDropdownMenuComponent
@@ -38,7 +42,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatPaginatorModule,
     MatSortModule,
     MatListModule,
-    MatSidenavModule
+    MatSidenavModule,
+    NgReplacePipeModule
   ],
   providers: [
     ReportService,
