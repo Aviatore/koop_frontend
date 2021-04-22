@@ -1,6 +1,15 @@
-<h1>Login form</h1>
-<form [formGroup]='loginForm' (ngSubmit)="onSubmit()">
-  <input type='email' formControlName="email" placeholder="E-mail" autocomplete="email"><br>
-  <input type='password' formControlName="password" placeholder="Password" autocomplete="new-password"><br>
-  <input type="submit" value="Submit">
-</form>
+<h1 class="text-center">Login</h1>
+<div class="form-center">
+  <form [formGroup]='loginForm' (ngSubmit)="onSubmit()" class="btn btn-primary my-2 main-green form-center">
+    <label>E-mail</label>
+    <div class="form-group">
+      <input type="email" class="form-control" formControlName="email" placeholder="E-mail" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" formControlName="password" placeholder="Password"
+             autocomplete="new-password"><br>
+      <input type="submit" class="btn btn-primary submit-green" value="Submit">
+    </div>
+  </form>
+</div>

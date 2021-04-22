@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AppUrl} from './urls/app-url';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'koopTest';
+  title = 'Koop';
+  home = AppUrl.HOME_PAGE_URL;
 }

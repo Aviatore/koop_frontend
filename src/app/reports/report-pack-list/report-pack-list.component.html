@@ -1,0 +1,28 @@
+<div class="position-relative mx-auto px-2">
+  <h2 class="text-center txt-shadow">Lista Dla Paczkersów</h2>
+  <button mat-icon-button [ngStyle]="{'color': 'rgb(3, 130, 17)'}" style="position: absolute; top: 0; right: 10px;"
+          (click)="readFile()">
+    <mat-icon>picture_as_pdf</mat-icon>
+  </button>
+</div>
+<div class="table-responsive-sm px-2 mx-auto">
+  <table mat-table [dataSource]="dataSource" matSort class="table-striped mat-elevation-z10">
+    <ng-component matColumnDef="productName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nazwa Produktu</th>
+      <td mat-cell *matCellDef="let element">{{element.productName}}</td>
+    </ng-component>
+    <ng-component matColumnDef="productsInBaskets">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nr koszyka: ilość</th>
+      <td mat-cell *matCellDef="let element">{{element.productsInBaskets}}</td>
+    </ng-component>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+<div class="mx-auto px-2 mat-elevation-z10">
+  <mat-paginator [pageSizeOptions]="itemsPerPage"></mat-paginator>
+</div>
+
+
+
