@@ -33,4 +33,8 @@ export class HamburgerMenuComponent implements OnInit {
   getSupplierReceivables(): void {
     this.router.navigate([this.urls.getReportSupReceivables]);
   }
+
+  getGrandeOrder(): void {
+    this.router.navigate([this.urls.getReportGrandeOrder]);
+  }
 }
