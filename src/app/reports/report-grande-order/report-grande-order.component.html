@@ -1,9 +1,9 @@
 <h2 class="text-center px-2 txt-shadow">Raport Zamówienia Grande</h2>
-<p class="ml-3"><span class="font-weight-bold">Data rozpoczęcia</span>: {{grandeOrder.orderStartDate| replace: ['T'] : ' '}}<br>
-  <span class="font-weight-bold">Data zakończnia</span>: {{grandeOrder.orderStopDate | replace: ['T'] : ' '}}<br>
-  <span class="font-weight-bold">Cana całkowita</span>: {{grandeOrder.totalGrandePrice | currency: 'zł'}}<br>
-  <span class="font-weight-bold">Cena z funduszem</span>: {{grandeOrder.totalGrandeFundPrice | currency: 'zł'}}<br>
-  <span class="font-weight-bold">Status</span>: {{grandeOrder.orderStatus}}</p>
+<p class="ml-3"><span class="font-weight-bold">Data rozpoczęcia</span>: {{grandeOrder?.orderStartDate| replace: ['T'] : ' '}}<br>
+  <span class="font-weight-bold">Data zakończnia</span>: {{grandeOrder?.orderStopDate | replace: ['T'] : ' '}}<br>
+  <span class="font-weight-bold">Cana całkowita</span>: {{grandeOrder?.totalGrandePrice | currency: 'zł'}}<br>
+  <span class="font-weight-bold">Cena z funduszem</span>: {{grandeOrder?.totalGrandeFundPrice | currency: 'zł'}}<br>
+  <span class="font-weight-bold">Status</span>: {{grandeOrder?.orderStatus}}</p>
 <div class="table-responsive px-2">
   <table mat-table [dataSource]="dataSource" matSort class="table-striped mat-elevation-z10">
     <ng-component matColumnDef="orderedItemId">
