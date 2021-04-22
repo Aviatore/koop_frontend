@@ -1,5 +1,6 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {Router} from '@angular/router';
+import {AppUrl} from '../../urls/app-url';
 
 @Component({
   selector: 'app-hamburger-menu',
@@ -9,6 +10,7 @@ import {Router} from '@angular/router';
 export class HamburgerMenuComponent implements OnInit {
 
   @Output() sidenavClose = new EventEmitter();
+  urls = AppUrl.ROUTE;
 
   constructor(private router: Router) {
   }
@@ -21,14 +23,14 @@ export class HamburgerMenuComponent implements OnInit {
   }
 
   getCoopDept(): void {
-    this.router.navigate(['report-coop-debt']);
+    this.router.navigate([this.urls.getReportCoopDebt]);
   }
 
   getPackList(): void {
-    this.router.navigate(['report-pack-list']);
+    this.router.navigate([this.urls.getReportPackList]);
   }
 
   getSupplierReceivables(): void {
-    this.router.navigate(['report-supplier-receivables']);
+    this.router.navigate([this.urls.getReportSupReceivables]);
   }
 }

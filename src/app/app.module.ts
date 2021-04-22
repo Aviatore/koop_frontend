@@ -39,6 +39,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
 import {MatMenuModule} from '@angular/material/menu';
+import {AppUrl} from './urls/app-url';
 
 registerLocaleData(localePL);
 
@@ -95,7 +96,7 @@ registerLocaleData(localePL);
         RoutingStateService,
         Router,
         LoginService,
-        CountDownTokenService,
+        CountDownTokenService
       ]
     }
   ],

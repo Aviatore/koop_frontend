@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AppUrl} from './urls/app-url';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Koop';
+  home = AppUrl.HOME_PAGE_URL;
 }
