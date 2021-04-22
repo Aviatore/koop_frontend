@@ -39,6 +39,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
 import {MatMenuModule} from '@angular/material/menu';
+import { SuppliersListComponent } from './suppliers-list/suppliers-list.component';
 
 registerLocaleData(localePL);
 
@@ -54,6 +55,7 @@ registerLocaleData(localePL);
     PageNotFoundComponent,
     LayoutComponent,
     HamburgerMenuComponent,
+    SuppliersListComponent,
   ],
   imports: [
     BrowserModule,
