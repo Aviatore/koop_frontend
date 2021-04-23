@@ -26,6 +26,8 @@
     "@auth0/angular-jwt": "^5.0.2",
     "@ng-bootstrap/ng-bootstrap": "^9.1.0",
     "bootstrap": "^5.0.0-beta3",
+    "angular-pipes": "^10.0.0",
+    "bootstrap": "^4.6.0",
     "faker": "^5.5.3",
     "guid-typescript": "^1.0.9",
     "jquery": "^3.6.0",
