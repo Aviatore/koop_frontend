@@ -14,7 +14,7 @@ import {AppUrl} from '../urls/app-url';
 })
 export class LoginComponent implements OnInit {
   submitted = false;
-  alertVisibilityTimeSec = 5;
+  alertVisibilityTimeSec = 3;
   alertVisibility: number;
   loginS: LoginService;
   loginForm;
