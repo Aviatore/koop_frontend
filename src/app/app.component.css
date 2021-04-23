@@ -1,5 +1,5 @@
 mat-sidenav-container, mat-sidenav-content, mat-sidenav {
-  height: auto;
+  min-height: calc(100vh - 41px);
 }
 
 mat-sidenav {

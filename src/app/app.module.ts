@@ -1,5 +1,6 @@
 import {inject, Inject, NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
+import {InjectionToken} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -12,7 +13,7 @@ import {CookieService} from 'ngx-cookie-service';
 import {MenuComponent} from './menu/menu.component';
 import {HomeComponent} from './home/home.component';
 import {UnauthorizeInterceptor} from './http-interceptors/unauthorize-interceptor';
-import {Router} from '@angular/router';
+import {Router, RouterState} from '@angular/router';
 import {RefreshTokenService} from './services/refresh-token.service';
 import {RoutingStateService} from './services/routing-state.service';
 import {LoginService} from './services/login.service';
@@ -32,6 +33,7 @@ import {MatPaginatorIntl} from '@angular/material/paginator';
 import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
 import {MaterialModule} from './material/material.module';
+import {AdminModule} from './admin/admin.module';
 
 registerLocaleData(localePL);
 
@@ -57,7 +59,8 @@ registerLocaleData(localePL);
     NgbModule,
     ReportModule,
     MaterialModule,
-    AppRoutingModule,
+    AdminModule,
+    AppRoutingModule
   ],
   providers: [
     UnitsService,
