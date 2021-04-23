@@ -9,6 +9,7 @@
       <li>
         <app-report-dropdown-menu></app-report-dropdown-menu>
       </li>
+      <li><a [routerLink]="[urls.admin]" class="top-link">Admin</a></li>
       <li><a  [routerLink]="[urls.getLogin]" class="top-link"
               (click)="LoginAction()">{{(this.loginService.loginResult ? 'logout' : 'login') | titlecase}}</a></li>
     </ul>
