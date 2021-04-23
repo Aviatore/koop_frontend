@@ -18,6 +18,12 @@ import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { ReportGrandeOrderComponent } from './report-grande-order/report-grande-order.component';
 import {NgReplacePipeModule} from 'angular-pipes';
+import {FlexModule} from '@angular/flex-layout';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule, MatOptionModule} from '@angular/material/core';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -43,7 +49,14 @@ import {NgReplacePipeModule} from 'angular-pipes';
     MatSortModule,
     MatListModule,
     MatSidenavModule,
-    NgReplacePipeModule
+    NgReplacePipeModule,
+    FlexModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatOptionModule,
+    MatAutocompleteModule
   ],
   providers: [
     ReportService,

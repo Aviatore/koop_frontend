@@ -5,6 +5,9 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {ReportService} from '../services/report.service';
 import {GrandeOrderItem} from '../models/grande-order-item';
+import {Observable} from 'rxjs';
+import {FormControl} from '@angular/forms';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-report-grande-order',
@@ -34,6 +37,10 @@ export class ReportGrandeOrderComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<GrandeOrderItem>;
   itemsPerPage = [10, 25, 50, 100];
 
+  control = new FormControl();
+  streets: string[] = ['Champs-Élysées', 'Lombard Street', 'Abbey Road', 'Fifth Avenue'];
+  filteredStreets: Observable<string[]>;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -44,7 +51,10 @@ export class ReportGrandeOrderComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log(this.grandeOrder);
+    this.filteredStreets = this.control.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
   }
 
   ngAfterViewInit(): void {
@@ -70,4 +80,14 @@ export class ReportGrandeOrderComponent implements OnInit, AfterViewInit {
         return this.grandeOrder;
       });
   }
+
+  private _filter(value: string): string[] {
+    const filterValue = this._normalizeValue(value);
+    return this.streets.filter(street => this._normalizeValue(street).includes(filterValue));
+  }
+
+  private _normalizeValue(value: string): string {
+    return value.toLowerCase().replace(/\s/g, '');
+  }
+
 }
