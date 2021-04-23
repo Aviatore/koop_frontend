@@ -8,6 +8,7 @@ import {AppUrl} from '../../urls/app-url';
 import {GrandeOrder} from '../models/grande-order';
 import {map} from 'rxjs/operators';
 import {GrandeOrderItem} from '../models/grande-order-item';
+import {OrderStartDate} from '../models/order-start-date';
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +44,9 @@ export class ReportService {
       return this.http.get<GrandeOrder>(`${AppUrl.BASE_URL}Report/Order/Grande`);
     }
     return this.http.get<GrandeOrder>(`${AppUrl.BASE_URL}Report/Order/Grande/${dateStart}`);
+  }
+
+  getGrandeStartDates(): Observable<OrderStartDate> {
+    return this.http.get<OrderStartDate>(`${AppUrl.BASE_URL}Order/Grande/StartDates`);
   }
 }
