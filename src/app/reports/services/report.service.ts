@@ -46,7 +46,7 @@ export class ReportService {
     return this.http.get<GrandeOrder>(`${AppUrl.BASE_URL}Report/Order/Grande/${dateStart}`);
   }
 
-  getGrandeStartDates(): Observable<OrderStartDate> {
-    return this.http.get<OrderStartDate>(`${AppUrl.BASE_URL}Order/Grande/StartDates`);
+  getGrandeStartDates(): Observable<OrderStartDate[]> {
+    return this.http.get<OrderStartDate[]>(`${AppUrl.BASE_URL}Report/Order/Grande/StartDates`);
   }
 }
