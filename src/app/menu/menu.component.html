@@ -5,13 +5,13 @@
   <span class="navi-bar-spacer"></span>
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
     <ul fxLayout fxLayoutGap="15px" class="navigation-items">
-      <li><a [routerLink]="[urls.getUnits]" class="top-link">Units</a></li>
+      <li><button mat-button [routerLink]="[urls.getUnits]" class="top-link">Units</button></li>
       <li>
         <app-report-dropdown-menu></app-report-dropdown-menu>
       </li>
-      <li><a [routerLink]="[urls.admin]" class="top-link">Admin</a></li>
-      <li><a  [routerLink]="[urls.getLogin]" class="top-link"
-              (click)="LoginAction()">{{(this.loginService.loginResult ? 'logout' : 'login') | titlecase}}</a></li>
+      <li><button mat-button [routerLink]="[urls.admin]" class="top-link">Admin</button></li>
+      <li><button mat-button  [routerLink]="[urls.getLogin]" class="top-link"
+              (click)="LoginAction()">{{(this.loginService.loginResult ? 'logout' : 'login') | titlecase}}</button></li>
     </ul>
   </div>
   <div fxHide.gt-xs>
