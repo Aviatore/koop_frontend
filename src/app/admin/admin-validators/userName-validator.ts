@@ -7,14 +7,14 @@ import {catchError, map} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class UniqueEmailValidator implements AsyncValidator {
+export class UniqueUserNameValidator implements AsyncValidator {
   constructor(private userService: UsersService) {
   }
 
   validate(control: AbstractControl): Observable<ValidationErrors> | null {
-    console.log('Validating email ...');
-    return this.userService.CheckEmail(control.value).pipe(
-      map(result => result.result ? {uniqueEmail: true} : null),
+    console.log('Validating user name ...');
+    return this.userService.CheckUsername(control.value).pipe(
+      map(result => result.result ? {uniqueUsername: true} : null),
       catchError(() => of(null))
     );
   }

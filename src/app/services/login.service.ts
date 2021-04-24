@@ -27,7 +27,8 @@ const loginOptions: object = {
 export class LoginService {
   loginResult: boolean;
   errorResponse: ErrorResponse = {
-    detail: 'ppp'
+    detail: '',
+    status: 0
   };
 
   constructor(private httpClient: HttpClient,
