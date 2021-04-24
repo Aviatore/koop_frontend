@@ -1,0 +1,7 @@
+<button mat-button [matMenuTriggerFor]="menu" class="top-link">Raporty</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="getCoopDept()">Długi kooperantów</button>
+  <button mat-menu-item (click)="getPackList()">Dla paczkersów</button>
+  <button mat-menu-item (click)="getSupplierReceivables()">Należności dostawców</button>
+  <button mat-menu-item (click)="getGrandeOrder()">Zamówienie Grande</button>
+</mat-menu>

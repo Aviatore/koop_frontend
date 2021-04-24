@@ -4,7 +4,6 @@ import {User} from '../admin-interfaces/user';
 import {Urls} from '../urls';
 import {catchError, tap} from 'rxjs/operators';
 import {Observable, ObservableInput, throwError} from 'rxjs';
-import * as Url from 'url';
 import {Funds} from '../admin-interfaces/funds';
 import {EmailCheck} from '../admin-interfaces/emailCheck';
 import {ResponseResult} from '../admin-interfaces/responseResult';
@@ -42,7 +41,7 @@ export class UsersService {
           console.log(`User created.`);
           this.responseResult = {
             statusCode: 200,
-            message: 'User created successfully ppp'
+            message: `Konto użytkownika ${user.firstName} ${user.lastName} zostało utworzone.`
           };
         },
       error => {
