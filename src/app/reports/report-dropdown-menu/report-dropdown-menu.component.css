@@ -1,7 +1,6 @@
-button.top-link:link, button.top-link:visited  {
+button.top-link:visited  {
   text-decoration: none;
   color: #fff;
-
 }
 
 button.top-link:hover, button.top-link:active{
@@ -9,5 +8,5 @@ button.top-link:hover, button.top-link:active{
 }
 
 .mat-button {
-  font-size: 1em;
+  font-size: 0.8em;
 }

@@ -19,6 +19,22 @@ table {
   padding: 0 5px 0 5px;
 }
 
+/*.input-form {
+  padding: 15px;
+  background-color: rgb(240, 240, 240);
+  border:0;
+  border-bottom: 1px solid rgb(135, 135, 135);
+}
+
+.input-form:focus, .input-form:hover {
+  border-bottom: 2px solid #000;
+  outline: none;
+}*/
+
+.mat-select-width {
+  width:255px !important;
+}
+
 ::ng-deep .mat-sort-header-arrow {
   color: #aeef9b !important;
 }
