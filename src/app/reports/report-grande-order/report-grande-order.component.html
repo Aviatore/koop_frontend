@@ -1,10 +1,34 @@
 <h2 class="text-center px-2 txt-shadow">Raport Zamówienia Grande</h2>
-<p class="ml-3"><span class="font-weight-bold">Data rozpoczęcia</span>: {{grandeOrder?.orderStartDate| replace: ['T'] : ' '}}<br>
-  <span class="font-weight-bold">Data zakończnia</span>: {{grandeOrder?.orderStopDate | replace: ['T'] : ' '}}<br>
-  <span class="font-weight-bold">Cana całkowita</span>: {{grandeOrder?.totalGrandePrice | currency: 'zł'}}<br>
-  <span class="font-weight-bold">Cena z funduszem</span>: {{grandeOrder?.totalGrandeFundPrice | currency: 'zł'}}<br>
-  <span class="font-weight-bold">Status</span>: {{grandeOrder?.orderStatus}}</p>
-<div class="table-responsive px-2">
+<div fxLayout="row wrap" fxLayoutAlign="center start" fxLayoutGap="10px">
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Podaj zakres dat</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate [(ngModel)]="startDate" placeholder="Rozpoczęcia">
+        <input matEndDate [(ngModel)]="endDate" placeholder="Zakończenia" (dateChange)="getDates()">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="fill" class="mat-select-width">
+      <mat-label>Wybierz datę</mat-label>
+      <mat-select (selectionChange)="getDataFromObservable(selectField.value)" #selectField>
+        <mat-option *ngFor="let date of dates" [value]="date">
+          {{date}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<div class="ms-2" [hidden]="grandeOrderLen === 0"><span class="fw-bold">Data rozpoczęcia</span>: {{grandeOrder?.orderStartDate| replace: ['T'] : ' '}}<br>
+  <span class="fw-bold">Data zakończnia</span>: {{grandeOrder?.orderStopDate | replace: ['T'] : ' '}}<br>
+  <span class="fw-bold">Cana całkowita</span>: {{grandeOrder?.totalGrandePrice | currency: 'zł'}}<br>
+  <span class="fw-bold">Cena z funduszem</span>: {{grandeOrder?.totalGrandeFundPrice | currency: 'zł'}}<br>
+  <span class="fw-bold">Status</span>: {{grandeOrder?.orderStatus}}
+</div>
+<div class="table-responsive px-2" *ngIf="grandeOrderLen > 0">
   <table mat-table [dataSource]="dataSource" matSort class="table-striped mat-elevation-z10">
     <ng-component matColumnDef="orderedItemId">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>ID zamówienia</th>
@@ -75,6 +99,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 </div>
-<div class="mx-auto px-2 mat-elevation-z10">
+<div class="mx-auto px-2 mat-elevation-z10" [hidden]="grandeOrderLen === 0">
   <mat-paginator [pageSizeOptions]="itemsPerPage"></mat-paginator>
 </div>
+<div *ngIf="grandeOrderLen === 0" class="text-center w-100 text-danger">Brak produktów w zamówieniu Grande.</div>
