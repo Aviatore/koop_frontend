@@ -14,6 +14,7 @@ import {RefTokenTimer, TokenTimer} from '../injection-tokens/tokens';
   providedIn: 'root'
 })
 export class UnauthorizeInterceptor implements HttpInterceptor {
+  isActive = false;
   constructor(private refreshToken: RefreshTokenService,
               private routeState: RoutingStateService,
               private router: Router,
@@ -39,7 +40,8 @@ export class UnauthorizeInterceptor implements HttpInterceptor {
 
   private handleAuthError(err: HttpErrorResponse): Observable<any> {
     console.log(`Token refresh, err code: ${err.status}`);
-    if (err.status === 401 || err.status === 403) {
+    if (!this.isActive && (err.status === 401 || err.status === 403)) {
+      this.isActive = true;
       this.routeState.loadRouting();
 
       console.log(`Refresh token before: ${localStorage.getItem('refresh_token')}`);
@@ -64,17 +66,19 @@ export class UnauthorizeInterceptor implements HttpInterceptor {
           // Hack to reload the current page
           // Without it, the page after refreshing the token will be incomplete
           this.router.navigateByUrl('/').then(() => this.router.navigateByUrl(redirectUrl));
+          this.isActive = false;
         },
         error => {
           console.log(error);
 
-          localStorage.setItem('token', '');
-          localStorage.setItem('refresh_token', '');
+          /*localStorage.setItem('token', '');
+          localStorage.setItem('refresh_token', '');*/
 
           console.log('Refresh failed.');
 
           this.loginService.loginResult = false;
           this.router.navigateByUrl(`login`);
+          this.isActive = false;
         });
     }
     return throwError(err);
