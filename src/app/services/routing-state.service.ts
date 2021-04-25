@@ -15,7 +15,7 @@ export class RoutingStateService {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(({urlAfterRedirects}: NavigationEnd) => {
-        this.history = [...this.history, urlAfterRedirects];
+        this.history = [...this.history.slice(-5), urlAfterRedirects];
       });
   }
 
