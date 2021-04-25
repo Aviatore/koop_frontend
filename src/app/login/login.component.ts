@@ -16,7 +16,6 @@ import {ErrorResponse} from '../admin/admin-interfaces/errorResponse';
 })
 export class LoginComponent implements OnInit {
   submitted = false;
-  errorResponse: ErrorResponse;
   alertVisibilityTimeSec = 2;
   alertVisibility: number;
   loginS: LoginService;
