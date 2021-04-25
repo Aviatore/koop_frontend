@@ -28,7 +28,7 @@
   <span class="fw-bold">Cena z funduszem</span>: {{grandeOrder?.totalGrandeFundPrice | currency: 'zł'}}<br>
   <span class="fw-bold">Status</span>: {{grandeOrder?.orderStatus}}
 </div>
-<div class="table-responsive px-2" *ngIf="grandeOrderLen > 0">
+<div class="table-responsive px-2" [hidden]="grandeOrderLen === 0">
   <table mat-table [dataSource]="dataSource" matSort class="table-striped mat-elevation-z10">
     <ng-component matColumnDef="orderedItemId">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>ID zamówienia</th>
