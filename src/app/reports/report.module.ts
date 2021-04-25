@@ -25,6 +25,7 @@ import {MatNativeDateModule, MatOptionModule} from '@angular/material/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSelectModule} from '@angular/material/select';
+import { ReportOrderBySupplierComponent } from './report-order-by-supplier/report-order-by-supplier.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {MatSelectModule} from '@angular/material/select';
     ReportDropdownMenuComponent,
     ReportPackListComponent,
     ReportSupplierReceivablesComponent,
-    ReportGrandeOrderComponent
+    ReportGrandeOrderComponent,
+    ReportOrderBySupplierComponent
   ],
   exports: [
     ReportDropdownMenuComponent

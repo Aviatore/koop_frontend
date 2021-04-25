@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
 import {AppUrl} from '../../urls/app-url';
 
 @Component({
@@ -9,24 +8,10 @@ import {AppUrl} from '../../urls/app-url';
 })
 export class ReportDropdownMenuComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  urls = AppUrl.ROUTE;
+
+  constructor() { }
 
   ngOnInit(): void {
-  }
-
-  getCoopDept(): void {
-    this.router.navigate([AppUrl.ROUTE.getReportCoopDebt]);
-  }
-
-  getPackList(): void {
-    this.router.navigate([AppUrl.ROUTE.getReportPackList]);
-  }
-
-  getSupplierReceivables(): void {
-    this.router.navigate([AppUrl.ROUTE.getReportSupReceivables]);
-  }
-
-  getGrandeOrder(): void {
-    this.router.navigate([AppUrl.ROUTE.getReportGrandeOrder]);
   }
 }
