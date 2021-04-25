@@ -6,6 +6,7 @@ import {RxwebValidators} from '@rxweb/reactive-form-validators';
 import {interval, Observable, of} from 'rxjs';
 import {Funds} from '../admin-interfaces/funds';
 import {UniqueEmailValidator} from '../admin-validators/async-validators';
+import {UniqueUserNameValidator} from '../admin-validators/userName-validator';
 
 @Component({
   selector: 'app-user-edit',
@@ -36,10 +37,16 @@ export class UserEditComponent implements OnInit {
         Validators.required,
         Validators.minLength(3)
       ]],
-      userName: ['', [
-        Validators.required,
-        Validators.minLength(3)
-      ]],
+      userName: ['', {
+        validators: [
+          Validators.required,
+          Validators.minLength(3)
+        ],
+        asyncValidators: [
+          new UniqueUserNameValidator(this.usersService)
+        ],
+        updateOn: 'blur'
+      }],
       phoneNumber: [''],
       email: ['', {
         validators: [
@@ -83,6 +90,11 @@ export class UserEditComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.userData.controls);
+
+    if (this.field.fundId.value === '0') {
+      this.field.fundId.setErrors({required: true});
+    }
+
     if (this.userData.invalid) {
       this.submitted = true;
 
@@ -90,17 +102,12 @@ export class UserEditComponent implements OnInit {
         const control = this.userData.get(field);
         control.markAsTouched({onlySelf: true});
       });
-
-      if (this.field.fundId.value.startsWith('Choose')) {
-        this.field.fundId.setErrors({required: true});
-      }
-
     } else {
       this.submitted = false;
 
       // console.log(`Raw data: ${JSON.stringify(this.userData.getRawValue())}`);
       of(this.usersService.CreateUser(this.userData.getRawValue())).subscribe(result => {
-        this.showAlert().subscribe();
+        this.showAlert().subscribe(this.userData.reset());
       });
     }
   }
