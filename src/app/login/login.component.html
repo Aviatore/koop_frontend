@@ -49,8 +49,8 @@
                   <button type="submit" class="btn btn-primary btn-sm">Zaloguj</button>
                 </div>
 
-                <div class="alert alert-dismissible fade mt-3" [class.show]="alertVisibility > 0" [ngClass]="loginS.loginResult ? 'alert-success' : 'alert-danger'" role="alert">
-                  {{loginS.loginResult ? "Zalogowano" : "Niepoprawny login lub hasło"}}
+                <div class="text-center alert alert-dismissible fade mt-3" [class.show]="alertVisibility > 0" [ngClass]="loginS.loginResult ? 'alert-success' : 'alert-danger'" role="alert">
+                  {{loginS.loginResult ? "Zalogowano" : loginS.errorResponse.detail}}
                 </div>
             </div>
           </div>

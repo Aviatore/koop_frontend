@@ -7,6 +7,7 @@ import {Observable, ObservableInput, throwError} from 'rxjs';
 import {Funds} from '../admin-interfaces/funds';
 import {EmailCheck} from '../admin-interfaces/emailCheck';
 import {ResponseResult} from '../admin-interfaces/responseResult';
+import {ErrorResponse} from '../admin-interfaces/errorResponse';
 
 const getAllUsersOptions: object = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -25,33 +26,33 @@ const createUserOptions: object = {
 })
 export class UsersService {
   responseResult: ResponseResult;
+  errorResponse: ErrorResponse;
 
   constructor(private httpClient: HttpClient) {
     this.responseResult = {
       statusCode: 0,
       message: ''
     };
+
+    this.errorResponse = {
+      detail: '',
+      status: 0
+    };
   }
 
   CreateUser(user: User): void {
     console.log(`Raw data: ${JSON.stringify(user)}`);
     this.httpClient.post<HttpResponse<any>>(Urls.CreateUserUrl, user, createUserOptions).pipe(
-      catchError(this.handleError)).subscribe(
+      catchError(this.handleError.bind(this))).subscribe(
         result => {
           console.log(`User created.`);
-          this.responseResult = {
-            statusCode: 200,
-            message: `Konto użytkownika ${user.firstName} ${user.lastName} zostało utworzone.`
+          this.errorResponse = {
+            detail: `Konto użytkownika '${user.firstName} ${user.lastName}' zostało utworzone.`,
+            status: 200
           };
         },
       error => {
         console.error(error);
-        console.log(`DEBUG: ${error.body}`);
-
-        this.responseResult = {
-          statusCode: 1,
-          message: error
-        };
       }
     );
   }
@@ -72,24 +73,24 @@ export class UsersService {
       catchError(this.handleError));
   }
 
+  CheckUsername(username: string): Observable<EmailCheck> {
+    const url = `${Urls.CheckUsername}?username=${encodeURIComponent(username)}`;
+    return this.httpClient.get<EmailCheck>(url).pipe(
+      catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse): ObservableInput<any> {
     if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
+      console.error('An error occurred:', error.message);
 
-      this.responseResult = {
-        statusCode: 2,
-        message: '2'
-      };
+      this.errorResponse.detail = error.message;
     } else {
       console.error(
         `Backend returned code ${error.status},\n` +
         `Returned body was: ${error.error},\n` +
         `Error message: ${error.message}`);
 
-      this.responseResult = {
-        statusCode: 3,
-        message: '3'
-      };
+      this.errorResponse = error.error;
     }
 
     return throwError(
