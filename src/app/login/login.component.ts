@@ -6,6 +6,8 @@ import {Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
 import {Urls} from '../admin/urls';
 import {AppUrl} from '../urls/app-url';
+import {tap} from 'rxjs/operators';
+import {ErrorResponse} from '../admin/admin-interfaces/errorResponse';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +16,7 @@ import {AppUrl} from '../urls/app-url';
 })
 export class LoginComponent implements OnInit {
   submitted = false;
+  errorResponse: ErrorResponse;
   alertVisibilityTimeSec = 2;
   alertVisibility: number;
   loginS: LoginService;
@@ -52,7 +55,7 @@ export class LoginComponent implements OnInit {
     } else {
       this.submitted = false;
 
-      of(this.loginService.LogIn(this.loginForm.value.email, this.loginForm.value.password)).subscribe(observer => {
+      of(this.loginService.LogIn(this.loginForm.value.email, this.loginForm.value.password)).subscribe(er => {
         this.showAlert().subscribe();
       });
     }

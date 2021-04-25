@@ -35,7 +35,7 @@ export class LoginService {
               @Inject(TokenTimer) private tokenT: CountDownTokenService,
               @Inject(RefTokenTimer) private refTokenT: CountDownTokenService) { }
 
-  LogIn(email: string, password: string): void {
+  LogIn(email: string, password: string): ErrorResponse {
     this.GetUserCredentials(email, password).subscribe(
       result => {
         console.log(`Response: ${result.body}`);
@@ -53,6 +53,8 @@ export class LoginService {
         console.error(error);
         this.loginResult = false;
       });
+
+    return this.errorResponse;
   }
 
   LogOut(): void {
