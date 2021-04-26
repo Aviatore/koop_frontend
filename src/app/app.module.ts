@@ -34,6 +34,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
 import {MaterialModule} from './material/material.module';
 import {AdminModule} from './admin/admin.module';
+import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 
 registerLocaleData(localePL);
 
@@ -56,6 +57,10 @@ registerLocaleData(localePL);
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    LoggerModule.forRoot({
+      level: NgxLoggerLevel.DEBUG,
+      serverLogLevel: NgxLoggerLevel.ERROR
+    }),
     NgbModule,
     ReportModule,
     MaterialModule,
