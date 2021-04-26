@@ -28,7 +28,7 @@ import {AppPaginatorConfig} from './app-paginator-config';
 import {LOCALE_ID} from '@angular/core';
 import {registerLocaleData} from '@angular/common';
 import localePL from '@angular/common/locales/pl';
-import {MatPaginatorIntl} from '@angular/material/paginator';
+import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -39,7 +39,10 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
 import {MatMenuModule} from '@angular/material/menu';
-import { SuppliersListComponent } from './suppliers-list/suppliers-list.component';
+import { SuppliersListComponent } from './suppliers/suppliers-list/suppliers-list.component';
+import { SupplierDetailComponent } from './suppliers/supplier-detail/supplier-detail.component';
+import {MatTableModule} from '@angular/material/table';
+import { SuppliersModule } from './suppliers/suppliers.module';
 
 registerLocaleData(localePL);
 
@@ -55,7 +58,6 @@ registerLocaleData(localePL);
     PageNotFoundComponent,
     LayoutComponent,
     HamburgerMenuComponent,
-    SuppliersListComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,8 +75,12 @@ registerLocaleData(localePL);
     MatListModule,
     MatGridListModule,
     FlexLayoutModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTableModule,
+    MatPaginatorModule,
+    SuppliersModule
   ],
+  exports: [AppRoutingModule, LayoutComponent],
   providers: [
     UnitsService,
     CookieService,
