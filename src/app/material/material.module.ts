@@ -8,6 +8,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [],
@@ -20,7 +21,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatListModule,
     MatGridListModule,
     FlexLayoutModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSlideToggleModule
   ],
   exports: [
     MatIconModule,
@@ -30,7 +32,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatListModule,
     MatGridListModule,
     FlexLayoutModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSlideToggleModule
   ]
 })
 export class MaterialModule {

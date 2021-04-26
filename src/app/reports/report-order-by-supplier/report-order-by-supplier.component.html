@@ -1,1 +1,50 @@
-<p>report-order-by-supplier works!</p>
+<h2 class="text-center px-2 txt-shadow">Raport Zamówienia Grande od Dostawcy</h2>
+<div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px">
+  <div class="mb-4">
+    <mat-slide-toggle (change)="onChange($event.checked)">{{slideLabel}}</mat-slide-toggle>
+  </div>
+  <div class="mb-2">
+    <form>
+      <input type="text" class="input-form"
+             placeholder="Szukaj dostawcy"
+             [formControl]="control"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let street of filteredStreets | async" [value]="street">
+          {{street}}
+        </mat-option>
+      </mat-autocomplete>
+    </form>
+  </div>
+</div>
+<div class="table-responsive px-2">
+  <table mat-table [dataSource]="dataSource" matSort class="table-striped mat-elevation-z10">
+    <ng-component matColumnDef="productId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID produktu</th>
+      <td mat-cell *matCellDef="let element">{{element.orderedItemId}}</td>
+    </ng-component>
+    <ng-component matColumnDef="productName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Produkt</th>
+      <td mat-cell *matCellDef="let element">{{element.productId}}</td>
+    </ng-component>
+    <ng-component matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Cena</th>
+      <td mat-cell *matCellDef="let element">{{element.productName}}</td>
+    </ng-component>
+    <ng-component matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Ilość</th>
+      <td mat-cell *matCellDef="let element">{{element.price | currency: 'zł'}}</td>
+    </ng-component>
+    <ng-component matColumnDef="unitName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Jednostka</th>
+      <td mat-cell *matCellDef="let element">{{element.fundPrice | currency: 'zł'}}</td>
+    </ng-component>
+    <ng-component matColumnDef="totalPrice">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Cena<br>całkowita</th>
+      <td mat-cell *matCellDef="let element">{{element.totalPrice | currency: 'zł'}}</td>
+    </ng-component>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
