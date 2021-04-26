@@ -8,6 +8,7 @@ import {RoutingStateService} from '../services/routing-state.service';
 import {LoginService} from '../services/login.service';
 import {CountDownTokenService} from '../services/count-down-token.service';
 import {RefTokenTimer, TokenTimer} from '../injection-tokens/tokens';
+import {LoggerService} from '../services/logger.service';
 
 
 @Injectable({
@@ -20,7 +21,8 @@ export class UnauthorizeInterceptor implements HttpInterceptor {
               private router: Router,
               private loginService: LoginService,
               private tokenT: CountDownTokenService,
-              private refTokenT: CountDownTokenService){}
+              private refTokenT: CountDownTokenService,
+              private logger: LoggerService){}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     req = req.clone({
@@ -39,15 +41,14 @@ export class UnauthorizeInterceptor implements HttpInterceptor {
   }
 
   private handleAuthError(err: HttpErrorResponse): Observable<any> {
-    console.log(`Token refresh, err code: ${err.status}`);
     if (!this.isActive && (err.status === 401 || err.status === 403)) {
       this.isActive = true;
       this.routeState.loadRouting();
 
-      console.log(`Refresh token before: ${localStorage.getItem('refresh_token')}`);
+      console.log(...this.logger.info(`Refresh token before: ${localStorage.getItem('refresh_token')}`));
       this.refreshToken.RefreshToken().subscribe(
         result => {
-          console.log(`Response: ${result.body}`);
+          console.log(...this.logger.info(`Response: ${result.body}`));
 
           const loginResponse = result.body;
           localStorage.setItem('token', loginResponse.token);
@@ -56,12 +57,12 @@ export class UnauthorizeInterceptor implements HttpInterceptor {
           this.tokenT.timeSeconds = loginResponse.tokenExp;
           this.refTokenT.timeSeconds = loginResponse.refTokenExp;
 
-          console.log('Refresh success.');
+          console.log(...this.logger.info('Refresh success'));
 
-          console.log(`Refresh token after: ${localStorage.getItem('refresh_token')}`);
+          console.log(...this.logger.info(`Refresh token after: ${localStorage.getItem('refresh_token')}`));
 
           const redirectUrl = this.routeState.getPreviousUrl();
-          console.log(`Redirect to ${redirectUrl}`);
+          console.log(...this.logger.info(`Redirect to ${redirectUrl}`));
 
           // Hack to reload the current page
           // Without it, the page after refreshing the token will be incomplete
@@ -69,12 +70,12 @@ export class UnauthorizeInterceptor implements HttpInterceptor {
           this.isActive = false;
         },
         error => {
-          console.log(error);
+          console.log(...this.logger.error(error));
 
           /*localStorage.setItem('token', '');
           localStorage.setItem('refresh_token', '');*/
 
-          console.log('Refresh failed.');
+          console.log(...this.logger.error('Refresh failed.'));
 
           this.loginService.loginResult = false;
           this.router.navigateByUrl(`login`);

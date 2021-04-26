@@ -6,6 +6,7 @@ import {CountDownTokenService} from './count-down-token.service';
 import {RefTokenTimer, TokenTimer} from '../injection-tokens/tokens';
 import {ErrorResponse} from '../admin/admin-interfaces/errorResponse';
 import {NGXLogger} from 'ngx-logger';
+import {LoggerService} from './logger.service';
 
 
 export interface LoginResponse {
@@ -33,14 +34,14 @@ export class LoginService {
   };
 
   constructor(private httpClient: HttpClient,
-              private logger: NGXLogger,
+              private logger: LoggerService,
               @Inject(TokenTimer) private tokenT: CountDownTokenService,
               @Inject(RefTokenTimer) private refTokenT: CountDownTokenService) { }
 
   LogIn(email: string, password: string): ErrorResponse {
     this.GetUserCredentials(email, password).subscribe(
       result => {
-        this.logger.debug(`Response: ${result.body}`);
+        console.log(...this.logger.info(`Response: ${result.body}`));
 
         const loginResponse = result.body;
         localStorage.setItem('token', loginResponse.token);
@@ -52,7 +53,7 @@ export class LoginService {
         this.loginResult = true;
       },
       error => {
-        this.logger.error(error);
+        console.log(...this.logger.error(error));
         this.loginResult = false;
       });
 
@@ -68,7 +69,7 @@ export class LoginService {
   }
 
   GetUserCredentials(email: string, password: string): Observable<HttpResponse<LoginResponse>> {
-    console.log('Sending login request ...');
+    console.log(...this.logger.info('Sending login request ...'));
 
     const loginBody = {
       Email: email,
@@ -84,11 +85,9 @@ export class LoginService {
 
   private handleError(error: HttpErrorResponse): ObservableInput<any> {
     if (error.error instanceof ErrorEvent) {
-      this.logger.error('An error occurred:', error.error.message);
+      console.log(...this.logger.info(`An error occurred:, ${error.error.message}`));
     } else {
-      this.logger.error(
-        `Backend returned code ${error.status}, ` +
-        `Returned body was: ${error.error}`);
+      console.log(...this.logger.error(error.error.detail));
     }
 
     this.loginResult = false;

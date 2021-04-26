@@ -35,6 +35,7 @@ import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.com
 import {MaterialModule} from './material/material.module';
 import {AdminModule} from './admin/admin.module';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
+import {LoggerService} from './services/logger.service';
 
 registerLocaleData(localePL);
 
@@ -81,7 +82,7 @@ registerLocaleData(localePL);
                    tokenT: CountDownTokenService,
                    refTokenT: CountDownTokenService) => {
         return new UnauthorizeInterceptor(refreshToken, routeState, router, loginService,
-          inject(TokenTimer), inject(RefTokenTimer));
+          inject(TokenTimer), inject(RefTokenTimer), inject(LoggerService));
       },
       multi: true,
       deps: [
