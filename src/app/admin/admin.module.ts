@@ -6,6 +6,10 @@ import { AdminComponent } from './admin/admin.component';
 import {UserEditComponent} from './user-edit/user-edit.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { UsersListComponent } from './users-list/users-list.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {MatInputModule} from '@angular/material/input';
 
 
 @NgModule({
@@ -22,6 +26,10 @@ import { UsersListComponent } from './users-list/users-list.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatInputModule,
     AdminRoutingModule
   ]
 })

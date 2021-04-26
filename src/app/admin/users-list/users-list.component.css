@@ -1,0 +1,26 @@
+table {
+  width: 100%;
+}
+
+:host ::ng-deep .mat-sort-header-container {
+  display: flex;
+  justify-content: center;
+}
+
+.mat-header-cell {
+  font-size: 1em;
+  color: #fff;
+  background-color: rgb(3, 130, 17);
+  text-align: center !important;
+  padding: 0 5px 0 5px;
+  white-space: nowrap;
+}
+
+.mat-cell {
+  padding: 0 5px 0 5px;
+  text-align: center;
+}
+
+::ng-deep .mat-sort-header-arrow {
+  color: #aeef9b !important;
+}
