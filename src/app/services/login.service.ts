@@ -5,6 +5,7 @@ import {catchError} from 'rxjs/operators';
 import {CountDownTokenService} from './count-down-token.service';
 import {RefTokenTimer, TokenTimer} from '../injection-tokens/tokens';
 import {ErrorResponse} from '../admin/admin-interfaces/errorResponse';
+import {NGXLogger} from 'ngx-logger';
 
 
 export interface LoginResponse {
@@ -32,13 +33,14 @@ export class LoginService {
   };
 
   constructor(private httpClient: HttpClient,
+              private logger: NGXLogger,
               @Inject(TokenTimer) private tokenT: CountDownTokenService,
               @Inject(RefTokenTimer) private refTokenT: CountDownTokenService) { }
 
   LogIn(email: string, password: string): ErrorResponse {
     this.GetUserCredentials(email, password).subscribe(
       result => {
-        console.log(`Response: ${result.body}`);
+        this.logger.debug(`Response: ${result.body}`);
 
         const loginResponse = result.body;
         localStorage.setItem('token', loginResponse.token);
@@ -50,7 +52,7 @@ export class LoginService {
         this.loginResult = true;
       },
       error => {
-        console.error(error);
+        this.logger.error(error);
         this.loginResult = false;
       });
 
@@ -82,9 +84,9 @@ export class LoginService {
 
   private handleError(error: HttpErrorResponse): ObservableInput<any> {
     if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
+      this.logger.error('An error occurred:', error.error.message);
     } else {
-      console.error(
+      this.logger.error(
         `Backend returned code ${error.status}, ` +
         `Returned body was: ${error.error}`);
     }
