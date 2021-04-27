@@ -1,24 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import {UsersService} from '../admin-services/users.service';
-import {Observable, of} from 'rxjs';
-import {Funds} from '../admin-interfaces/funds';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import {UniqueUserNameValidator} from '../admin-validators/userName-validator';
+import {User} from '../admin-interfaces/user';
+import {UsersService} from '../admin-services/users.service';
 import {RxwebValidators} from '@rxweb/reactive-form-validators';
+import {interval, Observable, of} from 'rxjs';
+import {Funds} from '../admin-interfaces/funds';
 import {UniqueEmailValidator} from '../admin-validators/async-validators';
+import {UniqueUserNameValidator} from '../admin-validators/userName-validator';
 
 @Component({
   selector: 'app-user-edit',
-  templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.css']
+  templateUrl: './user-create.component.html',
+  styleUrls: ['./user-create.component.css']
 })
-export class UserEditComponent implements OnInit {
+export class UserCreateComponent implements OnInit {
   alertVisibilityTimeSec = 5;
   us: UsersService;
   submitted = false;
   alertVisibility: number;
   funds: Observable<Funds[]>;
   userData;
+
   constructor(private formBuilder: FormBuilder,
               private usersService: UsersService) { }
 
@@ -70,13 +72,24 @@ export class UserEditComponent implements OnInit {
     });
   }
 
+  get firstName(): any {
+    return this.userData.get('firstName');
+  }
+
   get field(): any {
     return this.userData.controls;
   }
 
+  get email(): any {
+    return this.userData.get('email');
+  }
+
+  get repeatPassword(): any {
+    return this.userData.get('repeatPassword');
+  }
+
   onSubmit(): void {
-    return null;
-    /*console.log(this.userData.controls);
+    console.log(this.userData.controls);
 
     if (this.field.fundId.value === '0') {
       this.field.fundId.setErrors({required: true});
@@ -96,7 +109,7 @@ export class UserEditComponent implements OnInit {
       of(this.usersService.CreateUser(this.userData.getRawValue())).subscribe(result => {
         this.showAlert().subscribe(this.userData.reset());
       });
-    }*/
+    }
   }
 
   showAlert(): Observable<any> {
@@ -112,5 +125,4 @@ export class UserEditComponent implements OnInit {
       }, 1000);
     });
   }
-
 }
