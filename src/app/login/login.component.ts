@@ -70,6 +70,7 @@ export class LoginComponent implements OnInit {
           error: error => {
             console.log(...this.logger.error(error));
             this.loginS.loginResult = false;
+            this.showAlert().subscribe();
           },
           complete: () => this.showAlert().subscribe()
         });
