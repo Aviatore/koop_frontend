@@ -16,7 +16,7 @@
   </thead>
 </table>
 -->
-<div>
+<div class="px-2">
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Szukaj">
   </mat-form-field>
@@ -47,5 +47,5 @@
     <tr mat-row *matRowDef="let row; columns: columnHeaders;"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 50]"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="itemsPerPage"></mat-paginator>
 </div>

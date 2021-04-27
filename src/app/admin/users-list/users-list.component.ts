@@ -16,6 +16,7 @@ export class UsersListComponent implements OnInit, AfterViewInit {
   columnHeaders = ['firstName', 'lastName', 'email', 'userName'];
   dataSource: MatTableDataSource<User>;
   users$: Observable<User[]>;
+  itemsPerPage = [10, 25, 50, 100];
   users: User[];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
