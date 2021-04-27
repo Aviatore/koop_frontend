@@ -29,6 +29,9 @@ export class UnauthorizeInterceptor implements HttpInterceptor {
       })
     });
 
+    // console.log(`Authorization header: ${req.headers.get('Authorization')}`);
+    // console.log(`TokenRefresh header: ${req.headers.get('TokenRefresh')}`);
+
     return next.handle(req).pipe(
       catchError(err => this.handleAuthError(err))
     );

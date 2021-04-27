@@ -1,0 +1,41 @@
+table {
+  width: 100%;
+}
+
+.mat-column-receivables {
+  text-align: right;
+}
+
+.mat-header-cell {
+  font-size: 1em;
+  color: #fff;
+  background-color: rgb(3, 130, 17);
+  text-align: center;
+  padding: 0 5px 0 5px;
+  white-space: nowrap;
+}
+
+.mat-cell {
+  padding: 0 5px 0 5px;
+}
+
+/*.input-form {
+  padding: 15px;
+  background-color: rgb(240, 240, 240);
+  border:0;
+  border-bottom: 1px solid rgb(135, 135, 135);
+}
+
+.input-form:focus, .input-form:hover {
+  border-bottom: 2px solid #000;
+  outline: none;
+}*/
+
+.mat-select-width {
+  width:255px !important;
+}
+
+::ng-deep .mat-sort-header-arrow {
+  color: #aeef9b !important;
+}
+

@@ -18,7 +18,9 @@ export class AppUrl {
     getLogin: `login`,
     getReportCoopDebt: `report-coop-debt`,
     getReportPackList: `report-pack-list`,
-    getReportSupReceivables: `report-supplier-receivables`
+    getReportSupReceivables: `report-supplier-receivables`,
+    getReportGrandeOrder: 'report-report-grande-order',
+    admin: 'admin'
   };
 
 }

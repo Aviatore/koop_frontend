@@ -16,13 +16,24 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { ReportGrandeOrderComponent } from './report-grande-order/report-grande-order.component';
+import {NgReplacePipeModule} from 'angular-pipes';
+import {FlexModule} from '@angular/flex-layout';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule, MatOptionModule} from '@angular/material/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatSelectModule} from '@angular/material/select';
+
 
 @NgModule({
   declarations: [
     ReportCoopDebtComponent,
     ReportDropdownMenuComponent,
     ReportPackListComponent,
-    ReportSupplierReceivablesComponent
+    ReportSupplierReceivablesComponent,
+    ReportGrandeOrderComponent
   ],
   exports: [
     ReportDropdownMenuComponent
@@ -38,7 +49,17 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatPaginatorModule,
     MatSortModule,
     MatListModule,
-    MatSidenavModule
+    MatSidenavModule,
+    NgReplacePipeModule,
+    FlexModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatOptionModule,
+    MatAutocompleteModule,
+    MatSelectModule,
+    FormsModule
   ],
   providers: [
     ReportService,

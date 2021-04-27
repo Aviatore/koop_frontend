@@ -1,6 +1,5 @@
-<h1 class="text-center">Login</h1>
-<div class="form-center">
-  <form [formGroup]='loginForm' (ngSubmit)="onSubmit()" class="btn btn-primary my-2 main-green form-center">
+<div class="container">
+  <!--<form [formGroup]='loginForm' (ngSubmit)="onSubmit()" class="btn btn-primary my-2 main-green form-center">
     <label>E-mail</label>
     <div class="form-group">
       <input type="email" class="form-control" formControlName="email" placeholder="E-mail" autocomplete="email">
@@ -11,5 +10,53 @@
              autocomplete="new-password"><br>
       <input type="submit" class="btn btn-primary submit-green" value="Submit">
     </div>
-  </form>
+  </form>-->
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="my-2 main-green form-center">
+        <div class="modal-dialog modal-login">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div class="avatar">
+                <img src="assets/img/user.svg" alt="Avatar">
+              </div>
+              <h4 class="modal-title">Panel logowania</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                  <div class="form-floating">
+                    <input type="email" id="email" [class.is-invalid]="submitted && field.email.invalid && field.email.touched" class="form-control" formControlName="email" placeholder="E-mail" autocomplete="email">
+                    <label for="email">E-mail</label>
+                  </div>
+                  <div *ngIf="submitted && field.email.invalid && field.email.touched" class="text-danger small">
+                    <div *ngIf="field.email.errors.required">Adres e-mail jest wymagany</div>
+                    <div *ngIf="field.email.errors.email">E-mail jest nieprawidłowy</div>
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <div class="form-floating">
+                    <input type="password" id="password" [class.is-invalid]="submitted && field.password.invalid && field.password.touched" class="form-control" formControlName="password" placeholder="Hasło" autocomplete="new-password">
+                    <label for="password">Hasło</label>
+                  </div>
+                  <div *ngIf="submitted && field.password.invalid && field.password.touched" class="text-danger small">
+                    <div *ngIf="field.password.errors.required">Hasło jest wymagane</div>
+                    <div *ngIf="field.password.errors.minlength">Hasło musi składać się z co najmniej 8 znaków</div>
+                  </div>
+                </div>
+
+                <div class="d-grid gap-2 mt-3">
+                  <button type="submit" class="btn btn-primary btn-sm">Zaloguj</button>
+                </div>
+
+                <div class="text-center alert alert-dismissible fade mt-3" [class.show]="alertVisibility > 0" [ngClass]="loginS.loginResult ? 'alert-success' : 'alert-danger'" role="alert">
+                  {{loginS.loginResult ? "Zalogowano" : loginS.errorResponse.detail}}
+                </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
 </div>
