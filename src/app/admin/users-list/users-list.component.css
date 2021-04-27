@@ -4,6 +4,15 @@ table {
 
 i {
   cursor: pointer;
+  color: #636363;
+}
+
+.fa-user-slash:hover {
+  color: red;
+}
+
+.fa-user-edit:hover {
+  color: #0e7619;
 }
 
 ::ng-deep .mat-focused .mat-form-field-label {
