@@ -8,6 +8,7 @@ import {Urls} from '../admin/urls';
 import {AppUrl} from '../urls/app-url';
 import {tap} from 'rxjs/operators';
 import {ErrorResponse} from '../admin/admin-interfaces/errorResponse';
+import {LoggerService} from '../services/logger.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
   loginForm;
   constructor(private fb: FormBuilder,
               private loginService: LoginService,
-              private route: Router) { }
+              private route: Router,
+              private logger: LoggerService) { }
 
   ngOnInit(): void {
     this.loginS = this.loginService;
@@ -54,9 +56,26 @@ export class LoginComponent implements OnInit {
     } else {
       this.submitted = false;
 
-      of(this.loginService.LogIn(this.loginForm.value.email, this.loginForm.value.password)).subscribe(er => {
+      this.loginService.LogIn(this.loginForm.value.email, this.loginForm.value.password).subscribe(
+        {
+          next: result => {
+            console.log(...this.logger.info(`Response: ${result.body}`));
+
+            const loginResponse = result.body;
+            localStorage.setItem('token', loginResponse.token);
+            localStorage.setItem('refresh_token', loginResponse.refreshT);
+
+            this.loginS.loginResult = true;
+          },
+          error: error => {
+            console.log(...this.logger.error(error));
+            this.loginS.loginResult = false;
+          },
+          complete: () => this.showAlert().subscribe()
+        });
+      /*of(this.loginService.LogIn(this.loginForm.value.email, this.loginForm.value.password)).subscribe(er => {
         this.showAlert().subscribe();
-      });
+      });*/
     }
   }
 

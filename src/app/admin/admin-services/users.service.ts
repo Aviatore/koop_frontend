@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {User} from '../admin-interfaces/user';
 import {Urls} from '../urls';
-import {catchError, tap} from 'rxjs/operators';
-import {Observable, ObservableInput, throwError} from 'rxjs';
+import {catchError, delay, tap} from 'rxjs/operators';
+import {Observable, ObservableInput, of, throwError} from 'rxjs';
 import {Funds} from '../admin-interfaces/funds';
 import {EmailCheck} from '../admin-interfaces/emailCheck';
 import {ResponseResult} from '../admin-interfaces/responseResult';
 import {ErrorResponse} from '../admin-interfaces/errorResponse';
+import {LoggerService} from '../../services/logger.service';
 
 const getAllUsersOptions: object = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -28,7 +29,8 @@ export class UsersService {
   responseResult: ResponseResult;
   errorResponse: ErrorResponse;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              private logger: LoggerService) {
     this.responseResult = {
       statusCode: 0,
       message: ''
@@ -76,7 +78,7 @@ export class UsersService {
   CheckUsername(username: string): Observable<EmailCheck> {
     const url = `${Urls.CheckUsername}?username=${encodeURIComponent(username)}`;
     return this.httpClient.get<EmailCheck>(url).pipe(
-      catchError(this.handleError));
+      catchError(this.handleError.bind(this)));
   }
 
   private handleError(error: HttpErrorResponse): ObservableInput<any> {
@@ -99,5 +101,21 @@ export class UsersService {
 
   getResult(): ResponseResult {
     return this.responseResult;
+  }
+
+  remUser(userId: string): Observable<any> {
+    const url = `${Urls.RemoveUser}/${userId}/remove`;
+/*    return of(1).pipe(
+      delay(2000),
+      tap(p => {
+        console.log(...this.logger.info(`User with Id: ${userId} was removed.`));
+        this.errorResponse = {
+          detail: `Konto użytkownika zostało usunięte.`,
+          status: 200
+        };
+      })
+    );*/
+    return this.httpClient.delete<ErrorResponse>(url).pipe(
+      catchError(this.handleError.bind(this)));
   }
 }

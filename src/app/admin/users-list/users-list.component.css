@@ -2,6 +2,10 @@ table {
   width: 100%;
 }
 
+i {
+  cursor: pointer;
+}
+
 ::ng-deep .mat-focused .mat-form-field-label {
   /*change color of label*/
   color: green !important;

@@ -9,4 +9,5 @@ export interface User {
   debt: number;
   fundId: number;
   info: string;
+  id: string;
 }
