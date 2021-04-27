@@ -1,0 +1,12 @@
+.form-center {
+  margin: auto;
+  text-align: center;
+}
+
+.main-green {
+  background-color: rgb(3, 130, 17);
+}
+
+.submit-green {
+  background-color: rgb(10, 72, 17);
+}

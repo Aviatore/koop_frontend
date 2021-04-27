@@ -1,0 +1,13 @@
+a.hb-menu {
+  text-decoration: none;
+  color: #fff;
+}
+
+a.hb-menu:hover, a.hb-menu:active {
+  color: lightgray;
+}
+
+.nav-caption {
+  display: inline-block;
+  padding-left: 6px;
+}

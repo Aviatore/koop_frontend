@@ -14,6 +14,8 @@ import { ReportSupplierReceivablesComponent } from './report-supplier-receivable
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import {MatListModule} from '@angular/material/list';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatIconModule,
     MatPaginatorModule,
     MatSortModule,
+    MatListModule,
+    MatSidenavModule
   ],
   providers: [
     ReportService,

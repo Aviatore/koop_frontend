@@ -29,7 +29,10 @@ import {LOCALE_ID} from '@angular/core';
 import {registerLocaleData} from '@angular/common';
 import localePL from '@angular/common/locales/pl';
 import {MatPaginatorIntl} from '@angular/material/paginator';
-import { ProductComponent } from './product/product.component';
+import { LayoutComponent } from './layout/layout.component';
+import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
+import {MaterialModule} from './material/material.module';
+
 
 registerLocaleData(localePL);
 
@@ -43,7 +46,8 @@ registerLocaleData(localePL);
     HomeComponent,
     CounterComponent,
     PageNotFoundComponent,
-    ProductComponent,
+    LayoutComponent,
+    HamburgerMenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +57,8 @@ registerLocaleData(localePL);
     ReactiveFormsModule,
     NgbModule,
     ReportModule,
-    AppRoutingModule,
+    MaterialModule,
+    AppRoutingModule
   ],
   providers: [
     UnitsService,
@@ -77,7 +82,7 @@ registerLocaleData(localePL);
         RoutingStateService,
         Router,
         LoginService,
-        CountDownTokenService,
+        CountDownTokenService
       ]
     }
   ],
