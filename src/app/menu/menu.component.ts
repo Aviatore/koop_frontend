@@ -5,6 +5,7 @@ import {Inject} from '@angular/core';
 import {CountDownTokenService} from '../services/count-down-token.service';
 import {RefTokenTimer, TokenTimer} from '../injection-tokens/tokens';
 import {AppUrl} from '../urls/app-url';
+import {CategoriesService} from '../services/categories.service';
 
 @Component({
   selector: 'app-menu',
@@ -17,12 +18,15 @@ export class MenuComponent implements OnInit {
   tokenTimer: CountDownTokenService;
   refTokenTimer: CountDownTokenService;
   productService: ProductService;
+  categoriesService: CategoriesService;
 
   urls = AppUrl.ROUTE;
 
   @Output() public sidenavToggle = new EventEmitter();
 
   constructor(private loginS: LoginService,
+              private productS: ProductService,
+              private categorieS: CategoriesService,
               @Inject(TokenTimer) private tokenT: CountDownTokenService,
               @Inject(RefTokenTimer) private refTokenT: CountDownTokenService) {
   }
@@ -31,6 +35,7 @@ export class MenuComponent implements OnInit {
     this.loginService = this.loginS;
     this.productService = this.productS;
     this.tokenTimer = this.tokenT;
+    this.categoriesService = this.categorieS;
     this.refTokenTimer = this.refTokenT;
   }
 
