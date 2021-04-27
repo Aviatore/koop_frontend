@@ -20,6 +20,7 @@ export class AppUrl {
     getReportPackList: `report-pack-list`,
     getReportSupReceivables: `report-supplier-receivables`,
     getReportGrandeOrder: 'report-report-grande-order',
+    getReportOrderBySupplier: 'report-order-by-supplier',
     admin: 'admin'
   };
 
