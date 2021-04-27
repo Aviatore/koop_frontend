@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UsersService} from '../admin-services/users.service';
 import {Observable, of} from 'rxjs';
 import {Funds} from '../admin-interfaces/funds';
@@ -6,6 +6,9 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {UniqueUserNameValidator} from '../admin-validators/userName-validator';
 import {RxwebValidators} from '@rxweb/reactive-form-validators';
 import {UniqueEmailValidator} from '../admin-validators/async-validators';
+import {ActivatedRoute, Router} from '@angular/router';
+import {User} from '../admin-interfaces/user';
+import {LoggerService} from '../../services/logger.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -13,6 +16,8 @@ import {UniqueEmailValidator} from '../admin-validators/async-validators';
   styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
+  userId: string;
+  user: User;
   alertVisibilityTimeSec = 5;
   us: UsersService;
   submitted = false;
@@ -20,9 +25,13 @@ export class UserEditComponent implements OnInit {
   funds: Observable<Funds[]>;
   userData;
   constructor(private formBuilder: FormBuilder,
-              private usersService: UsersService) { }
+              private usersService: UsersService,
+              private router: ActivatedRoute,
+              private logger: LoggerService) { }
 
   ngOnInit(): void {
+    this.userId = this.router.snapshot.paramMap.get('userId');
+
     this.funds = this.usersService.GetAllUnits();
     this.us = this.usersService;
 
@@ -41,7 +50,7 @@ export class UserEditComponent implements OnInit {
           Validators.minLength(3)
         ],
         asyncValidators: [
-          new UniqueUserNameValidator(this.usersService)
+          new UniqueUserNameValidator(this.usersService, this.logger)
         ],
         updateOn: 'blur'
       }],
@@ -52,7 +61,7 @@ export class UserEditComponent implements OnInit {
           RxwebValidators.email()
         ],
         asyncValidators: [
-          new UniqueEmailValidator(this.usersService)
+          new UniqueEmailValidator(this.usersService, this.logger)
         ],
         updateOn: 'blur'
       }],
@@ -67,6 +76,21 @@ export class UserEditComponent implements OnInit {
       debt: [''],
       fundId: ['', Validators.required],
       info: ['']
+    });
+
+    this.us.GetUserById(this.userId).subscribe(result => {
+      this.userData.setValue({
+        firstName: result.firstName,
+        lastName: result.lastName,
+        userName: result.userName,
+        phoneNumber: result.phoneNumber,
+        email: result.email,
+        debt: result.debt,
+        fundId: result.fundId,
+        info: result.info,
+        newPassword: '',
+        repeatPassword: ''
+      });
     });
   }
 

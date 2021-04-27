@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
       this.loginService.LogIn(this.loginForm.value.email, this.loginForm.value.password).subscribe(
         {
           next: result => {
-            console.log(...this.logger.info(`Response: ${result.body}`));
+            console.log(...this.logger.info(`Logged in by email: ${this.loginForm.value.email}`));
 
             const loginResponse = result.body;
             localStorage.setItem('token', loginResponse.token);

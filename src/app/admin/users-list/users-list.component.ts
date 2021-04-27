@@ -35,7 +35,7 @@ export class UsersListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.usersService.GetAllUsers().subscribe(users => {
       this.users = users;
-      console.log(...this.logger.info(`Number of users: ${this.users.length}`));
+      console.log(...this.logger.info(`Number of loaded users: ${this.users.length}`));
       this.dataSource = new MatTableDataSource(this.users);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

@@ -4,5 +4,6 @@ export const Urls = {
   GetAllFunds: 'http://localhost:5000/api/test/funds',
   CheckEmail: 'http://localhost:5000/api/auth/user/email/check',
   CheckUsername: 'http://localhost:5000/api/auth/user/username/check',
-  RemoveUser: 'http://localhost:5000/api/auth/user'
+  RemoveUser: 'http://localhost:5000/api/auth/user',
+  BaseAuthUrl: 'http://localhost:5000/api/auth'
 };

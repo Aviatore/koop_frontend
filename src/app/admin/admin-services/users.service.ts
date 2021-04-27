@@ -43,11 +43,11 @@ export class UsersService {
   }
 
   CreateUser(user: User): void {
-    console.log(`Raw data: ${JSON.stringify(user)}`);
+    console.log(...this.logger.info(`Raw data:\n${JSON.stringify(user)}`));
     this.httpClient.post<HttpResponse<any>>(Urls.CreateUserUrl, user, createUserOptions).pipe(
       catchError(this.handleError.bind(this))).subscribe(
         result => {
-          console.log(`User created.`);
+          console.log(...this.logger.info(`User created.`));
           this.errorResponse = {
             detail: `Konto użytkownika '${user.firstName} ${user.lastName}' zostało utworzone.`,
             status: 200
@@ -61,7 +61,15 @@ export class UsersService {
 
   GetAllUsers(): Observable<User[]> {
     return this.httpClient.get<User[]>(Urls.GetAllUsers).pipe(
-      catchError(this.handleError));
+      catchError(this.handleError)
+    );
+  }
+
+  GetUserById(userId: string): Observable<User> {
+    const url = `${Urls.BaseAuthUrl}/user/${userId}/get`;
+    return this.httpClient.get<User>(url).pipe(
+      catchError(this.handleError.bind(this))
+    );
   }
 
   GetAllUnits(): Observable<Funds[]> {

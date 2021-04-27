@@ -96,7 +96,7 @@
               <mat-form-field>
                 <mat-label for="fund">Fundusz</mat-label>
                 <mat-select id="fund" [class.is-invalid]="submitted && field.fundId.invalid && field.fundId.touched" formControlName="fundId">
-                  <mat-option selected value="0">Wybierz ...</mat-option>
+                  <mat-option value="0">Wybierz ...</mat-option>
                   <mat-option *ngFor="let item of funds | async" [value]="item.fundId">
                     {{item.value}}<span>%</span>
                   </mat-option>

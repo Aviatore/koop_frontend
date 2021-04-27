@@ -44,7 +44,7 @@
     <ng-component matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
       <td mat-cell *matCellDef="let row">
-        <i class="fas fa-user-edit" matTooltip="Edit user" matTooltipPosition="left"></i>
+        <a [routerLink]="['../edit', row.id]"><i class="fas fa-user-edit" matTooltip="Edit user" matTooltipPosition="left"></i></a>
         <i class="fas fa-user-slash" (click)="removeUser(row)" matTooltip="Remove user" matTooltipPosition="right"></i>
       </td>
     </ng-component>

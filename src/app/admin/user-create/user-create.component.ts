@@ -7,6 +7,7 @@ import {interval, Observable, of} from 'rxjs';
 import {Funds} from '../admin-interfaces/funds';
 import {UniqueEmailValidator} from '../admin-validators/async-validators';
 import {UniqueUserNameValidator} from '../admin-validators/userName-validator';
+import {LoggerService} from '../../services/logger.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -22,7 +23,8 @@ export class UserCreateComponent implements OnInit {
   userData;
 
   constructor(private formBuilder: FormBuilder,
-              private usersService: UsersService) { }
+              private usersService: UsersService,
+              private logger: LoggerService) { }
 
   ngOnInit(): void {
     this.funds = this.usersService.GetAllUnits();
@@ -43,7 +45,7 @@ export class UserCreateComponent implements OnInit {
           Validators.minLength(3)
         ],
         asyncValidators: [
-          new UniqueUserNameValidator(this.usersService)
+          new UniqueUserNameValidator(this.usersService, this.logger)
         ],
         updateOn: 'blur'
       }],
@@ -54,7 +56,7 @@ export class UserCreateComponent implements OnInit {
           RxwebValidators.email()
         ],
         asyncValidators: [
-          new UniqueEmailValidator(this.usersService)
+          new UniqueEmailValidator(this.usersService, this.logger)
         ],
         updateOn: 'blur'
       }],
