@@ -73,18 +73,20 @@ export class ReportOrderBySupplierComponent implements OnInit {
       this.orderReport$ = this.service.getReportLastGrandeOrderBySupplier(selectedField);
     }
 
-    this.orderReport$
-      .subscribe(o => {
-        this.supplierReport = {
-          supplierId: o.supplierId,
-          supplierName: o.supplierName,
-          supplierAbbr: o.supplierAbbr,
-          email: o.email,
-          totalProfit: o.totalProfit,
-          supplierReportOrder: o.supplierReportOrder
-        };
+    if (selectedField !== undefined) {
+      this.orderReport$
+        .subscribe(o => {
+          this.supplierReport = {
+            supplierId: o.supplierId,
+            supplierName: o.supplierName,
+            supplierAbbr: o.supplierAbbr,
+            email: o.email,
+            totalProfit: o.totalProfit,
+            supplierReportOrder: o.supplierReportOrder
+          };
 
-        return this.supplierReport;
-      });
+          return this.supplierReport;
+        });
+    }
   }
 }
