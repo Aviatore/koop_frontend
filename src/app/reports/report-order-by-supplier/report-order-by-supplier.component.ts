@@ -1,8 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {Guid} from 'guid-typescript';
 import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
-import {map, startWith} from 'rxjs/operators';
+import {filter, map, startWith, switchMap} from 'rxjs/operators';
+import {Supplier} from '../models/supplier';
+import {ReportService} from '../services/report.service';
+import {SupplierReport} from '../models/supplier-report';
+
 
 @Component({
   selector: 'app-report-order-by-supplier',
@@ -12,41 +15,76 @@ import {map, startWith} from 'rxjs/operators';
 export class ReportOrderBySupplierComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'productId',
+    // 'productId',
     'productName',
     'price',
     'quantity',
     'unitName',
     'totalPrice'
   ];
-  dataSource: string[];
   slideLabel = 'Ostatnie zamówienie';
+  slideChecked = false;
+  suppId: string;
 
   control = new FormControl();
-  streets: string[] = ['Champs-Élysées test test test', 'Lombard Street', 'Abbey Road', 'Fifth Avenue'];
-  filteredStreets: Observable<string[]>;
+  filteredSuppliers: Observable<Supplier[]>;
+  supplierReport: SupplierReport;
+  orderReport$: Observable<SupplierReport>;
 
-  constructor() {
+  panelOpenState = false;
+
+  constructor(private service: ReportService) {
   }
 
   ngOnInit(): void {
-    this.filteredStreets = this.control.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
+    this.filteredSuppliers = this.filterSuppliers();
+  }
+
+  filterSuppliers(): Observable<Supplier[]> {
+    return this.control.valueChanges
+      .pipe(
+        startWith(''),
+        switchMap(value => this._filter(value))
+      );
+  }
+
+  private _filter(value: string): Observable<Supplier[]> {
+    const enteredValue = value.toLowerCase();
+    return this.service.getSuppliers().pipe(
+      filter(data => !!data),
+      map((data) => {
+        return data.filter(option => option.supplierName.toLowerCase().includes(enteredValue));
+      })
     );
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = this._normalizeValue(value);
-    return this.streets.filter(street => this._normalizeValue(street).includes(filterValue));
-  }
-
-  private _normalizeValue(value: string): string {
-    return value.toLowerCase().replace(/\s/g, '');
-  }
-
   onChange(value): void {
-   this.slideLabel = value ? 'Historia zamówień' : 'Ostatnie zamówienie';
+    this.slideLabel = value ? 'Historia zamówień' : 'Ostatnie zamówienie';
+    this.getReport(this.suppId);
   }
 
+  getReport(selectedField: string): void {
+    this.suppId = selectedField;
+
+    if (this.slideChecked) {
+      this.orderReport$ = this.service.getReportOrdersGrandeBySupplier(selectedField);
+    }
+    else {
+      this.orderReport$ = this.service.getReportLastGrandeOrderBySupplier(selectedField);
+    }
+
+    this.orderReport$
+      .subscribe(o => {
+        this.supplierReport = {
+          supplierId: o.supplierId,
+          supplierName: o.supplierName,
+          supplierAbbr: o.supplierAbbr,
+          email: o.email,
+          totalProfit: o.totalProfit,
+          supplierReportOrder: o.supplierReportOrder
+        };
+
+        return this.supplierReport;
+      });
+  }
 }
