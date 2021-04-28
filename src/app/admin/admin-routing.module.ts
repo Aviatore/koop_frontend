@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {UserEditComponent} from './user-edit/user-edit.component';
+import {UserCreateComponent} from './user-create/user-create.component';
 import {UsersListComponent} from './users-list/users-list.component';
 import {AdminComponent} from './admin/admin.component';
+import {UserEditComponent} from './user-edit/user-edit.component';
 
 const routes: Routes = [
   {
@@ -11,11 +12,15 @@ const routes: Routes = [
     children: [
       {
         path: 'user/new',
-        component: UserEditComponent
+        component: UserCreateComponent
       },
       {
         path: 'user/all',
         component: UsersListComponent
+      },
+      {
+        path: 'user/edit/:userId',
+        component: UserEditComponent
       }
     ]
   }
