@@ -69,18 +69,18 @@
           <div class="row mt-2">
             <div class="col-md-6">
               <mat-form-field>
-                <input matInput placeholder="Hasło" [class.is-invalid]="submitted && field.newPassword.invalid && field.newPassword.touched" formControlName="newPassword" autocomplete="new-password" value="">
+                <input type="password" matInput placeholder="Stare hasło" [class.is-invalid]="submitted && field.oldPassword.invalid && field.oldPassword.touched" formControlName="oldPassword" autocomplete="new-password" value="">
               </mat-form-field>
-              <div *ngIf="submitted && field.newPassword.invalid && field.newPassword.touched" class="text-danger small">
-                <div *ngIf="field.newPassword.errors.minlength">Hasło musi składać się z co najmniej 8 znaków</div>
+              <div *ngIf="submitted && field.oldPassword.invalid && field.oldPassword.touched" class="text-danger small">
+                <div *ngIf="field.oldPassword.errors.minlength">Hasło musi składać się z co najmniej 8 znaków</div>
               </div>
             </div>
             <div class="col-md-6">
               <mat-form-field>
-                <input matInput placeholder="Powtórz hasło" [class.is-invalid]="submitted && field.repeatPassword.invalid && field.repeatPassword.touched" formControlName="repeatPassword" autocomplete="new-password" value="">
+                <input type="password" matInput placeholder="Nowe hasło" [class.is-invalid]="submitted && field.newPassword.invalid && field.newPassword.touched" formControlName="newPassword" autocomplete="new-password" value="">
               </mat-form-field>
-              <div *ngIf="submitted && field.repeatPassword.invalid && field.repeatPassword.touched" class="text-danger small">
-                <div *ngIf="field.repeatPassword.errors.compare">Podane hasło jest nieprawidłowe</div>
+              <div *ngIf="submitted && field.newPassword.invalid && field.newPassword.touched" class="text-danger small">
+                <div *ngIf="field.newPassword.errors.compare">Podane hasło jest nieprawidłowe</div>
               </div>
             </div>
           </div>

@@ -6,6 +6,7 @@ export interface User {
   email: string;
   newPassword: string;
   repeatPassword: string;
+  oldPassword: string;
   debt: number;
   fundId: number;
   info: string;

@@ -34,6 +34,10 @@ export class UserEditComponent implements OnInit {
 
     this.funds = this.usersService.GetAllUnits();
     this.us = this.usersService;
+    this.us.errorResponse = {
+      detail: '',
+      status: 0
+    };
 
     this.userData = this.formBuilder.group({
       firstName: ['', [
@@ -49,33 +53,24 @@ export class UserEditComponent implements OnInit {
           Validators.required,
           Validators.minLength(3)
         ],
-        asyncValidators: [
-          new UniqueUserNameValidator(this.usersService, this.logger)
-        ],
         updateOn: 'blur'
       }],
-      phoneNumber: [''],
+      phoneNumber: [null],
       email: ['', {
         validators: [
           Validators.required,
           RxwebValidators.email()
         ],
-        asyncValidators: [
-          new UniqueEmailValidator(this.usersService, this.logger)
-        ],
         updateOn: 'blur'
       }],
-      newPassword: ['', [
-        Validators.required,
+      newPassword: [null, [
         Validators.minLength(8)
       ]],
-      repeatPassword: ['', [
-        Validators.required,
-        RxwebValidators.compare({fieldName: 'newPassword'})
-      ]],
+      oldPassword: [null],
       debt: [''],
       fundId: ['', Validators.required],
-      info: ['']
+      info: [''],
+      id: [null]
     });
 
     this.us.GetUserById(this.userId).subscribe(result => {
@@ -89,7 +84,8 @@ export class UserEditComponent implements OnInit {
         fundId: result.fundId,
         info: result.info,
         newPassword: '',
-        repeatPassword: ''
+        oldPassword: '',
+        id: result.id
       });
     });
   }
@@ -99,9 +95,7 @@ export class UserEditComponent implements OnInit {
   }
 
   onSubmit(): void {
-    return null;
-    /*console.log(this.userData.controls);
-
+    // return null;
     if (this.field.fundId.value === '0') {
       this.field.fundId.setErrors({required: true});
     }
@@ -116,14 +110,22 @@ export class UserEditComponent implements OnInit {
     } else {
       this.submitted = false;
 
+      const user: User = this.userData.getRawValue();
+      console.log(...this.logger.info(`User data: ${user.id}`));
       // console.log(`Raw data: ${JSON.stringify(this.userData.getRawValue())}`);
-      of(this.usersService.CreateUser(this.userData.getRawValue())).subscribe(result => {
-        this.showAlert().subscribe(this.userData.reset());
-      });
-    }*/
+      of(this.usersService.editUser(user)).subscribe(
+        result => {
+          this.showAlert().subscribe();
+        }
+      );
+      /*of(this.usersService.editUser(this.userData.getRawValue())).subscribe(result => {
+        this.showAlert();
+      });*/
+    }
   }
 
   showAlert(): Observable<any> {
+    console.log(...this.logger.info('Show alert'));
     return new Observable(observer => {
       this.alertVisibility = this.alertVisibilityTimeSec;
 

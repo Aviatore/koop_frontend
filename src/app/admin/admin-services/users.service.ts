@@ -97,7 +97,7 @@ export class UsersService {
     } else {
       console.error(
         `Backend returned code ${error.status},\n` +
-        `Returned body was: ${error.error},\n` +
+        `Returned body was: ${JSON.stringify(error.error)},\n` +
         `Error message: ${error.message}`);
 
       this.errorResponse = error.error;
@@ -125,5 +125,36 @@ export class UsersService {
     );*/
     return this.httpClient.delete<ErrorResponse>(url).pipe(
       catchError(this.handleError.bind(this)));
+  }
+
+  editUser2(user: User): void {
+    const url = `${Urls.BaseAuthUrl}/user/${user.id}/edit`;
+    console.log(...this.logger.info(`Raw data:\n${JSON.stringify(user)}`));
+    this.httpClient.post<HttpResponse<any>>(Urls.CreateUserUrl, user, createUserOptions).pipe(
+      catchError(this.handleError.bind(this))).subscribe(
+      result => {
+        console.log(...this.logger.info(`User edited.`));
+        this.errorResponse = {
+          detail: `Konto użytkownika '${user.firstName} ${user.lastName}' zostało utworzone.`,
+          status: 200
+        };
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  editUser(user: User): void {
+    const url = `${Urls.BaseAuthUrl}/user/${user.id}/edit`;
+
+    console.log(...this.logger.info(`Edit user - ${user.id} - sending query ...`));
+    this.httpClient.post<HttpResponse<Observable<ErrorResponse>>>(url, user, createUserOptions).pipe(
+      catchError(this.handleError.bind(this))).subscribe(
+        result => {
+          console.log(...this.logger.info(`Response body: ${JSON.stringify(result.body)}`));
+          this.errorResponse = result.body;
+        }
+    );
   }
 }
