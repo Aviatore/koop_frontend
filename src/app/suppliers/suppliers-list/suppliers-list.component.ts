@@ -1,7 +1,7 @@
 import {Supplier} from '../supplier';
 import {Guid} from 'guid-typescript';
 import {SupplierService} from '../supplier.service';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {Unit} from '../../services/units.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {CoopDept} from '../../reports/models/coop-dept';
@@ -40,6 +40,8 @@ export class SuppliersListComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<Supplier>;
   itemsPerPage = [10, 25, 50, 100];
 
+  supplierId;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -57,11 +59,17 @@ export class SuppliersListComponent implements OnInit, AfterViewInit {
   checkAuthorization(): void {
     const token = localStorage.getItem('token');
     const tokenDecoded = Util.parseJwt(token);
-    const roleKey = Object.keys(tokenDecoded).find(p => p.endsWith('role'));
-    console.log(`role: ${tokenDecoded[roleKey]}`);
-    var role = tokenDecoded[roleKey];
-    this.authorized = (role.includes("Admin") || role.includes("Koty") || role.includes("Opro"));
-    console.log(this.authorized);
+    if (tokenDecoded) {
+      const roleKey = Object.keys(tokenDecoded).find(p => p.endsWith('role'));
+      console.log(`role: ${tokenDecoded[roleKey]}`);
+      var role = tokenDecoded[roleKey];
+      this.authorized = (role.includes("Admin") || role.includes("Koty") || role.includes("Opro"));
+      console.log("authorized: " + this.authorized);
+    }
+    else{
+      console.log("null token");
+      this.authorized = false;
+    }
   }
 
   getDataFromObservable(): void {
@@ -84,16 +92,17 @@ export class SuppliersListComponent implements OnInit, AfterViewInit {
   //   this.selectedSupplier = supplier;
   // }
 
-  toggleAvailability(supplierId: Guid): void
+  toggleAvailability(Id: Guid): void
   {
+    this.supplierId = Id;
+    console.log(`${this.supplierId}`);
     // console.log(`Raw data: ${JSON.stringify(this.supplierId.getRawValue())}`);
-    // of(this.supplierService.toggleAvail(this.supplierId.getRawValue())).subscribe(result => {
-    //   this.showAlert().subscribe();
-    // });
+    this.supplierService.toggleAvail(this.supplierId);
   }
 
   toggleBlocked(supplier: Supplier): void
   {
     // TODO
   }
+
 }

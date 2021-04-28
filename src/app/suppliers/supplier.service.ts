@@ -9,7 +9,7 @@ import {Guid} from 'guid-typescript';
 import {UserName} from './userName';
 import {catchError} from 'rxjs/operators';
 
-const editSupplierOptions: object = {
+const supplierOptions: object = {
   headers: new HttpHeaders().set('Content-Type', 'application/json-patch+json'),
   observe: 'response',
   responseType: 'json'
@@ -36,7 +36,7 @@ export class SupplierService {
 
   editSupplier(supplier: Supplier): void {
     console.log(`Raw data: ${JSON.stringify(supplier)}`);
-    this.http.post<HttpResponse<any>>(`${baseUrl}Supplier/supplier/update`, supplier, editSupplierOptions)
+    this.http.post<HttpResponse<any>>(`${baseUrl}Supplier/supplier/update`, supplier, supplierOptions)
       .subscribe(
         (response) => console.log(response),
         (error) => console.log(error)
@@ -45,7 +45,7 @@ export class SupplierService {
 
   toggleAvail(supplierId: Guid): void {
     console.log(`Raw data: ${JSON.stringify(supplierId)}`);
-    this.http.post<HttpResponse<any>>(`${baseUrl}Supplier/supplier/${supplierId}/toggleAvail`, supplierId, editSupplierOptions)
+    this.http.get<any>(`${baseUrl}Supplier/supplier/${supplierId}/toggleAvail`, supplierOptions)
       .subscribe(
         (response) => console.log(response),
         (error) => console.log(error)

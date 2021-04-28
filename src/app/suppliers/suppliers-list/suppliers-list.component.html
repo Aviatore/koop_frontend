@@ -43,11 +43,11 @@
     </ng-component>
     <ng-component matColumnDef="available">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="available">Dostępny</th>
-      <td mat-cell *matCellDef="let element"><input type='checkbox' [disabled]="!authorized" id="available" (change)="toggleAvailability(element)" [(ngModel)]="element.available"></td>
+      <td mat-cell *matCellDef="let element"><input type='checkbox' [disabled]="!authorized" id="available" (change)="toggleAvailability(element.supplierId)" [(ngModel)]="element.available"></td>
     </ng-component>
     <ng-component matColumnDef="blocked">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="blocked">Zablokowany</th>
-      <td mat-cell *matCellDef="let element"><input type='checkbox' [disabled]="!authorized" id="blocked" (change)="toggleBlocked(element)" [(ngModel)]="element.blocked"></td>
+      <td mat-cell *matCellDef="let element"><input type='checkbox' [disabled]="!authorized" id="blocked" (change)="toggleBlocked(element.supplierId)" [(ngModel)]="element.blocked"></td>
     </ng-component>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
