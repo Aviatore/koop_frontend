@@ -96,13 +96,13 @@ export class SuppliersListComponent implements OnInit, AfterViewInit {
   {
     this.supplierId = Id;
     console.log(`${this.supplierId}`);
-    // console.log(`Raw data: ${JSON.stringify(this.supplierId.getRawValue())}`);
     this.supplierService.toggleAvail(this.supplierId);
   }
 
-  toggleBlocked(supplier: Supplier): void
+  toggleBlocked(Id: Guid): void
   {
-    // TODO
+    this.supplierId = Id;
+    this.supplierService.toggleBlocked(this.supplierId);
   }
 
 }

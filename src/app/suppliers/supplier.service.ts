@@ -52,7 +52,12 @@ export class SupplierService {
       );
   }
 
-
-  // toggleValue(): void {
-  // }
+  toggleBlocked(supplierId: Guid): void {
+    console.log(`Raw data: ${JSON.stringify(supplierId)}`);
+    this.http.get<any>(`${baseUrl}Supplier/supplier/${supplierId}/toggleBlocked`, supplierOptions)
+      .subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      );
+  }
 }
