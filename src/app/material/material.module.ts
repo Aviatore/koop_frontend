@@ -10,6 +10,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [],
@@ -24,7 +26,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
     FlexLayoutModule,
     MatMenuModule,
     MatSlideToggleModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressSpinnerModule,
+    MatTableModule
   ],
   exports: [
     MatIconModule,
@@ -36,7 +40,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
     FlexLayoutModule,
     MatMenuModule,
     MatSlideToggleModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressSpinnerModule,
+    MatTableModule
   ]
 })
 export class MaterialModule {
