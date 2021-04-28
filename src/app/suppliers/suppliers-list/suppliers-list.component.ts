@@ -12,6 +12,8 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 
+import Util from '../../util';
+
 @Component({
   selector: 'app-suppliers-list',
   templateUrl: './suppliers-list.component.html',
@@ -21,6 +23,8 @@ export class SuppliersListComponent implements OnInit, AfterViewInit {
 
   // suppliers: Observable<Supplier[]>;
   // selectedSupplier?: Supplier;
+
+  authorized = false;
 
   displayedColumns: string[] = [
     // 'id',
@@ -42,11 +46,22 @@ export class SuppliersListComponent implements OnInit, AfterViewInit {
   constructor(private supplierService: SupplierService, private route: ActivatedRoute
   ) {
     this.getDataFromObservable();
+    this.checkAuthorization();
   }
 
   ngOnInit(): void {
+    // this.checkAuthorization();
     // this.suppliers = this.supplierService.getSuppliers();
+  }
 
+  checkAuthorization(): void {
+    const token = localStorage.getItem('token');
+    const tokenDecoded = Util.parseJwt(token);
+    const roleKey = Object.keys(tokenDecoded).find(p => p.endsWith('role'));
+    console.log(`role: ${tokenDecoded[roleKey]}`);
+    var role = tokenDecoded[roleKey];
+    this.authorized = (role.includes("Admin") || role.includes("Koty") || role.includes("Opro"));
+    console.log(this.authorized);
   }
 
   getDataFromObservable(): void {
@@ -69,9 +84,12 @@ export class SuppliersListComponent implements OnInit, AfterViewInit {
   //   this.selectedSupplier = supplier;
   // }
 
-  toggleAvailability(supplier: Supplier): void
+  toggleAvailability(supplierId: Guid): void
   {
-    // TODO
+    // console.log(`Raw data: ${JSON.stringify(this.supplierId.getRawValue())}`);
+    // of(this.supplierService.toggleAvail(this.supplierId.getRawValue())).subscribe(result => {
+    //   this.showAlert().subscribe();
+    // });
   }
 
   toggleBlocked(supplier: Supplier): void

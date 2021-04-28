@@ -21,6 +21,10 @@
 <!--                    <div *ngIf="field.Name.errors.uniqueName">Nazwa dostawcy już istnieje</div>-->
                   </div>
                 </div>
+<!--                <mat-form-field appearance="standard">-->
+<!--                  <mat-label for="supplierName">Nazwa dostawcy</mat-label>-->
+<!--                  <input matInput id="supplierName" formControlName="supplierName" placeholder="Nazwa" value="" autocomplete="supplierName">-->
+<!--                </mat-form-field>-->
               </div>
               <div class="col-md-4">
                 <div class="form-floating">
@@ -75,6 +79,18 @@
               </div>
 
               <div class="row mt-3">
+<!--                <div class="col-md-6">-->
+<!--                  <div class="form-floating">-->
+<!--                    <input type="orderClosingDate" class="form-control" id="orderClosingDate" formControlName="orderClosingDate" value="" placeholder="Data zamknięcia zamówienia" autocomplete="available">-->
+<!--                    <label for="orderClosingDate">Data zamknięcia zamówienia</label>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <mat-form-field appearance="fill">-->
+<!--                  <mat-label>Wybierz datę</mat-label>-->
+<!--                  <input matInput [matDatepicker]="picker">-->
+<!--                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--                  <mat-datepicker #picker></mat-datepicker>-->
+<!--                </mat-form-field>-->
                 <div class="col-md-6">
                   <div class="form-floating">
                     <input type="checkbox" class="form-control" id="available" formControlName="available" value="" placeholder="Dostępny" autocomplete="available">

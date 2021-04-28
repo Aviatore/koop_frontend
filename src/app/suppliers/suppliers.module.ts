@@ -27,7 +27,6 @@ import {SupplierService} from './supplier.service';
   imports: [
     CommonModule,
     FormsModule,
-    SuppliersRoutingModule,
     HttpClientModule,
     MatTableModule,
     MatMenuModule,
@@ -37,7 +36,8 @@ import {SupplierService} from './supplier.service';
     MatSortModule,
     MatListModule,
     MatSidenavModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SuppliersRoutingModule,
   ],
   exports: [
     SupplierDetailComponent,

@@ -43,6 +43,15 @@ export class SupplierService {
       );
   }
 
+  toggleAvail(supplierId: Guid): void {
+    console.log(`Raw data: ${JSON.stringify(supplierId)}`);
+    this.http.post<HttpResponse<any>>(`${baseUrl}Supplier/supplier/${supplierId}/toggleAvail`, supplierId, editSupplierOptions)
+      .subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      );
+  }
+
 
   // toggleValue(): void {
   // }

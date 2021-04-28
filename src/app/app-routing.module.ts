@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: '',   redirectTo: homePageUrl, pathMatch: 'full' },
-  // { path: '**', component: PageNotFoundComponent },
+  { path: '**', component: PageNotFoundComponent },
   // { path: 'allsuppliers', component: SuppliersListComponent }
 ];
 

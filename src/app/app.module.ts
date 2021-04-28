@@ -67,7 +67,6 @@ registerLocaleData(localePL);
     ReactiveFormsModule,
     NgbModule,
     ReportModule,
-    AppRoutingModule,
     MatIconModule,
     MatButtonModule,
     MatToolbarModule,
@@ -78,7 +77,8 @@ registerLocaleData(localePL);
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
-    SuppliersModule
+    SuppliersModule,
+    AppRoutingModule
   ],
   exports: [AppRoutingModule, LayoutComponent],
   providers: [
