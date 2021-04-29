@@ -54,3 +54,7 @@ img {
 label {
   font-size: 11px;
 }
+
+.error {
+  transform: translateY(-15px);
+}
