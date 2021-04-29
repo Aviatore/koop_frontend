@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {CoopOrderService} from '../service/coop-order.service';
 import {CoopOrder} from '../models/coop-order';
+import {Info} from '../models/Info';
+import {map, tap} from 'rxjs/operators';
+import {subscribeTo, subscribeToObservable} from 'rxjs/internal-compatibility';
 
 @Component({
   selector: 'app-coop-orders',
@@ -10,7 +13,8 @@ import {CoopOrder} from '../models/coop-order';
 export class CoopOrdersComponent implements OnInit {
 
   userId: string;
-  coopOrders: CoopOrder[] = [];
+  coopOrders: CoopOrder[];
+  info: Info;
   panelOpenState = false;
 
   displayedColumns: string[] = [
@@ -35,15 +39,18 @@ export class CoopOrdersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.coopOrders);
   }
 
   getOrders(): void {
     if (this.userId !== undefined) {
       this.service.getCoopOrdersHistory(this.userId)
-        .subscribe((data) =>
-          this.coopOrders = data
-        );
+        .subscribe( (data) => {
+          if ('info' in data){
+            this.info = data;
+          } else {
+            this.coopOrders = data;
+          }
+        });
     }
   }
 

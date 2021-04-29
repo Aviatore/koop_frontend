@@ -1,6 +1,8 @@
 <h2 class="text-center px-2 txt-shadow">Historia Zamówień</h2>
-<div *ngIf="coopOrders === undefined || coopOrders?.length === 0"
-     class="text-center w-100 text-danger mt-5">Kooperant nie złożył żadnych zamówień.</div>
+<div *ngIf="info !== undefined" class="text-center w-100 text-danger mt-5">
+  Kooperant nie złożył żadnych zamówień.<br>
+  {{info.info}}
+</div>
 <div *ngIf="coopOrders !== undefined && coopOrders.length > 0">
   <div class="ms-2">
     <span class="fw-bold">Imię</span>: {{coopOrders[0]?.firstName}}<br>
