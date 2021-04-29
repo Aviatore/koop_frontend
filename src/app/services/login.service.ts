@@ -12,6 +12,7 @@ export interface LoginResponse {
   refreshT: string;
   tokenExp: number;
   refTokenExp: number;
+  userId: string;
 }
 
 const loginUrl = 'http://localhost:5000/api/auth/signin';
@@ -43,6 +44,7 @@ export class LoginService {
         const loginResponse = result.body;
         localStorage.setItem('token', loginResponse.token);
         localStorage.setItem('refresh_token', loginResponse.refreshT);
+        localStorage.setItem('login_userId', loginResponse.userId);
 
         this.tokenT.timeSeconds = loginResponse.tokenExp;
         this.refTokenT.timeSeconds = loginResponse.refTokenExp;
@@ -58,6 +60,7 @@ export class LoginService {
   LogOut(): void {
     localStorage.setItem('token', '');
     localStorage.setItem('refresh_token', '');
+    localStorage.setItem('login_userId', '');
     this.loginResult = false;
     this.tokenT.timeSeconds = 0;
     this.refTokenT.timeSeconds = 0;

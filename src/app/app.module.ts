@@ -34,6 +34,8 @@ import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
 import {MaterialModule} from './material/material.module';
 import {AdminModule} from './admin/admin.module';
+import {CoopOrderModule} from './coop-order/coop-order.module';
+import {JwtModule} from '@auth0/angular-jwt';
 
 registerLocaleData(localePL);
 
@@ -57,8 +59,9 @@ registerLocaleData(localePL);
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    ReportModule,
     MaterialModule,
+    ReportModule,
+    CoopOrderModule,
     AdminModule,
     AppRoutingModule
   ],

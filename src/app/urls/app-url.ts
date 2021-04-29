@@ -21,6 +21,7 @@ export class AppUrl {
     getReportSupReceivables: `report-supplier-receivables`,
     getReportGrandeOrder: 'report-report-grande-order',
     getReportOrderBySupplier: 'report-order-by-supplier',
+    getCoopOrders: 'coop-orders',
     admin: 'admin'
   };
 
