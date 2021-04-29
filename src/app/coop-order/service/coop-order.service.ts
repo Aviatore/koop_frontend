@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {CoopOrder} from '../models/coop-order';
 import {AppUrl} from '../../urls/app-url';
-import {Info} from '../models/Info';
+import {Info} from '../models/info';
 import {map} from 'rxjs/operators';
 
 @Injectable({
