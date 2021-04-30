@@ -8,6 +8,7 @@ import {Funds} from '../admin-interfaces/funds';
 import {UniqueEmailValidator} from '../admin-validators/async-validators';
 import {UniqueUserNameValidator} from '../admin-validators/userName-validator';
 import {LoggerService} from '../../services/logger.service';
+import {Roles} from '../admin-interfaces/roles';
 
 @Component({
   selector: 'app-user-edit',
@@ -20,6 +21,7 @@ export class UserCreateComponent implements OnInit {
   submitted = false;
   alertVisibility: number;
   funds: Observable<Funds[]>;
+  roles: Observable<Roles[]>;
   userData;
 
   constructor(private formBuilder: FormBuilder,
@@ -28,6 +30,7 @@ export class UserCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.funds = this.usersService.GetAllUnits();
+    this.roles = this.usersService.GetALlRoles();
     this.us = this.usersService;
 
     this.userData = this.formBuilder.group({
@@ -107,9 +110,12 @@ export class UserCreateComponent implements OnInit {
     } else {
       this.submitted = false;
 
+      const user: User = this.userData.getRawValue();
       // console.log(`Raw data: ${JSON.stringify(this.userData.getRawValue())}`);
-      of(this.usersService.CreateUser(this.userData.getRawValue())).subscribe(result => {
-        this.showAlert().subscribe(this.userData.reset());
+      of(this.usersService.CreateUser(user)).subscribe({
+        complete: () => {
+          this.showAlert().subscribe(this.userData.reset());
+        }
       });
     }
   }

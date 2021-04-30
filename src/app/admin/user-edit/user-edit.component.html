@@ -10,7 +10,7 @@
             <h2 class="text-right">Edycja użytkownika</h2>
           </div>
           <div class="row mt-0">
-            <div class="col-md-12">
+            <div class="col-md-6">
               <mat-form-field>
                 <input matInput placeholder="Imię" [class.is-invalid]="submitted && field.firstName.invalid && field.firstName.touched" formControlName="firstName" autocomplete="given-name" value="">
               </mat-form-field>
@@ -21,6 +21,28 @@
                 </div>
               </div>
             </div>
+
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label for="role">Role</mat-label>
+                <mat-chip-list #chipList>
+                  <mat-chip *ngFor="let item of userData.get('role').value" selectable="true" removable="true" (removed)="removeRole(item)">
+                    {{item}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                  <input #roleInput placeholder="Nowa rola ..." [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matAutocomplete]="auto" [matChipInputFor]="chipList" (matChipInputTokenEnd)="addRole($event)" [formControl]="roleCtrl">
+                </mat-chip-list>
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                  <mat-option *ngFor="let fruit of filteredRoles | async" [value]="fruit">
+                    {{fruit}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <!--<div *ngIf="submitted && field.role.invalid && field.role.touched" class="text-danger small error">
+                <div *ngIf="field.role.errors.required">Musisz wybrać wartość</div>
+              </div>-->
+            </div>
+
           </div>
           <div class="row mt-2">
             <div class="col-md-6">
@@ -124,8 +146,8 @@
     </div>
 
     <div class="mt-3"><button class="btn btn-primary profile-button" type="button" (click)="onSubmit()">Zapisz</button></div>
-    <div class="alert alert-dismissible fade mt-3" [class.show]="alertVisibility > 0" [ngClass]="us.errorResponse.status === 200 ? 'alert-success' : 'alert-danger'" role="alert">
-      {{us.errorResponse.detail}}
+    <div class="alert alert-dismissible fade mt-3" [class.show]="alertVisibility > 0" [ngClass]="us.errorResponse?.status === 200 ? 'alert-success' : 'alert-danger'" role="alert">
+      {{us.errorResponse?.detail}}
     </div>
   </form>
 </div>

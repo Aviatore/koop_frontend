@@ -1,3 +1,5 @@
+import {Roles} from './roles';
+
 export interface User {
   firstName: string;
   lastName: string;
@@ -11,4 +13,5 @@ export interface User {
   fundId: number;
   info: string;
   id: string;
+  role: string[];
 }

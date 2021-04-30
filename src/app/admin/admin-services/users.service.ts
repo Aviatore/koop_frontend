@@ -9,6 +9,7 @@ import {EmailCheck} from '../admin-interfaces/emailCheck';
 import {ResponseResult} from '../admin-interfaces/responseResult';
 import {ErrorResponse} from '../admin-interfaces/errorResponse';
 import {LoggerService} from '../../services/logger.service';
+import {Roles} from '../admin-interfaces/roles';
 
 const getAllUsersOptions: object = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -145,16 +146,33 @@ export class UsersService {
     );
   }
 
-  editUser(user: User): void {
+  editUser(user: User): Observable<any> {
     const url = `${Urls.BaseAuthUrl}/user/${user.id}/edit`;
 
     console.log(...this.logger.info(`Edit user - ${user.id} - sending query ...`));
-    this.httpClient.post<HttpResponse<Observable<ErrorResponse>>>(url, user, createUserOptions).pipe(
-      catchError(this.handleError.bind(this))).subscribe(
-        result => {
-          console.log(...this.logger.info(`Response body: ${JSON.stringify(result.body)}`));
-          this.errorResponse = result.body;
-        }
+    return this.httpClient.post<HttpResponse<Observable<ErrorResponse>>>(url, user, createUserOptions).pipe(
+      catchError(this.handleError.bind(this)));
+  }
+
+  GetALlRoles(): Observable<Roles[]> {
+    return this.httpClient.get<Roles[]>(Urls.GetAllRoles).pipe(
+      catchError(this.handleError.bind(this))
     );
+  }
+
+  GetUserRole(userId: string): Observable<Roles[]> {
+    const url = `${Urls.BaseAuthUrl}/user/${userId}/getRole`;
+
+    return this.httpClient.get<Roles[]>(url).pipe(
+      catchError(this.handleError.bind(this))
+    );
+  }
+
+  AddRoleToUser(user: User, roleName: string): Observable<HttpResponse<ErrorResponse>> {
+    console.log(...this.logger.info(`Adding role '${roleName}' to ${user.userName}`));
+    const url = `${Urls.BaseAuthUrl}/user/${user.id}/addRole/${roleName}`;
+
+    return this.httpClient.post<HttpResponse<Observable<ErrorResponse>>>(url, {}, createUserOptions).pipe(
+      catchError(this.handleError.bind(this)));
   }
 }
