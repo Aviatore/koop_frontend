@@ -11,6 +11,8 @@ import {MatTableDataSource} from '@angular/material/table';
 import {CoopOrderNode} from '../models/coop-order-node';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import {MatDialog} from '@angular/material/dialog';
+import {CoopLastOrderDelDialogComponent} from '../coop-last-order-del-dialog/coop-last-order-del-dialog.component';
 
 @Component({
   selector: 'app-coop-last-order',
@@ -44,7 +46,7 @@ export class CoopLastOrderComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private service: CoopOrderService, ) {
+  constructor(private service: CoopOrderService, public delDialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -99,5 +101,20 @@ export class CoopLastOrderComponent implements OnInit, AfterViewInit {
           }
         });
     }
+  }
+
+  openDelDialog(orderItemId: string, productName: string, coopId: string): void {
+    const dialogRef = this.delDialog.open(CoopLastOrderDelDialogComponent, {
+      data: {
+        orderItemId,
+        productName,
+        coopId
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      this.getCoopLastGrande(this.coopId);
+    });
   }
 }

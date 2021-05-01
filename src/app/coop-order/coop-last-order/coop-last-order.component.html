@@ -87,7 +87,7 @@
             <button mat-icon-button class="edit-button">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button class="del-button">
+            <button mat-icon-button (click)="openDelDialog(element.orderedItemId, element.productName)" class="del-button">
               <mat-icon>delete</mat-icon>
             </button>
           </span>

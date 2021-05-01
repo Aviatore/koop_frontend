@@ -10,12 +10,15 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { CoopLastOrderDelDialogComponent } from './coop-last-order-del-dialog/coop-last-order-del-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
   declarations: [
     CoopOrdersComponent,
-    CoopLastOrderComponent
+    CoopLastOrderComponent,
+    CoopLastOrderDelDialogComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +28,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatAutocompleteModule,
     ReactiveFormsModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule
   ]
 })
 export class CoopOrderModule { }

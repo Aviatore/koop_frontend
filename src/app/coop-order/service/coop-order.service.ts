@@ -42,4 +42,15 @@ export class CoopOrderService {
   getCooperators(): Observable<CoopNames[]> {
     return this.http.get<CoopNames[]>(`${AppUrl.BASE_URL}Cooperator/Get/Cooperators`);
   }
+
+  deleteOrderedItem(orderItemId: string): Observable<Info | Problem> {
+    return this.http.delete<Info | Problem>(`${AppUrl.BASE_URL}Cooperator/Delete/OrderItem/${orderItemId}`)
+      .pipe(map(res => {
+        if ('traceId' in res){
+          return res;
+        } else {
+          return res;
+        }
+      }));
+  }
 }
