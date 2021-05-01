@@ -29,7 +29,8 @@ export class CoopLastOrderComponent implements OnInit, AfterViewInit {
     'quantity',
     'totalPrice',
     'totalFundPrice',
-    'orderStatusName'
+    'orderStatusName',
+    'actionButtons'
   ];
   coopId: string;
   control = new FormControl();
@@ -43,7 +44,7 @@ export class CoopLastOrderComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private service: CoopOrderService) {
+  constructor(private service: CoopOrderService, ) {
   }
 
   ngOnInit(): void {
