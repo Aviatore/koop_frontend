@@ -10,7 +10,7 @@
             <h2 class="text-right">Edycja użytkownika</h2>
           </div>
           <div class="row mt-0">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <mat-form-field>
                 <input matInput placeholder="Imię" [class.is-invalid]="submitted && field.firstName.invalid && field.firstName.touched" formControlName="firstName" autocomplete="given-name" value="">
               </mat-form-field>
@@ -22,25 +22,7 @@
               </div>
             </div>
 
-            <div class="col-md-6">
-              <mat-form-field>
-                <mat-chip-list #chipList formControlName="role" [class.is-invalid]="submitted && field.role.invalid && field.role.touched">
-                  <mat-chip *ngFor="let item of userData.get('role').value" selectable="true" removable="true" (removed)="removeRole(item)">
-                    {{item}}
-                    <mat-icon matChipRemove>cancel</mat-icon>
-                  </mat-chip>
-                </mat-chip-list>
-                <mat-label for="role" style="padding-bottom: 5px;">Role</mat-label>
-                <mat-select id="role" (selectionChange)="selected($event)" #roleSelect>
-                  <mat-option *ngFor="let role of filteredRoles | async" [value]="role">
-                    {{role}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              <div *ngIf="submitted && field.role.invalid && field.role.touched" class="text-danger small error">
-                <div *ngIf="field.role.errors.required">Użytkownik musi mieć wybraną co najmniej jedną rolę</div>
-              </div>
-            </div>
+
 
           </div>
           <div class="row mt-2">
@@ -131,14 +113,22 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="p-3 py-0">
-          <div class="col-md-12">
-            <div class="d-flex justify-content-between align-items-center experience"><h3>Opis profilu</h3></div>
-            <mat-form-field>
-              <mat-label for="info">Wstaw opis ...</mat-label>
-              <textarea matInput class="form-control" id="info" formControlName="info" name="info" rows="12" style="height: 25vh"></textarea>
-            </mat-form-field>
-          </div>
+        <mat-form-field>
+          <mat-chip-list #chipList formControlName="role" [class.is-invalid]="submitted && field.role.invalid && field.role.touched">
+            <mat-chip *ngFor="let item of userData.get('role').value" selectable="true" removable="true" (removed)="removeRole(item)">
+              {{item}}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+          <mat-label for="role" style="padding-bottom: 5px;">Role</mat-label>
+          <mat-select id="role" (selectionChange)="selected($event)" #roleSelect>
+            <mat-option *ngFor="let role of filteredRoles | async" [value]="role">
+              {{role}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf="submitted && field.role.invalid && field.role.touched" class="text-danger small error">
+          <div *ngIf="field.role.errors.required">Użytkownik musi mieć wybraną co najmniej jedną rolę</div>
         </div>
       </div>
 
