@@ -28,3 +28,9 @@ body {
 .txt-shadow {
   text-shadow: 2px 2px #e3dddd;
 }
+
+.del-info-coop-last {
+  color: #fff !important;
+  background-color: rgb(108, 160, 52) !important;
+}
+

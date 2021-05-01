@@ -22,6 +22,7 @@ export class AppUrl {
     getReportGrandeOrder: 'report-report-grande-order',
     getReportOrderBySupplier: 'report-order-by-supplier',
     getCoopOrders: 'coop-orders',
+    getCoopLastOrder: 'coop-last-order',
     admin: 'admin'
   };
 
