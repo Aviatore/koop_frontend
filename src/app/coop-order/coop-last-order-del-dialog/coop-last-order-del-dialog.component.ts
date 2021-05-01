@@ -1,8 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, Output, EventEmitter} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {DialogData} from '../models/dialog-data';
 import {CoopOrderService} from '../service/coop-order.service';
-import {CoopLastOrderComponent} from '../coop-last-order/coop-last-order.component';
 
 @Component({
   selector: 'app-coop-last-order-del-dialog',
@@ -20,14 +19,12 @@ export class CoopLastOrderDelDialogComponent implements OnInit {
 
   delProduct(orderItemId: string): void {
     const result = this.service.deleteOrderedItem(orderItemId);
-    this.dialogRef.close();
     result.subscribe((data) => {
       if ('traceId' in data) {
-        console.log(data.detail);
+        this.dialogRef.close({msg: data.detail});
       } else {
-        console.log(data.info);
+        this.dialogRef.close({msg: data.info});
       }
     });
-
   }
 }

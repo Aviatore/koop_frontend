@@ -13,6 +13,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatDialog} from '@angular/material/dialog';
 import {CoopLastOrderDelDialogComponent} from '../coop-last-order-del-dialog/coop-last-order-del-dialog.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-coop-last-order',
@@ -46,7 +47,9 @@ export class CoopLastOrderComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private service: CoopOrderService, public delDialog: MatDialog) {
+  constructor(private service: CoopOrderService,
+              public delDialog: MatDialog,
+              private snackBarDel: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -103,18 +106,31 @@ export class CoopLastOrderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  openDelDialog(orderItemId: string, productName: string, coopId: string): void {
+  openDelDialog(orderItemId: string, productName: string): void {
     const dialogRef = this.delDialog.open(CoopLastOrderDelDialogComponent, {
       data: {
         orderItemId,
-        productName,
-        coopId
+        productName
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       this.getCoopLastGrande(this.coopId);
+      console.log(result.msg);
+      this.openSnackBarDel(result.msg);
+    });
+  }
+
+  openSnackBarDel(message: string, action?: string): void {
+    if (message.includes('The ordered item has been deleted (order ID:')) {
+      message = 'Produkt został usuniety z zamówienia.';
+    }
+    if (message.includes('There is no product ordered with the given ID:')) {
+      message = 'Nie ma takiego produktu w zamówieniu.';
+    }
+    this.snackBarDel.open(message, action, {
+      duration: 3000,
+      panelClass: 'del-info-coop-last'
     });
   }
 }
