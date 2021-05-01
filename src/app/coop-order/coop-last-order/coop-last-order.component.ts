@@ -116,16 +116,17 @@ export class CoopLastOrderComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.getCoopLastGrande(this.coopId);
-      console.log(result.msg);
-      this.openSnackBarDel(result.msg);
+      if (result.msg !== undefined) {
+        this.openSnackBarDel(result.msg);
+      }
     });
   }
 
   openSnackBarDel(message: string, action?: string): void {
-    if (message.includes('The ordered item has been deleted (order ID:')) {
+    if (message !== undefined && message.includes('The ordered item has been deleted (order ID:')) {
       message = 'Produkt został usuniety z zamówienia.';
     }
-    if (message.includes('There is no product ordered with the given ID:')) {
+    if (message !== undefined && message.includes('There is no product ordered with the given ID:')) {
       message = 'Nie ma takiego produktu w zamówieniu.';
     }
     this.snackBarDel.open(message, action, {
