@@ -160,10 +160,10 @@ export class UsersService {
     );
   }
 
-  GetUserRole(userId: string): Observable<Roles[]> {
+  GetUserRole(userId: string): Observable<string[]> {
     const url = `${Urls.BaseAuthUrl}/user/${userId}/getRole`;
 
-    return this.httpClient.get<Roles[]>(url).pipe(
+    return this.httpClient.get<string[]>(url).pipe(
       catchError(this.handleError.bind(this))
     );
   }

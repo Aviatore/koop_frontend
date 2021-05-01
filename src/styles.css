@@ -28,3 +28,18 @@ body {
 .txt-shadow {
   text-shadow: 2px 2px #e3dddd;
 }
+
+.mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: green !important;
+}
+
+.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: green !important;
+}
+
+.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: green !important;;
+}

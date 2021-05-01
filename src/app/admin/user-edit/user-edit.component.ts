@@ -13,7 +13,8 @@ import {Roles} from '../admin-interfaces/roles';
 import {MatChipEvent, MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-import {map, startWith} from 'rxjs/operators';
+import {delay, map, startWith} from 'rxjs/operators';
+import {MatSelect, MatSelectChange} from '@angular/material/select';
 
 @Component({
   selector: 'app-user-edit',
@@ -23,19 +24,21 @@ import {map, startWith} from 'rxjs/operators';
 export class UserEditComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filteredRoles: Observable<string[]>;
-  userId: string;
-  userRoles: Observable<Roles[]>;
-  user: User;
-  alertVisibilityTimeSec = 5;
-  us: UsersService;
-  submitted = false;
-  alertVisibility: number;
-  funds: Observable<Funds[]>;
-  roles: string[] = [];
+  allRoles: string[] = [];
   roleCtrl = new FormControl();
+  funds: Observable<Funds[]>;
+
+  userId: string;
+  user: User;
+
+  alertVisibilityTimeSec = 5;
+  alertVisibility: number;
+  submitted = false;
+
+  us: UsersService;
   userData;
 
-  @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
+  @ViewChild('roleSelect') roleSelect: MatSelect;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor(private formBuilder: FormBuilder,
@@ -45,16 +48,7 @@ export class UserEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.router.snapshot.paramMap.get('userId');
-
-    this.funds = this.usersService.GetAllUnits();
-    this.usersService.GetALlRoles().subscribe(result => {
-      result.forEach(role => this.roles.push(role.name));
-    });
     this.us = this.usersService;
-    this.us.errorResponse = {
-      detail: '',
-      status: 0
-    };
 
     this.userData = this.formBuilder.group({
       firstName: ['', [
@@ -94,7 +88,7 @@ export class UserEditComponent implements OnInit {
     this.us.GetUserById(this.userId).subscribe(result => {
       this.usersService.GetUserRole(result.id).subscribe(roleResult => {
         const rolesTmp: string[] = [];
-        roleResult.forEach(role => rolesTmp.push(role.name));
+        roleResult.forEach(role => rolesTmp.push(role));
 
         this.userData.setValue({
           firstName: result.firstName,
@@ -111,11 +105,20 @@ export class UserEditComponent implements OnInit {
           role: rolesTmp
         });
 
-        this.filteredRoles = this.roleCtrl.valueChanges.pipe(
-          map((role: string | null) => role ? this._filter(role) : this.userData.get('role').value.slice())
-        );
+        this.usersService.GetALlRoles().subscribe(rolesResult => {
+          rolesResult.forEach(role => this.allRoles.push(role.name));
+
+          this.filteredRoles = of(this.allRoles.filter(p => !this.userData.get('role').value.includes(p)).slice());
+        });
       });
     });
+
+    this.funds = this.usersService.GetAllUnits();
+
+    this.us.errorResponse = {
+      detail: '',
+      status: 0
+    };
   }
 
   get field(): any {
@@ -125,36 +128,19 @@ export class UserEditComponent implements OnInit {
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.roles.filter(role => role.toLowerCase().indexOf(filterValue) === 0);
+    return this.allRoles.filter(role => role.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  selected(event: MatAutocompleteSelectedEvent): void {
+  selected(event: MatSelectChange): void {
     const rolesTmp = this.userData.get('role').value.slice();
-    rolesTmp.push(event.option.viewValue);
+    rolesTmp.push(event.value);
     this.userData.patchValue({
       role: rolesTmp
     });
-    this.roleInput.nativeElement.value = '';
-    this.roleCtrl.setValue(null);
-  }
 
-  addRole(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
+    this.roleSelect.value = '';
 
-    if ((value || '').trim()) {
-      const rolesTmp = this.userData.get('role').value.slice();
-      rolesTmp.push(value.trim());
-      this.userData.patchValue({
-        role: rolesTmp
-      });
-    }
-
-    if (input) {
-      input.value = '';
-    }
-
-    this.roleCtrl.setValue(null);
+    this.filteredRoles = of(this.allRoles.filter(p => !this.userData.get('role').value.includes(p)).slice());
   }
 
   removeRole(role: string): void {
@@ -168,9 +154,14 @@ export class UserEditComponent implements OnInit {
     this.userData.patchValue({
       role: rolesTmp
     });
+
+    this.filteredRoles = of(this.allRoles.filter(p => !this.userData.get('role').value.includes(p)).slice());
   }
 
   onSubmit(): void {
+    this.us.errorResponse.detail = 'Aktualizowanie danych użytkownika. Proszę czekać ...';
+    this.us.errorResponse.status = 300;
+    this.alertVisibility = 1;
     // return null;
     if (this.field.fundId.value === '0') {
       this.field.fundId.setErrors({required: true});
@@ -188,26 +179,12 @@ export class UserEditComponent implements OnInit {
 
       const user: User = this.userData.getRawValue();
       console.log(...this.logger.info(`User data: ${user.id}`));
-      // console.log(`Raw data: ${JSON.stringify(this.userData.getRawValue())}`);
 
-      /*of(this.usersService.editUser(this.userData.getRawValue())).subscribe(result => {
-        this.showAlert();
-      });*/
-
-      this.usersService.editUser(this.userData.getRawValue()).subscribe({
+      this.usersService.editUser(this.userData.getRawValue()).pipe(delay(2000)).subscribe({
         next: result => {
           console.log(...this.logger.info(`Response body: ${JSON.stringify(result.body)}`));
           this.us.errorResponse = result.body;
-        },
-        complete: () => {
-          /*this.usersService.AddRoleToUser(user, user.role).subscribe({
-            next: roleResult => {
-              this.us.errorResponse = roleResult.body;
-            },
-            complete: () => {
-              this.showAlert().subscribe();
-            }
-          });*/
+          this.showAlert().subscribe();
         }
       });
     }
