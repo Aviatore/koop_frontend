@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {CoopNames} from '../models/coop-names';
@@ -17,7 +17,7 @@ import {MatSort} from '@angular/material/sort';
   templateUrl: './coop-last-order.component.html',
   styleUrls: ['./coop-last-order.component.css']
 })
-export class CoopLastOrderComponent implements OnInit {
+export class CoopLastOrderComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = [
     // 'orderId',
@@ -31,6 +31,7 @@ export class CoopLastOrderComponent implements OnInit {
     'totalFundPrice',
     'orderStatusName'
   ];
+  coopId: string;
   control = new FormControl();
   filteredCoopNames: Observable<CoopNames[]>;
   coopLastGrande: CoopOrder[];
@@ -47,6 +48,10 @@ export class CoopLastOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.filteredCoopNames = this.filterCoops();
+  }
+
+  ngAfterViewInit(): void {
+    this.getCoopLastGrande(this.coopId);
   }
 
   filterCoops(): Observable<CoopNames[]> {
@@ -68,6 +73,7 @@ export class CoopLastOrderComponent implements OnInit {
   }
 
   getCoopLastGrande(coopId: string): void {
+    this.coopId = coopId;
     if (coopId !== undefined) {
       this.service.getCoopLastOrder(coopId)
         .subscribe((data) => {
@@ -87,6 +93,8 @@ export class CoopLastOrderComponent implements OnInit {
             this.dataSource = new MatTableDataSource(data[0].coopOrderNode);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
+
+            return this.coopLastGrande;
           }
         });
     }
