@@ -34,6 +34,8 @@ import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
 import {MaterialModule} from './material/material.module';
 import {AdminModule} from './admin/admin.module';
+import {CoopOrderModule} from './coop-order/coop-order.module';
+import {JwtModule} from '@auth0/angular-jwt';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 import {LoggerService} from './services/logger.service';
 import {UserPanelModule} from './user-panel/user-panel.module';
@@ -64,8 +66,9 @@ registerLocaleData(localePL);
       serverLogLevel: NgxLoggerLevel.ERROR
     }),
     NgbModule,
-    ReportModule,
     MaterialModule,
+    ReportModule,
+    CoopOrderModule,
     AdminModule,
     UserPanelModule,
     AppRoutingModule
