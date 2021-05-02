@@ -7,6 +7,7 @@ import {Info} from '../models/info';
 import {map} from 'rxjs/operators';
 import {CoopNames} from '../models/coop-names';
 import {Problem} from '../models/problem';
+import {BadRequest} from '../models/bad-request';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,24 @@ export class CoopOrderService {
     return this.http.delete<Info | Problem>(`${AppUrl.BASE_URL}Cooperator/Delete/OrderItem/${orderItemId}`)
       .pipe(map(res => {
         if ('traceId' in res){
+          return res;
+        } else {
+          return res;
+        }
+      }));
+  }
+
+  editOrderItemQuantity(orderItemId: string, quantity: number): Observable<Info | BadRequest | Problem> {
+    console.log(orderItemId);
+    return this.http.post<Info | BadRequest | Problem>(`${AppUrl.BASE_URL}Cooperator/Update/OrderItem/Quantity`,
+      {
+        orderedItemId: orderItemId,
+        quantity
+      })
+      .pipe(map(res => {
+        if ('traceId' in res) {
+          return res;
+        } else if ('error' in res) {
           return res;
         } else {
           return res;

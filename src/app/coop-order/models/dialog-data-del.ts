@@ -1,4 +1,4 @@
-export interface DialogData {
+export interface DialogDataDel {
   orderItemId: string;
   productName: string;
 }

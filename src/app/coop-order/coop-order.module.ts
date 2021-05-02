@@ -12,13 +12,15 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { CoopLastOrderDelDialogComponent } from './coop-last-order-del-dialog/coop-last-order-del-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { CoopLastOrderEditDialogComponent } from './coop-last-order-edit-dialog/coop-last-order-edit-dialog.component';
 
 
 @NgModule({
   declarations: [
     CoopOrdersComponent,
     CoopLastOrderComponent,
-    CoopLastOrderDelDialogComponent
+    CoopLastOrderDelDialogComponent,
+    CoopLastOrderEditDialogComponent
   ],
   imports: [
     CommonModule,

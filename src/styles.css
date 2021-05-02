@@ -29,8 +29,13 @@ body {
   text-shadow: 2px 2px #e3dddd;
 }
 
-.del-info-coop-last {
+.snack-bar-green {
   color: #fff !important;
   background-color: rgb(108, 160, 52) !important;
+}
+
+.snack-bar-red {
+  color: #fff !important;
+  background-color: rgb(191, 36, 36) !important;
 }
 

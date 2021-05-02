@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit, Output, EventEmitter} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {DialogData} from '../models/dialog-data';
+import {DialogDataDel} from '../models/dialog-data-del';
 import {CoopOrderService} from '../service/coop-order.service';
 
 @Component({
@@ -10,7 +10,7 @@ import {CoopOrderService} from '../service/coop-order.service';
 })
 export class CoopLastOrderDelDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogDataDel,
               private service: CoopOrderService,
               private dialogRef: MatDialogRef<CoopLastOrderDelDialogComponent>) { }
 

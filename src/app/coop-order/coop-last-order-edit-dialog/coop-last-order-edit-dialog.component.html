@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Edytuj produkt</h1>
+<div mat-dialog-content>
+  <mat-divider></mat-divider>
+  <div class="pt-2 pb-2">
+    <span class="fw-bold px-2">Ilość:</span>
+    <mat-form-field appearance="fill">
+      <mat-label class="mat-input-label">{{data.productName}}</mat-label>
+      <input type="number" matInput [value]="data.quantity.toString()" min="1" #itemQuantity>
+    </mat-form-field>
+  </div>
+  <mat-divider></mat-divider>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+  <button mat-raised-button mat-dialog-close class="cancel-button">Anuluj</button>
+  <button mat-raised-button (click)="editProduct(data.orderItemId, itemQuantity.value)" [mat-dialog-close]="true" color="warn">Edytuj</button>
+</div>
