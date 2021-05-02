@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {CoopOrderService} from '../service/coop-order.service';
 import {CoopOrder} from '../models/coop-order';
 import {Info} from '../models/info';
-import {map, tap} from 'rxjs/operators';
-import {subscribeTo, subscribeToObservable} from 'rxjs/internal-compatibility';
 
 @Component({
   selector: 'app-coop-orders',
