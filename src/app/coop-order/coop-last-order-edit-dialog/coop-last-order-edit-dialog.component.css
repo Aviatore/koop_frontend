@@ -1,0 +1,17 @@
+.cancel-button, .cancel-button:hover {
+  background: rgb(3, 130, 17);
+  color: #fff;
+}
+
+.mat-input-label {
+  color: rgb(3, 130, 17);
+}
+
+::ng-deep.mat-form-field.mat-focused .mat-form-field-ripple{
+  background-color: rgb(3, 130, 17);
+}
+
+.mat-dialog-title {
+  text-align: center;
+}
+
