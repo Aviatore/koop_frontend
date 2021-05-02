@@ -39,25 +39,10 @@ export class LoginService {
               @Inject(TokenTimer) private tokenT: CountDownTokenService,
               @Inject(RefTokenTimer) private refTokenT: CountDownTokenService) { }
 
-  LogIn(email: string, password: string): void {
-    this.GetUserCredentials(email, password).subscribe(
-      result => {
-        console.log(`Response: ${result.body}`);
+  LogIn(email: string, password: string): Observable<HttpResponse<LoginResponse>> {
+    return this.GetUserCredentials(email, password);
 
-        const loginResponse = result.body;
-        localStorage.setItem('token', loginResponse.token);
-        localStorage.setItem('refresh_token', loginResponse.refreshT);
-        localStorage.setItem('login_userId', loginResponse.userId);
-
-        this.tokenT.timeSeconds = loginResponse.tokenExp;
-        this.refTokenT.timeSeconds = loginResponse.refTokenExp;
-
-        this.loginResult = true;
-      },
-      error => {
-        console.error(error);
-        this.loginResult = false;
-      });
+    // return this.errorResponse;
   }
 
   LogOut(): void {
