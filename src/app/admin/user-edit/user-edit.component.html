@@ -66,7 +66,7 @@
               </div>
             </div>
           </div>
-          <div class="row mt-2">
+          <div class="row mt-2" *ngIf="adminMode === false">
             <div class="col-md-6">
               <mat-form-field>
                 <input type="password" matInput placeholder="Stare hasło" [class.is-invalid]="submitted && field.oldPassword.invalid && field.oldPassword.touched" formControlName="oldPassword" autocomplete="new-password" value="">
@@ -85,7 +85,7 @@
             </div>
           </div>
 
-          <div class="row mt-3">
+          <div class="row mt-3" *ngIf="adminMode">
             <div class="col-md-6">
               <mat-form-field>
                 <input type="number" matInput placeholder="Dług" formControlName="debt" value="" style="text-align: right">
@@ -110,7 +110,7 @@
         </div>
       </div>
 
-      <div class="col-md-4 mt-5">
+      <div class="col-md-4 mt-5" *ngIf="adminMode && hasAdminRole">
         <div class="mb-1"></div>
         <app-role-selector [class.is-invalid]="submitted && field.role.invalid && field.role.touched"
                            [userData]="userData"></app-role-selector>

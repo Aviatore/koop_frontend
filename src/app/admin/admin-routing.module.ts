@@ -20,7 +20,8 @@ const routes: Routes = [
       },
       {
         path: 'user/edit/:userId',
-        component: UserEditComponent
+        component: UserEditComponent,
+        data: {adminMode: true}
       }
     ]
   }

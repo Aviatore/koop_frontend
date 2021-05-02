@@ -15,6 +15,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {delay, map, startWith} from 'rxjs/operators';
 import {MatSelect, MatSelectChange} from '@angular/material/select';
+import {JwtParserService} from '../../services/jwt-parser.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -22,6 +23,8 @@ import {MatSelect, MatSelectChange} from '@angular/material/select';
   styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
+  adminMode: boolean;
+  hasAdminRole: boolean;
   funds: Observable<Funds[]>;
 
   userId: string;
@@ -37,10 +40,18 @@ export class UserEditComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private usersService: UsersService,
               private router: ActivatedRoute,
-              private logger: LoggerService) { }
+              private logger: LoggerService,
+              private jwtParser: JwtParserService) { }
 
   ngOnInit(): void {
+    this.router.data.subscribe(value => this.adminMode = value.adminMode);
+    this.hasAdminRole = this.jwtParser.getUserRoles().includes('Admin');
     this.userId = this.router.snapshot.paramMap.get('userId');
+
+    if (this.userId === null) {
+      this.userId = localStorage.getItem('login_userId');
+    }
+
     this.us = this.usersService;
 
     this.userData = this.formBuilder.group({
