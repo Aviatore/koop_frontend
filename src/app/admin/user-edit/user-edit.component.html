@@ -21,9 +21,6 @@
                 </div>
               </div>
             </div>
-
-
-
           </div>
           <div class="row mt-2">
             <div class="col-md-6">
@@ -112,21 +109,11 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <mat-form-field>
-          <mat-chip-list #chipList formControlName="role" [class.is-invalid]="submitted && field.role.invalid && field.role.touched">
-            <mat-chip *ngFor="let item of userData.get('role').value" selectable="true" removable="true" (removed)="removeRole(item)">
-              {{item}}
-              <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip>
-          </mat-chip-list>
-          <mat-label for="role" style="padding-bottom: 5px;">Role</mat-label>
-          <mat-select id="role" (selectionChange)="selected($event)" #roleSelect>
-            <mat-option *ngFor="let role of filteredRoles | async" [value]="role">
-              {{role}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+
+      <div class="col-md-4 mt-5">
+        <div class="mb-1"></div>
+        <app-role-selector [class.is-invalid]="submitted && field.role.invalid && field.role.touched"
+                           [userData]="userData"></app-role-selector>
         <div *ngIf="submitted && field.role.invalid && field.role.touched" class="text-danger small error">
           <div *ngIf="field.role.errors.required">Użytkownik musi mieć wybraną co najmniej jedną rolę</div>
         </div>

@@ -22,10 +22,6 @@ import {MatSelect, MatSelectChange} from '@angular/material/select';
   styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  filteredRoles: Observable<string[]>;
-  allRoles: string[] = [];
-  roleCtrl = new FormControl();
   funds: Observable<Funds[]>;
 
   userId: string;
@@ -37,9 +33,6 @@ export class UserEditComponent implements OnInit {
 
   us: UsersService;
   userData;
-
-  @ViewChild('roleSelect') roleSelect: MatSelect;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor(private formBuilder: FormBuilder,
               private usersService: UsersService,
@@ -104,12 +97,6 @@ export class UserEditComponent implements OnInit {
           id: result.id,
           role: rolesTmp
         });
-
-        this.usersService.GetALlRoles().subscribe(rolesResult => {
-          rolesResult.forEach(role => this.allRoles.push(role.name));
-
-          this.filteredRoles = of(this.allRoles.filter(p => !this.userData.get('role').value.includes(p)).slice());
-        });
       });
     });
 
@@ -125,43 +112,7 @@ export class UserEditComponent implements OnInit {
     return this.userData.controls;
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.allRoles.filter(role => role.toLowerCase().indexOf(filterValue) === 0);
-  }
-
-  selected(event: MatSelectChange): void {
-    const rolesTmp = this.userData.get('role').value.slice();
-    rolesTmp.push(event.value);
-    this.userData.patchValue({
-      role: rolesTmp
-    });
-
-    this.roleSelect.value = '';
-
-    this.filteredRoles = of(this.allRoles.filter(p => !this.userData.get('role').value.includes(p)).slice());
-  }
-
-  removeRole(role: string): void {
-    const rolesTmp = this.userData.get('role').value.slice();
-    const index = rolesTmp.indexOf(role);
-
-    if (index >= 0) {
-      rolesTmp.splice(index, 1);
-    }
-
-    this.userData.patchValue({
-      role: rolesTmp
-    });
-
-    this.filteredRoles = of(this.allRoles.filter(p => !this.userData.get('role').value.includes(p)).slice());
-  }
-
   onSubmit(): void {
-    this.us.errorResponse.detail = 'Aktualizowanie danych użytkownika. Proszę czekać ...';
-    this.us.errorResponse.status = 300;
-    this.alertVisibility = 1;
     // return null;
     if (this.field.fundId.value === '0') {
       this.field.fundId.setErrors({required: true});
@@ -176,6 +127,10 @@ export class UserEditComponent implements OnInit {
       });
     } else {
       this.submitted = false;
+
+      this.us.errorResponse.detail = 'Aktualizowanie danych użytkownika. Proszę czekać ...';
+      this.us.errorResponse.status = 300;
+      this.alertVisibility = 1;
 
       const user: User = this.userData.getRawValue();
       console.log(...this.logger.info(`User data: ${user.id}`));
