@@ -151,7 +151,8 @@ export class CoopLastOrderComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.getCoopLastGrande(this.coopId);
-      if (result.msg !== undefined || result === true) {
+      console.log(result);
+      if (result.msg !== undefined || result !== '') {
         this.openSnackBarEdit(result.msg);
       }
     });

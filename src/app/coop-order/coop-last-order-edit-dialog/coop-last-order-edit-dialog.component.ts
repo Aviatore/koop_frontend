@@ -10,6 +10,8 @@ import {CoopOrderService} from '../service/coop-order.service';
 })
 export class CoopLastOrderEditDialogComponent implements OnInit {
 
+  msg: string;
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogDataEdit,
               private service: CoopOrderService,
               private dialogRef: MatDialogRef<CoopLastOrderEditDialogComponent>) { }
@@ -22,10 +24,13 @@ export class CoopLastOrderEditDialogComponent implements OnInit {
     const result = this.service.editOrderItemQuantity(orderItemId, num);
     result.subscribe((data) => {
       if ('traceId' in data) {
+        this.msg = data.detail;
         this.dialogRef.close({msg: data.detail});
       } else if ('error' in data) {
+        this.msg = data.error;
         this.dialogRef.close({msg: data.error});
       } else {
+        this.msg = data.info;
         this.dialogRef.close({msg: data.info});
       }
     });
