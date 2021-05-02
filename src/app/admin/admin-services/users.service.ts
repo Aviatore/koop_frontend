@@ -43,21 +43,10 @@ export class UsersService {
     };
   }
 
-  CreateUser(user: User): void {
+  CreateUser(user: User): Observable<any> {
     console.log(...this.logger.info(`Raw data:\n${JSON.stringify(user)}`));
-    this.httpClient.post<HttpResponse<any>>(Urls.CreateUserUrl, user, createUserOptions).pipe(
-      catchError(this.handleError.bind(this))).subscribe(
-        result => {
-          console.log(...this.logger.info(`User created.`));
-          this.errorResponse = {
-            detail: `Konto użytkownika '${user.firstName} ${user.lastName}' zostało utworzone.`,
-            status: 200
-          };
-        },
-      error => {
-        console.error(error);
-      }
-    );
+    return this.httpClient.post<HttpResponse<Observable<ErrorResponse>>>(Urls.CreateUserUrl, user, createUserOptions).pipe(
+      catchError(this.handleError.bind(this)));
   }
 
   GetAllUsers(): Observable<User[]> {

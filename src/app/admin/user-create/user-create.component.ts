@@ -9,6 +9,7 @@ import {UniqueEmailValidator} from '../admin-validators/async-validators';
 import {UniqueUserNameValidator} from '../admin-validators/userName-validator';
 import {LoggerService} from '../../services/logger.service';
 import {Roles} from '../admin-interfaces/roles';
+import {delay} from "rxjs/operators";
 
 @Component({
   selector: 'app-user-edit',
@@ -73,7 +74,8 @@ export class UserCreateComponent implements OnInit {
       ]],
       debt: [''],
       fundId: ['', Validators.required],
-      info: ['']
+      info: [''],
+      role: [[], Validators.required]
     });
   }
 
@@ -110,10 +112,16 @@ export class UserCreateComponent implements OnInit {
     } else {
       this.submitted = false;
 
+      this.us.errorResponse.detail = 'Tworzenie nowego użytkownika. Proszę czekać ...';
+      this.us.errorResponse.status = 300;
+      this.alertVisibility = 1;
+
       const user: User = this.userData.getRawValue();
       // console.log(`Raw data: ${JSON.stringify(this.userData.getRawValue())}`);
-      of(this.usersService.CreateUser(user)).subscribe({
-        complete: () => {
+      this.usersService.CreateUser(user).pipe(delay(2000)).subscribe({
+        next: result => {
+          this.us.errorResponse = result.body;
+          console.log(JSON.stringify(result.body));
           this.showAlert().subscribe(this.userData.reset());
         }
       });

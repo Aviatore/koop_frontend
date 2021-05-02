@@ -111,23 +111,21 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="p-3 py-0">
-          <div class="col-md-12">
-            <div class="d-flex justify-content-between align-items-center experience"><h3>Opis profilu</h3></div>
-            <mat-form-field>
-              <mat-label for="info">Wstaw opis ...</mat-label>
-              <textarea matInput class="form-control" id="info" formControlName="info" name="info" rows="12" style="height: 25vh"></textarea>
-            </mat-form-field>
-          </div>
+
+      <div class="col-md-4 mt-5">
+        <div class="mb-1"></div>
+        <app-role-selector [class.is-invalid]="submitted && field.role.invalid && field.role.touched"
+                           [userData]="userData"></app-role-selector>
+        <div *ngIf="submitted && field.role.invalid && field.role.touched" class="text-danger small error">
+          <div *ngIf="field.role.errors.required">Użytkownik musi mieć wybraną co najmniej jedną rolę</div>
         </div>
       </div>
 
     </div>
 
     <div class="mt-3"><button class="btn btn-primary profile-button" type="button" (click)="onSubmit()">Utwórz</button></div>
-    <div class="alert alert-dismissible fade mt-3" [class.show]="alertVisibility > 0" [ngClass]="us.errorResponse.status === 200 ? 'alert-success' : 'alert-danger'" role="alert">
-      {{us.errorResponse.detail}}
+    <div class="alert alert-dismissible fade mt-3" [class.show]="alertVisibility > 0" [ngClass]="us.errorResponse?.status === 200 ? 'alert-success' : us.errorResponse?.status === 300 ? 'alert-warning' : 'alert-danger'" role="alert">
+      {{us.errorResponse?.detail}}
     </div>
   </form>
 </div>
