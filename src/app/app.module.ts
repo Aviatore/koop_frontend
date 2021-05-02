@@ -36,6 +36,7 @@ import {MaterialModule} from './material/material.module';
 import {AdminModule} from './admin/admin.module';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 import {LoggerService} from './services/logger.service';
+import {UserPanelModule} from './user-panel/user-panel.module';
 
 registerLocaleData(localePL);
 
@@ -66,6 +67,7 @@ registerLocaleData(localePL);
     ReportModule,
     MaterialModule,
     AdminModule,
+    UserPanelModule,
     AppRoutingModule
   ],
   providers: [
