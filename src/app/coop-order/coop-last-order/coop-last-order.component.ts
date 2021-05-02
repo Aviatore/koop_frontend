@@ -6,7 +6,6 @@ import {filter, map, startWith, switchMap} from 'rxjs/operators';
 import {CoopOrderService} from '../service/coop-order.service';
 import {CoopOrder} from '../models/coop-order';
 import {Info} from '../models/info';
-import {Problem} from '../models/problem';
 import {MatTableDataSource} from '@angular/material/table';
 import {CoopOrderNode} from '../models/coop-order-node';
 import {MatPaginator} from '@angular/material/paginator';
@@ -41,7 +40,7 @@ export class CoopLastOrderComponent implements OnInit, AfterViewInit {
   filteredCoopNames: Observable<CoopNames[]>;
   coopLastGrande: CoopOrder[];
   info: Info;
-  problem: Problem;
+  problem: string;
   dataSource: MatTableDataSource<CoopOrderNode>;
   itemsPerPage = [10, 25, 50, 100];
 
@@ -86,26 +85,27 @@ export class CoopLastOrderComponent implements OnInit, AfterViewInit {
     if (coopId !== undefined) {
       this.service.getCoopLastOrder(coopId)
         .subscribe((data) => {
-          if ('info' in data) {
-            this.info = data;
-            this.problem = undefined;
-            this.coopLastGrande = undefined;
-          } else if ('traceId' in data) {
-            this.info = undefined;
-            this.problem = data;
-            this.coopLastGrande = undefined;
-          } else {
-            this.info = undefined;
-            this.problem = undefined;
-            this.coopLastGrande = data;
+            if ('info' in data) {
+              this.info = data;
+              this.coopLastGrande = undefined;
+              this.problem = undefined;
+            } else {
+              this.info = undefined;
+              this.coopLastGrande = data;
+              this.problem = undefined;
 
-            this.dataSource = new MatTableDataSource(data[0].coopOrderNode);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
+              this.dataSource = new MatTableDataSource(data[0].coopOrderNode);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
 
-            return this.coopLastGrande;
-          }
-        });
+              return this.coopLastGrande;
+            }
+          },
+          err => {
+            this.info = undefined;
+            this.coopLastGrande = undefined;
+            this.problem = err.error.detail;
+          });
     }
   }
 

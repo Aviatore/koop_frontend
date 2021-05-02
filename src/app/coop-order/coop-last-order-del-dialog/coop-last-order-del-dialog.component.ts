@@ -12,7 +12,8 @@ export class CoopLastOrderDelDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogDataDel,
               private service: CoopOrderService,
-              private dialogRef: MatDialogRef<CoopLastOrderDelDialogComponent>) { }
+              private dialogRef: MatDialogRef<CoopLastOrderDelDialogComponent>) {
+  }
 
   ngOnInit(): void {
   }
@@ -20,11 +21,10 @@ export class CoopLastOrderDelDialogComponent implements OnInit {
   delProduct(orderItemId: string): void {
     const result = this.service.deleteOrderedItem(orderItemId);
     result.subscribe((data) => {
-      if ('traceId' in data) {
-        this.dialogRef.close({msg: data.detail});
-      } else {
         this.dialogRef.close({msg: data.info});
-      }
-    });
+      },
+      err => {
+        this.dialogRef.close({msg: err.error.detail});
+      });
   }
 }

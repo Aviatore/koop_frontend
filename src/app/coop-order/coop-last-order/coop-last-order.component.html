@@ -20,11 +20,7 @@
   {{info.info}}
 </div>
 <div *ngIf="problem !== undefined" class="text-center w-100 text-danger mt-5">
-  {{problem.type}}<br>
-  {{problem.title}}<br>
-  {{problem.status}}<br>
-  {{problem.detail}}<br>
-  {{problem.traceId}}
+  {{problem}}
 </div>
 
 <div [hidden]="coopLastGrande === undefined">

@@ -22,13 +22,7 @@ export class CoopLastOrderEditDialogComponent implements OnInit {
     const num = +quantity;
     const result = this.service.editOrderItemQuantity(orderItemId, num);
     result.subscribe((data) => {
-        if ('traceId' in data) {
-          this.dialogRef.close({msg: data.detail});
-        } else if ('error' in data) {
-          this.dialogRef.close({msg: data.error});
-        } else {
-          this.dialogRef.close({msg: data.info});
-        }
+        this.dialogRef.close({msg: data.info});
       },
       err => {
         if ('error' in err.error) {
@@ -36,7 +30,6 @@ export class CoopLastOrderEditDialogComponent implements OnInit {
         } else if ('detail' in err.error) {
           this.dialogRef.close({msg: err.error.detail});
         }
-
       });
   }
 }
