@@ -10,11 +10,10 @@ import {CoopOrderService} from '../service/coop-order.service';
 })
 export class CoopLastOrderEditDialogComponent implements OnInit {
 
-  msg: string;
-
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogDataEdit,
               private service: CoopOrderService,
-              private dialogRef: MatDialogRef<CoopLastOrderEditDialogComponent>) { }
+              private dialogRef: MatDialogRef<CoopLastOrderEditDialogComponent>) {
+  }
 
   ngOnInit(): void {
   }
@@ -23,16 +22,21 @@ export class CoopLastOrderEditDialogComponent implements OnInit {
     const num = +quantity;
     const result = this.service.editOrderItemQuantity(orderItemId, num);
     result.subscribe((data) => {
-      if ('traceId' in data) {
-        this.msg = data.detail;
-        this.dialogRef.close({msg: data.detail});
-      } else if ('error' in data) {
-        this.msg = data.error;
-        this.dialogRef.close({msg: data.error});
-      } else {
-        this.msg = data.info;
-        this.dialogRef.close({msg: data.info});
-      }
-    });
+        if ('traceId' in data) {
+          this.dialogRef.close({msg: data.detail});
+        } else if ('error' in data) {
+          this.dialogRef.close({msg: data.error});
+        } else {
+          this.dialogRef.close({msg: data.info});
+        }
+      },
+      err => {
+        if ('error' in err.error) {
+          this.dialogRef.close({msg: err.error.error});
+        } else if ('detail' in err.error) {
+          this.dialogRef.close({msg: err.error.detail});
+        }
+
+      });
   }
 }

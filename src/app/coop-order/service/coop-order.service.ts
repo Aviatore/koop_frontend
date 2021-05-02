@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
 import {CoopOrder} from '../models/coop-order';
 import {AppUrl} from '../../urls/app-url';
 import {Info} from '../models/info';
-import {map} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {CoopNames} from '../models/coop-names';
 import {Problem} from '../models/problem';
 import {BadRequest} from '../models/bad-request';
@@ -70,6 +70,11 @@ export class CoopOrderService {
         } else {
           return res;
         }
-      }));
+      }),
+        catchError(this.handleError));
+  }
+
+  handleError(error: HttpErrorResponse): Observable<never> {
+    return throwError(error);
   }
 }
