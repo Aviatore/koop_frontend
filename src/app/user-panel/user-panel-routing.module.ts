@@ -10,7 +10,8 @@ const routes: Routes = [
     children: [
       {
         path: 'edit',
-        component: UserEditComponent
+        component: UserEditComponent,
+        data: {adminMode: false}
       }
     ]
   }

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserEditSelfComponent } from './user-edit-self.component';
+import { CoopOrdersComponent } from './coop-orders.component';
 
-describe('UserEditSelfComponent', () => {
-  let component: UserEditSelfComponent;
-  let fixture: ComponentFixture<UserEditSelfComponent>;
+describe('CoopOrderComponent', () => {
+  let component: CoopOrdersComponent;
+  let fixture: ComponentFixture<CoopOrdersComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserEditSelfComponent ]
+      declarations: [ CoopOrdersComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserEditSelfComponent);
+    fixture = TestBed.createComponent(CoopOrdersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
