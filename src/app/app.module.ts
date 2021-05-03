@@ -29,9 +29,24 @@ import {AppPaginatorConfig} from './app-paginator-config';
 import {LOCALE_ID} from '@angular/core';
 import {registerLocaleData} from '@angular/common';
 import localePL from '@angular/common/locales/pl';
-import {MatPaginatorIntl} from '@angular/material/paginator';
+import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {FlexLayoutModule} from '@angular/flex-layout';
 import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { SuppliersListComponent } from './suppliers/suppliers-list/suppliers-list.component';
+import { SupplierDetailComponent } from './suppliers/supplier-detail/supplier-detail.component';
+import {MatTableModule} from '@angular/material/table';
+import { SuppliersModule } from './suppliers/suppliers.module';
+import { SupplierInfoComponent } from './suppliers/supplier-info/supplier-info.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { LayoutComponent } from './layout/layout.component';
 import {MaterialModule} from './material/material.module';
 import {AdminModule} from './admin/admin.module';
 import {CoopOrderModule} from './coop-order/coop-order.module';
@@ -52,6 +67,7 @@ registerLocaleData(localePL);
     PageNotFoundComponent,
     LayoutComponent,
     HamburgerMenuComponent,
+    SupplierInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,11 +78,24 @@ registerLocaleData(localePL);
     NgbModule,
     MaterialModule,
     ReportModule,
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatGridListModule,
+    FlexLayoutModule,
+    MatMenuModule,
+    MatTableModule,
+    MatPaginatorModule,
+    SuppliersModule,
+    MatCheckboxModule
     CoopOrderModule,
     StoreModule,
     AdminModule,
     AppRoutingModule
   ],
+  exports: [AppRoutingModule, LayoutComponent],
   providers: [
     UnitsService,
     CookieService,
