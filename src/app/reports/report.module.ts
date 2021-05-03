@@ -20,7 +20,7 @@ import { ReportGrandeOrderComponent } from './report-grande-order/report-grande-
 import {NgReplacePipeModule} from 'angular-pipes';
 import {FlexModule} from '@angular/flex-layout';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MatOptionModule} from '@angular/material/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
