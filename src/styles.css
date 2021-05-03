@@ -3,14 +3,39 @@
 html, body {
   height: 100%;
   margin: 0;
-  background: url("./assets/img/bg-nature.jpg") repeat center 110% fixed;
+  padding: 0;
+  /* background: url("./assets/img/bg-nature.jpg") repeat center 110% fixed;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  */
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  background-image: url("./assets/img/bg.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
 }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .txt-shadow {
   text-shadow: 2px 2px #e3dddd;
 }
+
+.snack-bar-green {
+  color: #fff !important;
+  background-color: rgb(108, 160, 52) !important;
+}
+
+.snack-bar-red {
+  color: #fff !important;
+  background-color: rgb(191, 36, 36) !important;
+}
+

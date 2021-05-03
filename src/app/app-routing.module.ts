@@ -7,13 +7,16 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import { homePageUrl } from '../environments/environment';
 import {SuppliersListComponent} from './suppliers/suppliers-list/suppliers-list.component';
 
+import {AppUrl} from './urls/app-url';
+import {AdminComponent} from './admin/admin/admin.component';
+
 const routes: Routes = [
-  { path: 'units', component: UnitComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: '',   redirectTo: homePageUrl, pathMatch: 'full' },
-  { path: '**', component: PageNotFoundComponent },
-  // { path: 'allsuppliers', component: SuppliersListComponent }
+  { path: AppUrl.ROUTE.getUnits, component: UnitComponent },
+  { path: AppUrl.HOME_PAGE_URL, component: HomeComponent },
+  { path: AppUrl.ROUTE.getLogin, component: LoginComponent },
+  { path: AppUrl.ROUTE.admin, component: AdminComponent },
+  { path: '',   redirectTo: AppUrl.HOME_PAGE_URL, pathMatch: 'full' },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

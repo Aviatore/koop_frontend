@@ -1,6 +1,8 @@
 <button mat-button [matMenuTriggerFor]="menu" class="top-link">Raporty</button>
 <mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="getCoopDept()">Długi kooperantów</button>
-  <button mat-menu-item (click)="getPackList()">Dla paczkersów</button>
-  <button mat-menu-item (click)="getSupplierReceivables()">Należności dostawców</button>
+  <button mat-menu-item routerLink="{{urls.getReportCoopDebt}}">Długi kooperantów</button>
+  <button mat-menu-item routerLink="{{urls.getReportPackList}}">Dla paczkersów</button>
+  <button mat-menu-item routerLink="{{urls.getReportSupReceivables}}">Należności dostawców</button>
+  <button mat-menu-item routerLink="{{urls.getReportGrandeOrder}}">Zamówienie Grande</button>
+  <button mat-menu-item routerLink="{{urls.getReportOrderBySupplier}}">Zamówienia od dostawców</button>
 </mat-menu>

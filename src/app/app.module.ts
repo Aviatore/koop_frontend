@@ -1,5 +1,6 @@
 import {inject, Inject, NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
+import {InjectionToken} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -12,7 +13,7 @@ import {CookieService} from 'ngx-cookie-service';
 import {MenuComponent} from './menu/menu.component';
 import {HomeComponent} from './home/home.component';
 import {UnauthorizeInterceptor} from './http-interceptors/unauthorize-interceptor';
-import {Router} from '@angular/router';
+import {Router, RouterState} from '@angular/router';
 import {RefreshTokenService} from './services/refresh-token.service';
 import {RoutingStateService} from './services/routing-state.service';
 import {LoginService} from './services/login.service';
@@ -45,6 +46,12 @@ import {MatTableModule} from '@angular/material/table';
 import { SuppliersModule } from './suppliers/suppliers.module';
 import { SupplierInfoComponent } from './suppliers/supplier-info/supplier-info.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { LayoutComponent } from './layout/layout.component';
+import {MaterialModule} from './material/material.module';
+import {AdminModule} from './admin/admin.module';
+import {CoopOrderModule} from './coop-order/coop-order.module';
+import {JwtModule} from '@auth0/angular-jwt';
+import {StoreModule} from './stores/store.module';
 
 registerLocaleData(localePL);
 
@@ -69,6 +76,7 @@ registerLocaleData(localePL);
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
+    MaterialModule,
     ReportModule,
     MatIconModule,
     MatButtonModule,
@@ -81,8 +89,11 @@ registerLocaleData(localePL);
     MatTableModule,
     MatPaginatorModule,
     SuppliersModule,
-    AppRoutingModule,
     MatCheckboxModule
+    CoopOrderModule,
+    StoreModule,
+    AdminModule,
+    AppRoutingModule
   ],
   exports: [AppRoutingModule, LayoutComponent],
   providers: [
@@ -107,7 +118,7 @@ registerLocaleData(localePL);
         RoutingStateService,
         Router,
         LoginService,
-        CountDownTokenService,
+        CountDownTokenService
       ]
     }
   ],

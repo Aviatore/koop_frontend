@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import {AppUrl} from '../../urls/app-url';
 
 @Component({
   selector: 'app-report-dropdown-menu',
@@ -8,20 +8,10 @@ import {Router} from '@angular/router';
 })
 export class ReportDropdownMenuComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  urls = AppUrl.ROUTE;
+
+  constructor() { }
 
   ngOnInit(): void {
-  }
-
-  getCoopDept(): void {
-    this.router.navigate(['report-coop-debt']);
-  }
-
-  getPackList(): void {
-    this.router.navigate(['report-pack-list']);
-  }
-
-  getSupplierReceivables(): void {
-    this.router.navigate(['report-supplier-receivables']);
   }
 }

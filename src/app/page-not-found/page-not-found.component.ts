@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {homePageUrl} from '../../environments/environment';
+import {AppUrl} from '../urls/app-url';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-page-not-found',
@@ -8,12 +9,13 @@ import {homePageUrl} from '../../environments/environment';
 })
 export class PageNotFoundComponent implements OnInit {
 
-  homePage = homePageUrl;
-
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
   }
 
+  goToHomePage(): void {
+    this.router.navigate([AppUrl.ROUTE.getHome]);
+  }
 }
