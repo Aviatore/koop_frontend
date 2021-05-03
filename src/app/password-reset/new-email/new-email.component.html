@@ -1,0 +1,34 @@
+<div class="d-flex flex-column justify-content-center align-items-center login-container">
+  <div class="mb-4">
+    <span class="login-form-label">Resetowanie hasła</span>
+  </div>
+  <div class="form-container border border-secondary">
+
+    <form [formGroup]="passResetForm" (ngSubmit)="onSubmit()" class="my-2 main-green form-center">
+      <div class="form-group">
+        <label for="password">Nowe hasło</label>
+        <input type="password" id="password" [class.is-invalid]="submitted && field.password.invalid && field.password.touched" class="form-control" formControlName="password" autocomplete="new-password" #password>
+        <div *ngIf="submitted && field.password.invalid && field.password.touched" class="text-danger small">
+          <div *ngIf="field.password.errors.required">Hasło jest wymagane</div>
+          <div *ngIf="field.password.errors.minlength">Hasło musi składać się z co najmniej 8 znaków</div>
+        </div>
+      </div>
+      <div class="form-group mt-3">
+        <label for="repeatPassword">Powtórz hasło</label>
+        <input type="password" id="repeatPassword" [class.is-invalid]="submitted && field.repeatPassword.invalid && field.repeatPassword.touched" class="form-control" formControlName="repeatPassword" autocomplete="new-password">
+        <div *ngIf="submitted && field.repeatPassword.invalid && field.repeatPassword.touched" class="text-danger small error">
+          <div *ngIf="field.repeatPassword.errors.required">Musisz powtórzyć hasło</div>
+          <div *ngIf="field.repeatPassword.errors.compare">Podane hasło jest nieprawidłowe</div>
+        </div>
+      </div>
+
+      <div class="d-grid gap-4 mt-3">
+        <input type="submit" class="btn btn-primary btn-block" value="Ustaw nowe hasło">
+      </div>
+
+      <div class="text-center alert alert-dismissible fade mt-3" [class.show]="alertVisibility > 0" [ngClass]="passwordResetS.errorResponse?.status === 200 ? 'alert-success' : passwordResetS.errorResponse?.status === 300 ? 'alert-warning' : 'alert-danger'" role="alert">
+        {{passwordResetS?.result ? "Zalogowano" : passwordResetS.errorResponse.detail}}
+      </div>
+    </form>
+  </div>
+</div>
