@@ -4,9 +4,6 @@ import {UnitComponent} from './unit/unit.component';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-import { homePageUrl } from '../environments/environment';
-import {SuppliersListComponent} from './suppliers/suppliers-list/suppliers-list.component';
-
 import {AppUrl} from './urls/app-url';
 import {AdminComponent} from './admin/admin/admin.component';
 
