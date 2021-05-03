@@ -6,8 +6,8 @@ import {ProductsStore} from '../models/products-store';
 import {Info} from '../models/info';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
-import {CoopLastOrderEditDialogComponent} from '../../coop-order/coop-last-order-edit-dialog/coop-last-order-edit-dialog.component';
 import {StoreEditDialogComponent} from '../store-edit-dialog/store-edit-dialog.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-store',
@@ -47,7 +47,8 @@ export class StoreComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private service: StoreService,
-              public editDialog: MatDialog) {
+              public editDialog: MatDialog,
+              private snackBarEdit: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -92,6 +93,37 @@ export class StoreComponent implements OnInit, AfterViewInit {
         amountInMagazine,
         amountMax
       }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getProducts();
+      if (result.msg !== undefined) {
+        this.openSnackBarEdit(result.msg);
+      }
+    });
+  }
+
+  openSnackBarEdit(message: string, action?: string): void {
+    let snackBarCss = 'snack-bar-red';
+    if (message !== undefined && message.includes('The quantity of the product has been changed.')) {
+      message = 'Ilości produktu zostały zmienione.';
+      snackBarCss = 'snack-bar-green';
+    }
+    if (message !== undefined && message.includes('Selected product does not exist or does not have it in stock.')) {
+      message = 'Wybrany produkt nie istnieje lub nie ma go w magazynie.';
+    }
+    if (message !== undefined && message.includes('The entered \'Amount In Magazine\' must be greater or equal than 0.')) {
+      message = 'Wprowadzona "Ilość w magazynie" musi być większa lub równa 0.';
+    }
+    if (message !== undefined && message.includes('The entered \'Amount Max\' must be greater or equal than 0.')) {
+      message = 'Wprowadzona "Max ilość w magazynie" musi być większa lub równa 0.';
+    }
+    if (message !== undefined && message.includes('The \'Amount In Magazine\' must not be greater than \'Amount Max\'.')) {
+      message = '"Ilość w magazynie" nie może być większa niż "Max ilość w magazynie".';
+    }
+    this.snackBarEdit.open(message, action, {
+      duration: 3500,
+      panelClass: snackBarCss
     });
   }
 }
