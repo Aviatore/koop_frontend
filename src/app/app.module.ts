@@ -36,6 +36,7 @@ import {MaterialModule} from './material/material.module';
 import {AdminModule} from './admin/admin.module';
 import {CoopOrderModule} from './coop-order/coop-order.module';
 import {JwtModule} from '@auth0/angular-jwt';
+import {StoreModule} from './stores/store.module';
 
 registerLocaleData(localePL);
 
@@ -62,6 +63,7 @@ registerLocaleData(localePL);
     MaterialModule,
     ReportModule,
     CoopOrderModule,
+    StoreModule,
     AdminModule,
     AppRoutingModule
   ],
