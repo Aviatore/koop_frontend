@@ -67,7 +67,7 @@ export class SupplierDetailComponent implements OnInit {
     // };
 
     this.supplierData = this.formBuilder.group({
-      supplierId: [''],
+      supplierId: ['00000000-0000-0000-0000-000000000000'],
       supplierName: ['', {
         validators: [
           Validators.required,
