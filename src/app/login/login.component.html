@@ -15,7 +15,7 @@
       </div>
       <div class="form-group mt-3">
         <label for="email">Hasło</label>
-        <a href="#"><span id="password-forget">Zapomniałem hasła</span></a>
+        <a [routerLink]="['../password-reset']"><span id="password-forget">Zapomniałem hasła</span></a>
         <input type="password" id="password" [class.is-invalid]="submitted && field.password.invalid && field.password.touched" class="form-control" formControlName="password" autocomplete="new-password">
         <div *ngIf="submitted && field.password.invalid && field.password.touched" class="text-danger small">
           <div *ngIf="field.password.errors.required">Hasło jest wymagane</div>
