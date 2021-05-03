@@ -8,7 +8,8 @@ import { SupplierDetailComponent } from './supplier-detail/supplier-detail.compo
 const routes: Routes = [
   {path: 'allsuppliers', component: SuppliersListComponent},
   {path: 'supplier/:id/edit', component: SupplierDetailComponent},
-  // {path: 'supplier/:id', component: SupplierComponent},
+  {path: 'supplier/add', component: SupplierDetailComponent},
+  // {path: 'supplier/:id', component: SupplierInfoComponent},
 ];
 
 @NgModule({

@@ -22,7 +22,9 @@
     <ng-component matColumnDef="supplierAbbr">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="supplierAbbr">Skrót</th>
       <td mat-cell *matCellDef="let element">
-        <a class="button" routerLink="/supplier/{{element.supplierId}}/edit" routerLinkActive="activebutton">{{element.supplierAbbr}}</a>
+
+        <a *ngIf="authorized" class="button" routerLink="/supplier/{{element.supplierId}}/edit" routerLinkActive="activebutton">{{element.supplierAbbr}}</a>
+        <a *ngIf="!authorized" class="button" routerLink="/supplier/{{element.supplierId}}" routerLinkActive="activebutton">{{element.supplierAbbr}}</a>
       </td>
     </ng-component>
     <ng-component matColumnDef="supplierName">

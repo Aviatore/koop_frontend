@@ -1,8 +1,12 @@
 <section fxLayout="row wrap" fxLayoutAlign="center center">
-  <div *ngIf="supplier | async as sup">
+<!--  <div *ngIf="supplier | async as sup">-->
+  <div>
 
     <mat-card fxFlex="500px" fxFlex.xs="100%">
-      <div>
+      <div *ngIf="isAddMode">
+        <mat-card-title>Dodaj dostawcę</mat-card-title>
+      </div>
+      <div *ngIf="supplier | async as sup" >
         <mat-card-title>Edytuj dostawcę {{sup.supplierName}}</mat-card-title>
       </div>
 

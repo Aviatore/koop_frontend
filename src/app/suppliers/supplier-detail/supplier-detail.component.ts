@@ -22,6 +22,9 @@ import { Location } from '@angular/common';
   styleUrls: ['./supplier-detail.component.css']
 })
 export class SupplierDetailComponent implements OnInit {
+  isAddMode: boolean;
+  id: string;
+
   alertVisibilityTimeSec = 5;
   ss: SupplierService;
   submitted = false;
@@ -42,19 +45,26 @@ export class SupplierDetailComponent implements OnInit {
               private router: Router) {}
 
   ngOnInit(): void {
-    this.coopNames = this.supplierService.getUsers();
+    this.id = this.route.snapshot.params.id;
+    this.isAddMode = !this.id;
 
+    this.coopNames = this.supplierService.getUsers();
     this.ss = this.supplierService;
+
+
+    if (!this.isAddMode) {
+      this.supplier = this.route.paramMap.pipe(
+        switchMap((params: ParamMap) =>
+          this.supplierService.getSupplier(params.get('id'))),
+        tap(supplier => this.supplierData.patchValue(supplier))
+      );
+    }
+
+
     // this.ss.errorResponse = {
     //   detail: '',
     //   status: 0
     // };
-
-    this.supplier = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.supplierService.getSupplier(params.get('id'))),
-      tap(supplier => this.supplierData.patchValue(supplier))
-    );
 
     this.supplierData = this.formBuilder.group({
       supplierId: [''],
@@ -112,10 +122,6 @@ export class SupplierDetailComponent implements OnInit {
     onSubmit(): void {
       console.log(this.supplierData.controls);
 
-      if (this.field.fundId.value === '0') {
-      this.field.fundId.setErrors({required: true});
-    }
-
       if (this.supplierData.invalid) {
         this.submitted = true;
 
@@ -127,9 +133,16 @@ export class SupplierDetailComponent implements OnInit {
         this.submitted = false;
 
         console.log(`Raw data: ${JSON.stringify(this.supplierData.getRawValue())}`);
-        of(this.supplierService.editSupplier(this.supplierData.getRawValue())).subscribe(result => {
-          this.showAlert().subscribe();
-        });
+
+        if (!this.isAddMode) {
+          of(this.supplierService.editSupplier(this.supplierData.getRawValue())).subscribe(result => {
+            this.showAlert().subscribe();
+          });
+        } else {
+          of(this.supplierService.addSupplier(this.supplierData.getRawValue())).subscribe(result => {
+            this.showAlert().subscribe();
+          });
+        }
       }
 
       this.router.navigate(['allsuppliers']);

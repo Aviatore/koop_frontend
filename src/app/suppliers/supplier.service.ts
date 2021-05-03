@@ -43,6 +43,15 @@ export class SupplierService {
       );
   }
 
+  addSupplier(supplier: Supplier): void {
+    console.log(`Raw data: ${JSON.stringify(supplier)}`);
+    this.http.post<HttpResponse<any>>(`${baseUrl}Supplier/supplier/add`, supplier, supplierOptions)
+      .subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      );
+  }
+
   toggleAvail(supplierId: Guid): void {
     console.log(`Raw data: ${JSON.stringify(supplierId)}`);
     this.http.get<any>(`${baseUrl}Supplier/supplier/${supplierId}/toggleAvail`, supplierOptions)
