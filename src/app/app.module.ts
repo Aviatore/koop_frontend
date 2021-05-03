@@ -36,6 +36,7 @@ import {MaterialModule} from './material/material.module';
 import {AdminModule} from './admin/admin.module';
 import {CoopOrderModule} from './coop-order/coop-order.module';
 import {JwtModule} from '@auth0/angular-jwt';
+import {StoreModule} from './stores/store.module';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 import {LoggerService} from './services/logger.service';
 import {UserPanelModule} from './user-panel/user-panel.module';
@@ -72,6 +73,7 @@ registerLocaleData(localePL);
     MaterialModule,
     ReportModule,
     CoopOrderModule,
+    StoreModule,
     AdminModule,
     UserPanelModule,
     PasswordResetModule,
