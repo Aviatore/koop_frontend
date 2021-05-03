@@ -9,12 +9,16 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {StoreService} from './service/store.service';
 import { StoreEditDialogComponent } from './store-edit-dialog/store-edit-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { StoreSupplierComponent } from './store-supplier/store-supplier.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
   declarations: [
     StoreComponent,
-    StoreEditDialogComponent
+    StoreEditDialogComponent,
+    StoreSupplierComponent
   ],
   imports: [
     CommonModule,
@@ -23,6 +27,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatPaginatorModule,
     StoreRoutingModule,
     MatDialogModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
   ],
   providers: [
     StoreService

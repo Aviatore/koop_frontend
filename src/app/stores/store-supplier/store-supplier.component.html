@@ -1,0 +1,17 @@
+<h2 class="text-center px-2 txt-shadow">Produkty Dostawcy</h2>
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <div class="mb-2">
+    <form>
+      <input type="text" class="input-form"
+             placeholder="Szukaj dostawcy"
+             [formControl]="control"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="getSupplierProducts($event.option.id)">
+        <mat-option *ngFor="let supplier of filteredSuppliers | async" [value]="supplier.supplierName"
+                    [id]="supplier.supplierId.toString()">
+          {{supplier.supplierName}} ({{supplier.supplierAbbr}})
+        </mat-option>
+      </mat-autocomplete>
+    </form>
+  </div>
+</div>
