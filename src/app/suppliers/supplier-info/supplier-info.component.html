@@ -1,1 +1,50 @@
-<p>supplier-info works!</p>
+<div *ngIf="supplier | async as sup">
+  <h2 class="text-md-center px-2 txt-shadow">Dostawca {{sup.supplierName}}</h2>
+
+  <div class="table-responsive-sm px-2">
+    <div>
+      <p>Skrót</p>
+      <p>{{sup.supplierAbbr}}</p>
+    </div>
+    <div>
+      <p>Nazwa</p>
+      <p>{{sup.supplierName}}</p>
+    </div>
+    <div>
+      <p>Numer telefonu</p>
+      <p>{{sup.phone}}</p>
+    </div>
+    <div>
+      <p>Email</p>
+      <p>{{sup.email}}</p>
+    </div>
+    <div>
+      <p>Opis</p>
+      <p>{{sup.description}}</p>
+    </div>
+    <div>
+      <p>OpRo</p>
+      <p>{{sup.oproFullName}}</p>
+    </div>
+    <div>
+      <p>Dostępny</p>
+      <mat-checkbox [checked]="sup.available" disabled></mat-checkbox>
+    </div>
+    <div>
+      <p>Zablokowany</p>
+      <mat-checkbox [checked]="sup.blocked" disabled></mat-checkbox>
+    </div>
+    <div>
+      <p>Data zamknięcia formularza</p>
+      <p>{{sup.orderClosingDate | date}}</p>
+    </div>
+  </div>
+</div>
+
+
+
+<div>
+  <button mat-raised-button color="primary" routerLink="../../home" routerLinkActive="activebutton">Zobacz produkty dostawcy</button>
+<!--  TODO: link do all supplier's products-->
+  <button mat-raised-button color="primary" routerLink="/allsuppliers" routerLinkActive="activebutton">Zobacz wszystkich dostawców</button>
+</div>

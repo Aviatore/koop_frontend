@@ -73,6 +73,7 @@ export class SuppliersListComponent implements OnInit, AfterViewInit {
     else{
       console.log('null token');
       this.authorized = false;
+      console.log('authorized: ' + this.authorized);
     }
   }
 

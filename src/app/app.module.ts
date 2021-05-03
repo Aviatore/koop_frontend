@@ -44,6 +44,7 @@ import { SupplierDetailComponent } from './suppliers/supplier-detail/supplier-de
 import {MatTableModule} from '@angular/material/table';
 import { SuppliersModule } from './suppliers/suppliers.module';
 import { SupplierInfoComponent } from './suppliers/supplier-info/supplier-info.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 registerLocaleData(localePL);
 
@@ -80,7 +81,8 @@ registerLocaleData(localePL);
     MatTableModule,
     MatPaginatorModule,
     SuppliersModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatCheckboxModule
   ],
   exports: [AppRoutingModule, LayoutComponent],
   providers: [
