@@ -7,11 +7,14 @@ import {MaterialModule} from '../material/material.module';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {StoreService} from './service/store.service';
+import { StoreEditDialogComponent } from './store-edit-dialog/store-edit-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
   declarations: [
-    StoreComponent
+    StoreComponent,
+    StoreEditDialogComponent
   ],
   imports: [
     CommonModule,
@@ -19,6 +22,7 @@ import {StoreService} from './service/store.service';
     MatSortModule,
     MatPaginatorModule,
     StoreRoutingModule,
+    MatDialogModule,
   ],
   providers: [
     StoreService

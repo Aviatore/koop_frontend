@@ -5,6 +5,9 @@ import {MatTableDataSource} from '@angular/material/table';
 import {ProductsStore} from '../models/products-store';
 import {Info} from '../models/info';
 import {MatPaginator} from '@angular/material/paginator';
+import {MatDialog} from '@angular/material/dialog';
+import {CoopLastOrderEditDialogComponent} from '../../coop-order/coop-last-order-edit-dialog/coop-last-order-edit-dialog.component';
+import {StoreEditDialogComponent} from '../store-edit-dialog/store-edit-dialog.component';
 
 @Component({
   selector: 'app-store',
@@ -43,7 +46,8 @@ export class StoreComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private service: StoreService) {
+  constructor(private service: StoreService,
+              public editDialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -80,4 +84,14 @@ export class StoreComponent implements OnInit, AfterViewInit {
         });
   }
 
+  openEditDialog(productId: string, productName: string, amountInMagazine: number, amountMax: number): void {
+    const dialogRef = this.editDialog.open(StoreEditDialogComponent, {
+      data: {
+        productId,
+        productName,
+        amountInMagazine,
+        amountMax
+      }
+    });
+  }
 }

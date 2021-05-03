@@ -76,16 +76,22 @@
       </ng-component>
       <ng-component matColumnDef="available">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Dostępność</th>
-        <td mat-cell *matCellDef="let element">{{element.available}}</td>
+        <td mat-cell *matCellDef="let element">{{element.available ? 'TAK' : 'NIE'}}</td>
       </ng-component>
       <ng-component matColumnDef="blocked">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Zablokowany</th>
-        <td mat-cell *matCellDef="let element">{{element.blocked}}</td>
+        <td mat-cell *matCellDef="let element">{{element.blocked ? 'TAK' : 'NIE'}}</td>
       </ng-component>
       <ng-component matColumnDef="actionButtons">
         <th mat-header-cell *matHeaderCellDef>Akcja</th>
         <td mat-cell *matCellDef="let element">
-          <button mat-icon-button class="edit-button">
+          <button mat-icon-button
+                  (click)="openEditDialog(
+                  element.productId,
+                  element.productName,
+                  element.amountInMagazine,
+                  element.amountMax
+                  )" class="edit-button">
             <mat-icon>edit</mat-icon>
           </button>
         </td>
