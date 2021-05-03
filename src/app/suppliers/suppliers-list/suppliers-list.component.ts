@@ -28,8 +28,8 @@ export class SuppliersListComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = [
     // 'id',
-    'abbr',
-    'name',
+    'supplierAbbr',
+    'supplierName',
     'email',
     'phone',
     'oproFullName',
@@ -91,6 +91,8 @@ export class SuppliersListComponent implements OnInit, AfterViewInit {
   // onSelect(supplier: Supplier): void {
   //   this.selectedSupplier = supplier;
   // }
+
+
 
   toggleAvailability(Id: Guid): void
   {

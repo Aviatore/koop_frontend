@@ -3,10 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { SuppliersListComponent } from './suppliers-list/suppliers-list.component';
 import { SupplierDetailComponent } from './supplier-detail/supplier-detail.component';
+// import { SupplierComponent } from './supplier-detail/supplier-detail.component';
 
 const routes: Routes = [
   {path: 'allsuppliers', component: SuppliersListComponent},
-  {path: 'supplier/:id', component: SupplierDetailComponent}
+  {path: 'supplier/:id/edit', component: SupplierDetailComponent},
+  // {path: 'supplier/:id', component: SupplierComponent},
 ];
 
 @NgModule({

@@ -1,129 +1,194 @@
-<div *ngIf="supplier | async as sup">
-  <div class="container rounded mb-0">
-    <form *ngIf="supplier | async as sup" [formGroup]="supplierData" (ngSubmit)="onSubmit()">
-      <div class="row mb-0">
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+  <div *ngIf="supplier | async as sup">
 
-        <div class="col-md-8 border-right">
-          <div class="py-0">
-            <div class="d-flex justify-content-between align-items-center mb-0">
-              <h2 class="text-right">Edycja dostawcy {{sup.supplierName}}</h2>
-            </div>
-            <div class="row mt-0">
-              <div class="col-md-4">
-                <div class="form-floating">
-                  <input type="text" class="form-control" [class.is-invalid]="submitted && field.name.invalid && field.supplierName.touched" id="supplierName" formControlName="supplierName" placeholder="Nazwa" value="" #inName autocomplete="supplierName">
-                  <label for="supplierName">Nazwa</label>
-                </div>
-                <div class="mb-3">
-                  <div *ngIf="submitted && field.supplierName.invalid && field.supplierName.touched" class="text-danger small">
-                    <div *ngIf="field.supplierName.errors.required">Nazwa jest wymagana</div>
-                    <div *ngIf="field.supplierName.errors.minLength">Nazwa musi składać się z co najmniej 3 znaków</div>
-<!--                    <div *ngIf="field.Name.errors.uniqueName">Nazwa dostawcy już istnieje</div>-->
-                  </div>
-                </div>
-<!--                <mat-form-field appearance="standard">-->
-<!--                  <mat-label for="supplierName">Nazwa dostawcy</mat-label>-->
-<!--                  <input matInput id="supplierName" formControlName="supplierName" placeholder="Nazwa" value="" autocomplete="supplierName">-->
+    <mat-card fxFlex="500px" fxFlex.xs="100%">
+      <div>
+        <mat-card-title>Edytuj dostawcę {{sup.supplierName}}</mat-card-title>
+      </div>
+
+      <div>
+        <form [formGroup]="supplierData" autocomplete="off" novalidate (ngSubmit)="onSubmit()" fxLayout="column wrap"
+              fxLayoutAlign="center center" fxLayoutGap="10px">
+          <mat-card-content>
+            <mat-form-field>
+              <input matInput type="text" placeholder="Skrót" formControlName="supplierAbbr" id="supplierAbbr">
+              <!--          <mat-hint align="end">Not more then 60 characters long.</mat-hint>-->
+              <mat-error *ngIf="hasError('supplierAbbr', 'required')">Skrót musi być</mat-error>
+              <mat-error *ngIf="hasError('supplierAbbr', 'maxlength')">Min. 3 znaki</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="text" placeholder="Nazwa" formControlName="supplierName" id="supplierName">
+              <!--          <mat-hint align="end">Not more then 60 characters long.</mat-hint>-->
+              <mat-error *ngIf="hasError('supplierName', 'required')">Nazwa musi być</mat-error>
+              <mat-error *ngIf="hasError('supplierName', 'maxlength')">Min. 3 znaki</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="text" placeholder="Numer telefonu" formControlName="phone" id="phone">
+              <mat-error *ngIf="hasError('phone', 'required')">Telefon musi być</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="text" placeholder="Email" formControlName="email" id="email">
+              <mat-error *ngIf="hasError('email', 'required')">Email musi być</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="number" placeholder="Stan konta" formControlName="receivables" id="receivables">
+            </mat-form-field>
+            <mat-form-field>
+              <textarea matInput placeholder="Opis" formControlName="description" id="description"></textarea>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>OpRo</mat-label>
+              <mat-select formControlName="oproFullName" id="oproFullName">
+                <mat-option value="" disabled>-</mat-option>
+                <mat-option *ngFor="let coop of coopNames | async" [value]="coop.fullName">
+                  {{coop.fullName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-checkbox formControlName="available" id="available">Dostępny</mat-checkbox>
+            <mat-checkbox formControlName="blocked" id="blocked">Zablokowany</mat-checkbox>
+
+
+
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker" placeholder="Data zamknięcia formularza" formControlName="orderClosingDate" id="orderClosingDate"
+                     readonly (click)="picker.open()">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+          </mat-card-content>
+          <mat-card-actions align="center">
+            <button mat-raised-button color="primary" [disabled]="!supplierData.valid">Zapisz</button>
+            <!--        <button type="button"> mat-raised-button color="warn" (click)="onCancel()">Cancel</button>-->
+          </mat-card-actions>
+        </form>
+      </div>
+
+    </mat-card>
+  </div>
+</section>
+
+
+
+
+<!--<div *ngIf="supplier | async as sup">-->
+<!--  <div class="container rounded mb-0">-->
+<!--    <form *ngIf="supplier | async as sup" [formGroup]="supplierData" (ngSubmit)="onSubmit()">-->
+<!--      <div class="row mb-0">-->
+<!--        <div class="col-md-8 border-right">-->
+<!--          <div class="py-0">-->
+<!--            <div class="d-flex justify-content-between align-items-center mb-0">-->
+<!--              <h2 class="text-right">Edycja dostawcy {{sup.supplierName}}</h2>-->
+<!--            </div>-->
+<!--            <div class="row mt-0">-->
+<!--              <div class="col-md-4">-->
+<!--                <mat-form-field>-->
+<!--                  <input matInput placeholder="Nazwa" [class.is-invalid]="submitted && field.supplierName.invalid && field.supplierName.touched" formControlName="supplierName" autocomplete="supplierName" value="">-->
 <!--                </mat-form-field>-->
-              </div>
-              <div class="col-md-4">
-                <div class="form-floating">
-                  <input type="text" class="form-control" [class.is-invalid]="submitted && field.supplierAbbr.invalid && field.supplierAbbr.touched" id="supplierAbbr" formControlName="supplierAbbr" value="" placeholder="Skrót" #inAbbr autocomplete="supplierAbbr">
-                  <label for="supplierAbbr">Skrót</label>
-                </div>
-                <div class="mb-3">
-                  <div *ngIf="submitted && field.supplierAbbr.invalid && field.supplierAbbr.touched" class="text-danger small">
-                    <div *ngIf="field.supplierAbbr.errors.required">Skrót jest wymagany</div>
-                    <div *ngIf="field.supplierAbbr.errors.minLength">Skrót musi składać się z co najmniej 3 znaków</div>
-<!--                    <div *ngIf="field.abbr.errors.uniqueAbbr">Skrót już istnieje</div>-->
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row mt-2">
-              <div class="col-md-6">
-                <div class="form-floating">
-                  <input type="text" class="form-control" id="phone" formControlName="phone" placeholder="Phone" value="" autocomplete="phone">
-                  <label for="phone">Numer telefonu</label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-floating">
-                  <input type="email" class="form-control" id="email" [class.is-invalid]="submitted && field.email.invalid && field.email.touched" formControlName="email" placeholder="E-mail" value="" #inEmail autocomplete="email" #email>
-                  <label for="email">E-mail</label>
-                </div>
-                <div class="mb-3">
-                  <div *ngIf="submitted && field.email.invalid && field.email.touched" class="text-danger small">
-                    <div *ngIf="field.email.errors.required">Adres e-mail jest wymagany</div>
-<!--                    <div *ngIf="field.email.errors.email">E-mail jest nieprawidłowy</div>-->
-<!--                    <div *ngIf="field.email.errors.uniqueEmail">Adres już istnieje, proszę podać inny</div>-->
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-floating">
-                  <select class="custom-select form-control" id="oproFullName" [class.is-invalid]="submitted && field.oproFullName.invalid && field.oproFullName.touched" formControlName="oproFullName" autocomplete="oproFullName">
-<!--                    <option selected >Wybierz...</option>-->
-                    <option *ngFor="let coop of coopNames | async" [value]="coop.fullName">
-                      {{coop.fullName}}
-                    </option>
-                  </select>
-                  <label for="oproFullName">OpRo</label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-floating">
-                  <input type="number" class="form-control" id="receivables" formControlName="receivables" value="" placeholder="Stan konta" autocomplete="receivables">
-                  <label for="receivables">Stan konta</label>
-                </div>
-              </div>
-
-              <div class="row mt-3">
-<!--                <div class="col-md-6">-->
-<!--                  <div class="form-floating">-->
-<!--                    <input type="orderClosingDate" class="form-control" id="orderClosingDate" formControlName="orderClosingDate" value="" placeholder="Data zamknięcia zamówienia" autocomplete="available">-->
-<!--                    <label for="orderClosingDate">Data zamknięcia zamówienia</label>-->
+<!--                <div class="mb-3">-->
+<!--                  <div *ngIf="submitted && field.supplierName.invalid && field.supplierName.touched" class="text-danger small error">-->
+<!--                    <div *ngIf="field.supplierName.errors.required">Nazwa jest wymagana</div>-->
+<!--                    <div *ngIf="field.supplierName.errors.minLength">Nazwa musi składać się z co najmniej 3 znaków</div>-->
 <!--                  </div>-->
 <!--                </div>-->
-<!--                <mat-form-field appearance="fill">-->
-<!--                  <mat-label>Wybierz datę</mat-label>-->
-<!--                  <input matInput [matDatepicker]="picker">-->
-<!--                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-<!--                  <mat-datepicker #picker></mat-datepicker>-->
+<!--              </div>-->
+<!--              <div class="col-md-4">-->
+<!--                <mat-form-field>-->
+<!--                  <input matInput placeholder="Skrót" [class.is-invalid]="submitted && field.supplierAbbr.invalid && field.supplierAbbr.touched" formControlName="supplierAbbr" autocomplete="supplierAbbr" value="">-->
 <!--                </mat-form-field>-->
-                <div class="col-md-6">
-                  <div class="form-floating">
-                    <input type="checkbox" class="form-control" id="available" formControlName="available" value="" placeholder="Dostępny" autocomplete="available">
-                    <label for="available">Dostępny</label>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-floating">
-                    <input type="checkbox" class="form-control" id="blocked" formControlName="blocked" value="" placeholder="Zablokowany" autocomplete="blocked">
-                    <label for="blocked">Zablokowany</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="p-3 py-0">
-            <div class="col-md-12">
-              <div class="d-flex justify-content-between align-items-center experience"><h3>Opis</h3></div>
-              <div class="form-floating">
-                <textarea class="form-control" id="description" formControlName="description" name="description" rows="12" placeholder="Opis..." autocomplete="description" style="height: 25vh"></textarea>
-<!--                <label for="description">Wstaw opis ...</label>-->
-              </div>
-            </div>
-          </div>
-        </div>
-      <div class="mt-3"><button class="btn btn-primary profile-button" type="button" (click)="onSubmit()">Zapisz</button></div>
-<!--      <div class="alert alert-dismissible fade mt-3" [class.show]="alertVisibility > 0" [ngClass]="ss.errorResponse.status === 200 ? 'alert-success' : 'alert-danger'" role="alert">-->
-<!--        {{ss.errorResponse.detail}}-->
+<!--                <div class="mb-3">-->
+<!--                  <div *ngIf="submitted && field.supplierAbbr.invalid && field.supplierAbbr.touched" class="text-danger small">-->
+<!--                    <div *ngIf="field.supplierAbbr.errors.required">Skrót jest wymagany</div>-->
+<!--                    <div *ngIf="field.supplierAbbr.errors.minLength">Skrót musi składać się z co najmniej 3 znaków</div>-->
+<!--&lt;!&ndash;                    <div *ngIf="field.abbr.errors.uniqueAbbr">Skrót już istnieje</div>&ndash;&gt;-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="row mt-2">-->
+<!--              <div class="col-md-6">-->
+<!--                <mat-form-field>-->
+<!--                  <input matInput placeholder="Telefon" [class.is-invalid]="submitted && field.phone.invalid && field.phone.touched" formControlName="phone" autocomplete="phone" value="">-->
+<!--                </mat-form-field>-->
+<!--              </div>-->
+<!--              <div class="col-md-6">-->
+<!--                <mat-form-field>-->
+<!--                  <input matInput placeholder="Email" [class.is-invalid]="submitted && field.email.invalid && field.email.touched" formControlName="email" autocomplete="email" value="">-->
+<!--                </mat-form-field>-->
+<!--                <div class="mb-3">-->
+<!--                  <div *ngIf="submitted && field.email.invalid && field.email.touched" class="text-danger small">-->
+<!--                    <div *ngIf="field.email.errors.required">Adres e-mail jest wymagany</div>-->
+<!--&lt;!&ndash;                    <div *ngIf="field.email.errors.email">E-mail jest nieprawidłowy</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div *ngIf="field.email.errors.uniqueEmail">Adres już istnieje, proszę podać inny</div>&ndash;&gt;-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="col-md-6">-->
+<!--                <div class="form-floating">-->
+<!--                  <select class="custom-select form-control" id="oproFullName" [class.is-invalid]="submitted && field.oproFullName.invalid && field.oproFullName.touched" formControlName="oproFullName" autocomplete="oproFullName">-->
+<!--&lt;!&ndash;                    <option selected >Wybierz...</option>&ndash;&gt;-->
+<!--                    <option *ngFor="let coop of coopNames | async" [value]="coop.fullName">-->
+<!--                      {{coop.fullName}}-->
+<!--                    </option>-->
+<!--                  </select>-->
+<!--                  <label for="oproFullName">OpRo</label>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="col-md-6">-->
+<!--                <mat-form-field>-->
+<!--                  <input matInput placeholder="Stan konta" formControlName="receivables" autocomplete="receivables" value="">-->
+<!--                </mat-form-field>-->
+<!--              </div>-->
+
+<!--              <div class="row mt-3">-->
+<!--&lt;!&ndash;                <div class="col-md-6">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div class="form-floating">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="orderClosingDate" class="form-control" id="orderClosingDate" formControlName="orderClosingDate" value="" placeholder="Data zamknięcia zamówienia" autocomplete="available">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <label for="orderClosingDate">Data zamknięcia zamówienia</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <mat-form-field appearance="fill">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <mat-label>Wybierz datę</mat-label>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <input matInput [matDatepicker]="picker">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <mat-datepicker #picker></mat-datepicker>&ndash;&gt;-->
+<!--&lt;!&ndash;                </mat-form-field>&ndash;&gt;-->
+<!--                <div class="col-md-6">-->
+<!--                  <div class="form-floating">-->
+<!--                    <input type="checkbox" class="form-control" id="available" formControlName="available" value="" placeholder="Dostępny" autocomplete="available">-->
+<!--                    <label for="available">Dostępny</label>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-6">-->
+<!--                  <div class="form-floating">-->
+<!--                    <input type="checkbox" class="form-control" id="blocked" formControlName="blocked" value="" placeholder="Zablokowany" autocomplete="blocked">-->
+<!--                    <label for="blocked">Zablokowany</label>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-md-4">-->
+<!--          <div class="p-3 py-0">-->
+<!--            <div class="col-md-12">-->
+<!--              <div class="d-flex justify-content-between align-items-center experience"><h3>Opis</h3></div>-->
+<!--              <div class="form-floating">-->
+<!--                <textarea class="form-control" id="description" formControlName="description" name="description" rows="12" placeholder="Opis..." autocomplete="description" style="height: 25vh"></textarea>-->
+<!--&lt;!&ndash;                <label for="description">Wstaw opis ...</label>&ndash;&gt;-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="mt-3"><button class="btn btn-primary profile-button" type="button" (click)="onSubmit()">Zapisz</button></div>-->
+<!--&lt;!&ndash;      <div class="alert alert-dismissible fade mt-3" [class.show]="alertVisibility > 0" [ngClass]="ss.errorResponse.status === 200 ? 'alert-success' : 'alert-danger'" role="alert">&ndash;&gt;-->
+<!--&lt;!&ndash;        {{ss.errorResponse.detail}}&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
 <!--      </div>-->
-            </div>
-    </form>
-  </div>
-</div>
+<!--    </form>-->
+<!--  </div>-->
+<!--</div>-->
 

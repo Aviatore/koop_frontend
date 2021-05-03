@@ -19,13 +19,13 @@
 <h2 class="text-md-center px-2 txt-shadow">Dostawcy</h2>
 <div class="table-responsive-sm px-2">
   <table mat-table [dataSource]="dataSource" matSort class="table-striped mat-elevation-z10">
-    <ng-component matColumnDef="abbr">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="supplierAbbr">Nazwa>Skrót</th>
+    <ng-component matColumnDef="supplierAbbr">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="supplierAbbr">Skrót</th>
       <td mat-cell *matCellDef="let element">
-        <a class="button" routerLink="/supplier/{{element.supplierId}}" routerLinkActive="activebutton">{{element.supplierAbbr}}</a>
+        <a class="button" routerLink="/supplier/{{element.supplierId}}/edit" routerLinkActive="activebutton">{{element.supplierAbbr}}</a>
       </td>
     </ng-component>
-    <ng-component matColumnDef="name">
+    <ng-component matColumnDef="supplierName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="supplierName">Nazwa</th>
       <td mat-cell *matCellDef="let element">{{element.supplierName}}</td>
     </ng-component>

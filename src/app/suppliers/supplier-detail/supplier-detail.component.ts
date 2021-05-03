@@ -1,12 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Supplier} from '../supplier';
 import {SupplierService} from '../supplier.service';
-import {MatTableDataSource} from '@angular/material/table';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable, of} from 'rxjs';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {switchMap, tap} from 'rxjs/operators';
 import {UserName} from '../userName';
+
+import { Router } from '@angular/router';
+
+import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+import {map, startWith} from 'rxjs/operators';
+
+import { Location } from '@angular/common';
 
 
 
@@ -21,18 +27,29 @@ export class SupplierDetailComponent implements OnInit {
   submitted = false;
   alertVisibility: number;
   coopNames: Observable<UserName[]>;
-  supplierData;
+  public supplierData: FormGroup;
 
   supplier: Observable<Supplier>;
 
-  constructor(private route: ActivatedRoute,
+  // @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  // private route: ActivatedRoute,
+  // private router: Router
+
+  constructor(private supplierService: SupplierService,
+              private location: Location,
               private formBuilder: FormBuilder,
-              private supplierService: SupplierService) {}
+              private route: ActivatedRoute,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.coopNames = this.supplierService.getUsers();
 
     this.ss = this.supplierService;
+    // this.ss.errorResponse = {
+    //   detail: '',
+    //   status: 0
+    // };
+
     this.supplier = this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
         this.supplierService.getSupplier(params.get('id'))),
@@ -45,35 +62,30 @@ export class SupplierDetailComponent implements OnInit {
         validators: [
           Validators.required,
           Validators.minLength(3)
-        ],
-        // asyncValidators: [
-        //   new UniqueUserNameValidator(this.supplierService)
-        // ],
-        updateOn: 'blur'
+        ]
       }],
       supplierAbbr: ['', {
         validators: [
           Validators.required,
           Validators.minLength(3)
+        ]
+      }],
+      phone: ['', {
+        validators: [
+          Validators.required,
         ],
-        // asyncValidators: [
-        //   new UniqueUserNameValidator(this.supplierService)
-        // ],
         updateOn: 'blur'
       }],
-      phone: [''],
       email: ['', {
         validators: [
           Validators.required,
           // RxwebValidators.email()
         ],
-        // asyncValidators: [
-        //   new UniqueEmailValidator(this.supplierService)
-        // ],
         updateOn: 'blur'
       }],
       receivables: [''],
       description: [''],
+      orderClosingDate: ['', Validators.required],
       blocked: [''],
       available: [''],
       picture: [''],
@@ -81,24 +93,28 @@ export class SupplierDetailComponent implements OnInit {
     });
   }
 
-    get name(): any {
-      return this.supplierData.get('Name');
-    }
-
+    // get name(): any {
+    //   return this.supplierData.get('Name');
+    // }
+    //
     get field(): any {
       return this.supplierData.controls;
     }
 
-    get email(): any {
-      return this.supplierData.get('email');
+    public hasError = (controlName: string, errorName: string) => {
+      return this.supplierData.controls[controlName].hasError(errorName);
     }
+
+    // get email(): any {
+    //   return this.supplierData.get('email');
+    // }
 
     onSubmit(): void {
       console.log(this.supplierData.controls);
 
-      // if (this.field.fundId.value === '0') {
-      // this.field.fundId.setErrors({required: true});
-    // }
+      if (this.field.fundId.value === '0') {
+      this.field.fundId.setErrors({required: true});
+    }
 
       if (this.supplierData.invalid) {
         this.submitted = true;
@@ -112,22 +128,25 @@ export class SupplierDetailComponent implements OnInit {
 
         console.log(`Raw data: ${JSON.stringify(this.supplierData.getRawValue())}`);
         of(this.supplierService.editSupplier(this.supplierData.getRawValue())).subscribe(result => {
-          this.showAlert().subscribe(this.supplierData.reset());
+          this.showAlert().subscribe();
         });
       }
+
+      this.router.navigate(['allsuppliers']);
     }
 
-    showAlert(): Observable<any> {
-      return new Observable(observer => {
-        this.alertVisibility = this.alertVisibilityTimeSec;
+  showAlert(): Observable<any> {
+    // console.log(...this.logger.info('Show alert'));
+    return new Observable(observer => {
+      this.alertVisibility = this.alertVisibilityTimeSec;
 
-        const handler = setInterval(() => {
-          this.alertVisibility--;
+      const handler = setInterval(() => {
+        this.alertVisibility--;
 
-          if (this.alertVisibility === 0) {
-            clearInterval(handler);
-          }
-        }, 1000);
-      });
-    }
+        if (this.alertVisibility === 0) {
+          clearInterval(handler);
+        }
+      }, 1000);
+    });
+  }
 }
