@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {StoreService} from '../service/store.service';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
@@ -10,13 +10,35 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {SupplierProductsList} from '../models/supplier-products-list';
 import {SupplierStore} from '../models/supplier-store';
+import {MatDialog} from '@angular/material/dialog';
+import {StoreEditDialogComponent} from '../store-edit-dialog/store-edit-dialog.component';
+import {StoreSupplierEditDialogComponent} from '../store-supplier-edit-dialog/store-supplier-edit-dialog.component';
 
 @Component({
   selector: 'app-store-supplier',
   templateUrl: './store-supplier.component.html',
   styleUrls: ['./store-supplier.component.css']
 })
-export class StoreSupplierComponent implements OnInit {
+export class StoreSupplierComponent implements OnInit, AfterViewInit {
+
+  displayedColumns: string[] = [
+    // 'productId',
+    'productName',
+    // 'categoryName',
+    'price',
+    // 'description',
+    'amountInMagazine',
+    'amountMax',
+    // 'magazine',
+    // 'deposit',
+    // 'picture',
+    // 'unitId',
+    // 'supplierId',
+    'unitName',
+    'available',
+    'blocked',
+    'actionButtons'
+  ];
 
   suppId: string;
 
@@ -33,10 +55,16 @@ export class StoreSupplierComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private service: StoreService) { }
+  constructor(private service: StoreService,
+              public editDialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.filteredSuppliers = this.filterSuppliers();
+  }
+
+  ngAfterViewInit(): void {
+    this.getSupplierProducts(this.suppId);
   }
 
   filterSuppliers(): Observable<SupplierList[]> {
@@ -59,28 +87,44 @@ export class StoreSupplierComponent implements OnInit {
 
   getSupplierProducts(supplierId: string): void {
     this.suppId = supplierId;
-    this.service.getSupplierStore(supplierId)
-      .subscribe((data) => {
-          if ('info' in data) {
-            this.info = data;
-            this.supplierStore = undefined;
-            this.problem = undefined;
-          } else {
+    if (supplierId !== undefined) {
+      this.service.getSupplierStore(supplierId)
+        .subscribe((data) => {
+            if ('info' in data) {
+              this.info = data;
+              this.supplierStore = undefined;
+              this.problem = undefined;
+              this.dataSource = undefined;
+            } else {
+              this.info = undefined;
+              this.supplierStore = data;
+              this.problem = undefined;
+
+              this.dataSource = new MatTableDataSource(data.supplierProductsList);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+
+              return this.supplierStore;
+            }
+          },
+          err => {
             this.info = undefined;
-            this.supplierStore = data;
-            this.problem = undefined;
+            this.supplierStore = undefined;
+            this.dataSource = undefined;
+            this.problem = err.error.detail;
+          });
+    }
+  }
 
-            this.dataSource = new MatTableDataSource(data.supplierProductsList);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-
-            return this.supplierStore;
-          }
-        },
-        err => {
-          this.info = undefined;
-          this.supplierStore = undefined;
-          this.problem = err.error.detail;
-        });
+  openEditDialog(productId: string, productName: string, amountMax: number, available: boolean, blocked: boolean): void {
+    const dialogRef = this.editDialog.open(StoreSupplierEditDialogComponent, {
+      data: {
+        productId,
+        productName,
+        amountMax,
+        available,
+        blocked
+      }
+    });
   }
 }

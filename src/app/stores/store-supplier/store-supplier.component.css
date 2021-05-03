@@ -32,6 +32,10 @@ table {
   outline: none;
 }
 
+.edit-button:hover {
+  color: rgb(3, 130, 17);
+}
+
 ::ng-deep .mat-sort-header-arrow {
   color: #aeef9b !important;
 }
