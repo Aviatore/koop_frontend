@@ -43,6 +43,7 @@ import { SuppliersListComponent } from './suppliers/suppliers-list/suppliers-lis
 import { SupplierDetailComponent } from './suppliers/supplier-detail/supplier-detail.component';
 import {MatTableModule} from '@angular/material/table';
 import { SuppliersModule } from './suppliers/suppliers.module';
+import { SupplierInfoComponent } from './suppliers/supplier-info/supplier-info.component';
 
 registerLocaleData(localePL);
 
@@ -58,6 +59,7 @@ registerLocaleData(localePL);
     PageNotFoundComponent,
     LayoutComponent,
     HamburgerMenuComponent,
+    SupplierInfoComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,16 +1,13 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Supplier} from '../supplier';
 import {SupplierService} from '../supplier.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable, of} from 'rxjs';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {switchMap, tap} from 'rxjs/operators';
 import {UserName} from '../userName';
 
 import { Router } from '@angular/router';
-
-import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-import {map, startWith} from 'rxjs/operators';
 
 import { Location } from '@angular/common';
 
@@ -33,11 +30,6 @@ export class SupplierDetailComponent implements OnInit {
   public supplierData: FormGroup;
 
   supplier: Observable<Supplier>;
-
-  // @ViewChild('auto') matAutocomplete: MatAutocomplete;
-  // private route: ActivatedRoute,
-  // private router: Router
-
   constructor(private supplierService: SupplierService,
               private location: Location,
               private formBuilder: FormBuilder,
@@ -59,12 +51,6 @@ export class SupplierDetailComponent implements OnInit {
         tap(supplier => this.supplierData.patchValue(supplier))
       );
     }
-
-
-    // this.ss.errorResponse = {
-    //   detail: '',
-    //   status: 0
-    // };
 
     this.supplierData = this.formBuilder.group({
       supplierId: ['00000000-0000-0000-0000-000000000000'],
@@ -115,10 +101,6 @@ export class SupplierDetailComponent implements OnInit {
       return this.supplierData.controls[controlName].hasError(errorName);
     }
 
-    // get email(): any {
-    //   return this.supplierData.get('email');
-    // }
-
     onSubmit(): void {
       console.log(this.supplierData.controls);
 
@@ -149,7 +131,6 @@ export class SupplierDetailComponent implements OnInit {
     }
 
   showAlert(): Observable<any> {
-    // console.log(...this.logger.info('Show alert'));
     return new Observable(observer => {
       this.alertVisibility = this.alertVisibilityTimeSec;
 
