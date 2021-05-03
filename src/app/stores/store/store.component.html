@@ -1,0 +1,107 @@
+<h2 class="text-center px-2 txt-shadow">Produkty w Magazynie</h2>
+<div *ngIf="info !== undefined" class="text-center w-100 text-danger mt-5">
+  Brak produktów w magazynie.<br>
+  {{info.info}}
+</div>
+<div *ngIf="problem !== undefined" class="text-center w-100 text-danger mt-5">
+  {{problem}}
+</div>
+
+<div [hidden]="storedProducts === undefined">
+  <div class="table-responsive p-1">
+    <table mat-table [dataSource]="dataSource" matSort class="table-striped mat-elevation-z10">
+      <ng-component matColumnDef="stockSupplierId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID dostawcy</th>
+        <td mat-cell *matCellDef="let element">{{element.stockSupplierId}}</td>
+      </ng-component>
+      <ng-component matColumnDef="supplierName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nazwa<br>dostawcy</th>
+        <td mat-cell *matCellDef="let element">{{element.supplierName}}</td>
+      </ng-component>
+      <ng-component matColumnDef="supplierAbbr">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Identyfikator</th>
+        <td mat-cell *matCellDef="let element">{{element.supplierAbbr}}</td>
+      </ng-component>
+      <ng-component matColumnDef="productId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID produktu</th>
+        <td mat-cell *matCellDef="let element">{{element.productId}}</td>
+      </ng-component>
+      <ng-component matColumnDef="productName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Produkt</th>
+        <td mat-cell *matCellDef="let element">{{element.productName}}</td>
+      </ng-component>
+      <ng-component matColumnDef="categoryName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Kategoria</th>
+        <td mat-cell *matCellDef="let element">{{element.categoryName}}</td>
+      </ng-component>
+      <ng-component matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Cena</th>
+        <td mat-cell *matCellDef="let element">{{element.price | currency: 'zł'}}</td>
+      </ng-component>
+      <ng-component matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Opis</th>
+        <td mat-cell *matCellDef="let element">{{element.description}}</td>
+      </ng-component>
+      <ng-component matColumnDef="amountInMagazine">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ilość<br>w magazynie</th>
+        <td mat-cell *matCellDef="let element">{{element.amountInMagazine}}</td>
+      </ng-component>
+      <ng-component matColumnDef="amountMax">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Max<br>ilość<br>w magazynie</th>
+        <td mat-cell *matCellDef="let element">{{element.amountMax}}</td>
+      </ng-component>
+      <ng-component matColumnDef="magazine">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Produkt<br>magazynowy</th>
+        <td mat-cell *matCellDef="let element">{{element.magazine}}</td>
+      </ng-component>
+      <ng-component matColumnDef="deposit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Depozyt</th>
+        <td mat-cell *matCellDef="let element">{{element.deposit}}</td>
+      </ng-component>
+      <ng-component matColumnDef="picture">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Obrazek</th>
+        <td mat-cell *matCellDef="let element">{{element.picture}}</td>
+      </ng-component>
+      <ng-component matColumnDef="unitId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID jednostki</th>
+        <td mat-cell *matCellDef="let element">{{element.unitId}}</td>
+      </ng-component>
+      <ng-component matColumnDef="supplierId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID dostawcy</th>
+        <td mat-cell *matCellDef="let element">{{element.supplierId}}</td>
+      </ng-component>
+      <ng-component matColumnDef="unitName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Jednostka</th>
+        <td mat-cell *matCellDef="let element">{{element.unitName}}</td>
+      </ng-component>
+      <ng-component matColumnDef="available">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Dostępność</th>
+        <td mat-cell *matCellDef="let element">{{element.available ? 'TAK' : 'NIE'}}</td>
+      </ng-component>
+      <ng-component matColumnDef="blocked">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Zablokowany</th>
+        <td mat-cell *matCellDef="let element">{{element.blocked ? 'TAK' : 'NIE'}}</td>
+      </ng-component>
+      <ng-component matColumnDef="actionButtons">
+        <th mat-header-cell *matHeaderCellDef>Akcja</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button
+                  (click)="openEditDialog(
+                  element.productId,
+                  element.productName,
+                  element.amountInMagazine,
+                  element.amountMax
+                  )" class="edit-button">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-component>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+  <div class="mx-auto px-2 mat-elevation-z10">
+    <mat-paginator [pageSizeOptions]="itemsPerPage"></mat-paginator>
+  </div>
+</div>

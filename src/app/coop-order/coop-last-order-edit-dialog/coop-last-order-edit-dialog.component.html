@@ -2,9 +2,9 @@
 <div mat-dialog-content>
   <mat-divider></mat-divider>
   <div class="pt-2 pb-2">
-    <span class="fw-bold px-2">Ilość:</span>
+    <span class="fw-bold px-2">{{data.productName}}</span>
     <mat-form-field appearance="fill">
-      <mat-label class="mat-input-label">{{data.productName}}</mat-label>
+      <mat-label class="mat-input-label">Ilość</mat-label>
       <input type="number" matInput [value]="data.quantity.toString()" min="1" #itemQuantity>
     </mat-form-field>
   </div>

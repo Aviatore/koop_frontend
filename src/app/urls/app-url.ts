@@ -23,6 +23,7 @@ export class AppUrl {
     getReportOrderBySupplier: 'report-order-by-supplier',
     getCoopOrders: 'coop-orders',
     getCoopLastOrder: 'coop-last-order',
+    getStore: 'store',
     admin: 'admin'
   };
 

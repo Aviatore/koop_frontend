@@ -20,8 +20,8 @@ export class CoopLastOrderEditDialogComponent implements OnInit {
 
   editProduct(orderItemId: string, quantity: string): void {
     const num = +quantity;
-    const result = this.service.editOrderItemQuantity(orderItemId, num);
-    result.subscribe((data) => {
+    this.service.editOrderItemQuantity(orderItemId, num)
+    .subscribe((data) => {
         this.dialogRef.close({msg: data.info});
       },
       err => {
