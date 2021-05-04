@@ -13,6 +13,7 @@ import {SupplierStore} from '../models/supplier-store';
 import {MatDialog} from '@angular/material/dialog';
 import {StoreEditDialogComponent} from '../store-edit-dialog/store-edit-dialog.component';
 import {StoreSupplierEditDialogComponent} from '../store-supplier-edit-dialog/store-supplier-edit-dialog.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-store-supplier',
@@ -56,7 +57,8 @@ export class StoreSupplierComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private service: StoreService,
-              public editDialog: MatDialog) {
+              public editDialog: MatDialog,
+              private snackBarEdit: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -125,6 +127,33 @@ export class StoreSupplierComponent implements OnInit, AfterViewInit {
         available,
         blocked
       }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (this.suppId !== undefined) {
+        this.getSupplierProducts(this.suppId);
+      }
+
+      if (result.msg !== undefined) {
+        this.openSnackBarEdit(result.msg);
+      }
+    });
+  }
+
+  openSnackBarEdit(message: string, action?: string): void {
+    let snackBarCss = 'snack-bar-red';
+    if (message !== undefined && message.includes('Selected product does not exist.')) {
+      message = 'Wybrany produkt nie istnieje.';
+    } else if (message !== undefined && message.includes('The entered \'Amount Max\' must be greater or equal than 0.')) {
+      message = 'Wprowadzona ilość musi być większa lub równa 0.';
+    } else if (message !== undefined && message.includes('The product has been updated.')) {
+      message = 'Produkt został zaktualizowany.';
+      snackBarCss = 'snack-bar-green';
+    }
+
+    this.snackBarEdit.open(message, action, {
+      duration: 3500,
+      panelClass: snackBarCss
     });
   }
 }

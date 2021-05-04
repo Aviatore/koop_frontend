@@ -57,6 +57,20 @@ export class StoreService {
         catchError(this.handleError));
   }
 
+  editProductAvailability(productId: string, amountMax: number, available: boolean, blocked: boolean): Observable<Info> {
+    return this.http.post<Info>(`${AppUrl.BASE_URL}Product/In/Supplier/Update/Availability`,
+      {
+        productId,
+        amountMax,
+        available,
+        blocked
+      })
+      .pipe(map(res => {
+          return res;
+        }),
+        catchError(this.handleError));
+  }
+
   handleError(error: HttpErrorResponse): Observable<never> {
     return throwError(error);
   }

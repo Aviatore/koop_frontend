@@ -21,5 +21,5 @@
 </div>
 <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
   <button mat-raised-button mat-dialog-close class="cancel-button">Anuluj</button>
-  <button mat-raised-button (click)="editProduct(data.productId, itemAmountMax.value)" [mat-dialog-close]="true" color="warn">Edytuj</button>
+  <button mat-raised-button (click)="editProduct(data.productId, itemAmountMax.value, checkAvailable.checked, checkBlocked.checked)" [mat-dialog-close]="true" color="warn">Edytuj</button>
 </div>
