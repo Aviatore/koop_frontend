@@ -26,7 +26,7 @@ export class StoreComponent implements OnInit, AfterViewInit {
     'price',
     // 'description',
     'amountInMagazine',
-    'amountMax',
+    // 'amountMax',
     // 'magazine',
     // 'deposit',
     // 'picture',

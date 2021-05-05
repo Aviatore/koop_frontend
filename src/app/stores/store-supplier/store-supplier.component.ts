@@ -28,7 +28,7 @@ export class StoreSupplierComponent implements OnInit, AfterViewInit {
     // 'categoryName',
     'price',
     // 'description',
-    'amountInMagazine',
+    // 'amountInMagazine',
     'amountMax',
     // 'magazine',
     // 'deposit',
