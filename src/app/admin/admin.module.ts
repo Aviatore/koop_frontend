@@ -17,6 +17,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { RoleSelectorComponent } from './role-selector/role-selector.component';
+import { ProductEditorComponent } from './product-editor/product-editor.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { RoleSelectorComponent } from './role-selector/role-selector.component';
     UserCreateComponent,
     UsersListComponent,
     UserEditComponent,
-    RoleSelectorComponent
+    RoleSelectorComponent,
+    ProductEditorComponent
   ],
   exports: [
     AdminComponent,
