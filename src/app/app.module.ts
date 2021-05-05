@@ -45,6 +45,8 @@ import {MatTableModule} from '@angular/material/table';
 import { SuppliersModule } from './suppliers/suppliers.module';
 import { SupplierInfoComponent } from './suppliers/supplier-info/supplier-info.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { OrderGrandeComponent } from './order-grande/order-grande.component';
+import { OrderGrandeRoutingModule } from './order-grande/order-grande-routing.module';
 
 registerLocaleData(localePL);
 
@@ -61,6 +63,7 @@ registerLocaleData(localePL);
     LayoutComponent,
     HamburgerMenuComponent,
     SupplierInfoComponent,
+    OrderGrandeComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,7 +85,8 @@ registerLocaleData(localePL);
     MatPaginatorModule,
     SuppliersModule,
     AppRoutingModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    OrderGrandeRoutingModule
   ],
   exports: [AppRoutingModule, LayoutComponent],
   providers: [

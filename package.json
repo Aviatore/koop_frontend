@@ -25,6 +25,7 @@
     "@angular/platform-browser-dynamic": "~11.2.9",
     "@angular/router": "~11.2.9",
     "@ng-bootstrap/ng-bootstrap": "^9.1.0",
+    "@rxweb/reactive-form-validators": "^2.1.2",
     "bootstrap": "^4.6.0",
     "faker": "^5.5.3",
     "guid-typescript": "^1.0.9",

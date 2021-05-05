@@ -10,6 +10,7 @@ import {UserName} from '../userName';
 import { Router } from '@angular/router';
 
 import { Location } from '@angular/common';
+import {RxwebValidators} from '@rxweb/reactive-form-validators';
 
 
 
@@ -75,24 +76,21 @@ export class SupplierDetailComponent implements OnInit {
       email: ['', {
         validators: [
           Validators.required,
-          // RxwebValidators.email()
+          RxwebValidators.email()
         ],
         updateOn: 'blur'
       }],
       receivables: [''],
       description: [''],
       orderClosingDate: ['', Validators.required],
-      blocked: [''],
-      available: [''],
+      blocked: [false],
+      available: [false],
       picture: [''],
       oproFullName: ['', Validators.required]
     });
   }
 
-    // get name(): any {
-    //   return this.supplierData.get('Name');
-    // }
-    //
+
     get field(): any {
       return this.supplierData.controls;
     }
