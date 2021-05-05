@@ -1,14 +1,21 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {UsersService} from '../admin-services/users.service';
-import {Observable, of} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {Funds} from '../admin-interfaces/funds';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {UniqueUserNameValidator} from '../admin-validators/userName-validator';
-import {RxwebValidators} from '@rxweb/reactive-form-validators';
+import {RxwebValidators, startsWith} from '@rxweb/reactive-form-validators';
 import {UniqueEmailValidator} from '../admin-validators/async-validators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../admin-interfaces/user';
 import {LoggerService} from '../../services/logger.service';
+import {Roles} from '../admin-interfaces/roles';
+import {MatChipEvent, MatChipInputEvent} from '@angular/material/chips';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+import {delay, map, startWith} from 'rxjs/operators';
+import {MatSelect, MatSelectChange} from '@angular/material/select';
+import {JwtParserService} from '../../services/jwt-parser.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -16,23 +23,36 @@ import {LoggerService} from '../../services/logger.service';
   styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
+  adminMode: boolean;
+  hasAdminRole: boolean;
+  funds: Observable<Funds[]>;
+
   userId: string;
   user: User;
+
   alertVisibilityTimeSec = 5;
-  us: UsersService;
-  submitted = false;
   alertVisibility: number;
-  funds: Observable<Funds[]>;
+  submitted = false;
+
+  us: UsersService;
   userData;
+  UserDataUpdated: Subject<any> = new Subject();
+
   constructor(private formBuilder: FormBuilder,
               private usersService: UsersService,
               private router: ActivatedRoute,
-              private logger: LoggerService) { }
+              private logger: LoggerService,
+              private jwtParser: JwtParserService) { }
 
   ngOnInit(): void {
+    this.router.data.subscribe(value => this.adminMode = value.adminMode);
+    this.hasAdminRole = this.jwtParser.getUserRoles().includes('Admin');
     this.userId = this.router.snapshot.paramMap.get('userId');
 
-    this.funds = this.usersService.GetAllUnits();
+    if (this.userId === null) {
+      this.userId = localStorage.getItem('login_userId');
+    }
+
     this.us = this.usersService;
 
     this.userData = this.formBuilder.group({
@@ -49,49 +69,58 @@ export class UserEditComponent implements OnInit {
           Validators.required,
           Validators.minLength(3)
         ],
-        asyncValidators: [
-          new UniqueUserNameValidator(this.usersService, this.logger)
-        ],
         updateOn: 'blur'
       }],
-      phoneNumber: [''],
+      phoneNumber: [null],
       email: ['', {
         validators: [
           Validators.required,
           RxwebValidators.email()
         ],
-        asyncValidators: [
-          new UniqueEmailValidator(this.usersService, this.logger)
-        ],
         updateOn: 'blur'
       }],
-      newPassword: ['', [
-        Validators.required,
+      newPassword: [null, [
         Validators.minLength(8)
       ]],
-      repeatPassword: ['', [
-        Validators.required,
-        RxwebValidators.compare({fieldName: 'newPassword'})
-      ]],
+      oldPassword: [null],
       debt: [''],
       fundId: ['', Validators.required],
-      info: ['']
+      info: [''],
+      id: [null],
+      role: [[], Validators.required]
     });
 
     this.us.GetUserById(this.userId).subscribe(result => {
-      this.userData.setValue({
-        firstName: result.firstName,
-        lastName: result.lastName,
-        userName: result.userName,
-        phoneNumber: result.phoneNumber,
-        email: result.email,
-        debt: result.debt,
-        fundId: result.fundId,
-        info: result.info,
-        newPassword: '',
-        repeatPassword: ''
+      this.usersService.GetUserRole(result.id).subscribe(roleResult => {
+        const rolesTmp: string[] = [];
+        roleResult.forEach(role => rolesTmp.push(role));
+
+        this.userData.setValue({
+          firstName: result.firstName,
+          lastName: result.lastName,
+          userName: result.userName,
+          phoneNumber: result.phoneNumber,
+          email: result.email,
+          debt: result.debt,
+          fundId: result.fundId,
+          info: result.info,
+          newPassword: '',
+          oldPassword: '',
+          id: result.id,
+          role: rolesTmp
+        });
+
+        // Informs the role-selector component that the userData were already updated
+        this.UserDataUpdated.next();
       });
     });
+
+    this.funds = this.usersService.GetAllUnits();
+
+    this.us.errorResponse = {
+      detail: '',
+      status: 0
+    };
   }
 
   get field(): any {
@@ -99,9 +128,7 @@ export class UserEditComponent implements OnInit {
   }
 
   onSubmit(): void {
-    return null;
-    /*console.log(this.userData.controls);
-
+    // return null;
     if (this.field.fundId.value === '0') {
       this.field.fundId.setErrors({required: true});
     }
@@ -116,14 +143,25 @@ export class UserEditComponent implements OnInit {
     } else {
       this.submitted = false;
 
-      // console.log(`Raw data: ${JSON.stringify(this.userData.getRawValue())}`);
-      of(this.usersService.CreateUser(this.userData.getRawValue())).subscribe(result => {
-        this.showAlert().subscribe(this.userData.reset());
+      this.us.errorResponse.detail = 'Aktualizowanie danych użytkownika. Proszę czekać ...';
+      this.us.errorResponse.status = 300;
+      this.alertVisibility = 1;
+
+      const user: User = this.userData.getRawValue();
+      console.log(...this.logger.info(`User data: ${user.id}`));
+
+      this.usersService.editUser(this.userData.getRawValue()).pipe(delay(2000)).subscribe({
+        next: result => {
+          console.log(...this.logger.info(`Response body: ${JSON.stringify(result.body)}`));
+          this.us.errorResponse = result.body;
+          this.showAlert().subscribe();
+        }
       });
-    }*/
+    }
   }
 
   showAlert(): Observable<any> {
+    console.log(...this.logger.info('Show alert'));
     return new Observable(observer => {
       this.alertVisibility = this.alertVisibilityTimeSec;
 

@@ -64,6 +64,7 @@ export class LoginComponent implements OnInit {
             const loginResponse = result.body;
             localStorage.setItem('token', loginResponse.token);
             localStorage.setItem('refresh_token', loginResponse.refreshT);
+            localStorage.setItem('login_userId', loginResponse.userId);
 
             this.loginS.loginResult = true;
           },

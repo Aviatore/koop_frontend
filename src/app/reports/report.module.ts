@@ -20,11 +20,13 @@ import { ReportGrandeOrderComponent } from './report-grande-order/report-grande-
 import {NgReplacePipeModule} from 'angular-pipes';
 import {FlexModule} from '@angular/flex-layout';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MatOptionModule} from '@angular/material/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSelectModule} from '@angular/material/select';
+import { ReportOrderBySupplierComponent } from './report-order-by-supplier/report-order-by-supplier.component';
+import {MaterialModule} from '../material/material.module';
 
 
 @NgModule({
@@ -33,34 +35,36 @@ import {MatSelectModule} from '@angular/material/select';
     ReportDropdownMenuComponent,
     ReportPackListComponent,
     ReportSupplierReceivablesComponent,
-    ReportGrandeOrderComponent
+    ReportGrandeOrderComponent,
+    ReportOrderBySupplierComponent
   ],
   exports: [
     ReportDropdownMenuComponent
   ],
-  imports: [
-    CommonModule,
-    ReportRoutingModule,
-    HttpClientModule,
-    MatTableModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatIconModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatListModule,
-    MatSidenavModule,
-    NgReplacePipeModule,
-    FlexModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    ReactiveFormsModule,
-    MatOptionModule,
-    MatAutocompleteModule,
-    MatSelectModule,
-    FormsModule
-  ],
+    imports: [
+        CommonModule,
+        ReportRoutingModule,
+        HttpClientModule,
+        MatTableModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatIconModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatListModule,
+        MatSidenavModule,
+        NgReplacePipeModule,
+        FlexModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        ReactiveFormsModule,
+        MatOptionModule,
+        MatAutocompleteModule,
+        MatSelectModule,
+        FormsModule,
+        MaterialModule
+    ],
   providers: [
     ReportService,
   ]

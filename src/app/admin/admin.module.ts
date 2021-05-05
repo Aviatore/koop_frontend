@@ -13,6 +13,11 @@ import {MatInputModule} from '@angular/material/input';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import {MatSelectModule} from '@angular/material/select';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { RoleSelectorComponent } from './role-selector/role-selector.component';
+import { ProductEditorComponent } from './product-editor/product-editor.component';
 
 
 @NgModule({
@@ -20,7 +25,9 @@ import {MatSelectModule} from '@angular/material/select';
     AdminComponent,
     UserCreateComponent,
     UsersListComponent,
-    UserEditComponent
+    UserEditComponent,
+    RoleSelectorComponent,
+    ProductEditorComponent
   ],
   exports: [
     AdminComponent,
@@ -36,7 +43,10 @@ import {MatSelectModule} from '@angular/material/select';
     MatInputModule,
     AdminRoutingModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatChipsModule,
+    MatIconModule,
+    MatAutocompleteModule
   ]
 })
 export class AdminModule { }

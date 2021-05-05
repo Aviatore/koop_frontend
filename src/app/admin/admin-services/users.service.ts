@@ -9,6 +9,7 @@ import {EmailCheck} from '../admin-interfaces/emailCheck';
 import {ResponseResult} from '../admin-interfaces/responseResult';
 import {ErrorResponse} from '../admin-interfaces/errorResponse';
 import {LoggerService} from '../../services/logger.service';
+import {Roles} from '../admin-interfaces/roles';
 
 const getAllUsersOptions: object = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -42,21 +43,10 @@ export class UsersService {
     };
   }
 
-  CreateUser(user: User): void {
+  CreateUser(user: User): Observable<any> {
     console.log(...this.logger.info(`Raw data:\n${JSON.stringify(user)}`));
-    this.httpClient.post<HttpResponse<any>>(Urls.CreateUserUrl, user, createUserOptions).pipe(
-      catchError(this.handleError.bind(this))).subscribe(
-        result => {
-          console.log(...this.logger.info(`User created.`));
-          this.errorResponse = {
-            detail: `Konto użytkownika '${user.firstName} ${user.lastName}' zostało utworzone.`,
-            status: 200
-          };
-        },
-      error => {
-        console.error(error);
-      }
-    );
+    return this.httpClient.post<HttpResponse<Observable<ErrorResponse>>>(Urls.CreateUserUrl, user, createUserOptions).pipe(
+      catchError(this.handleError.bind(this)));
   }
 
   GetAllUsers(): Observable<User[]> {
@@ -97,7 +87,7 @@ export class UsersService {
     } else {
       console.error(
         `Backend returned code ${error.status},\n` +
-        `Returned body was: ${error.error},\n` +
+        `Returned body was: ${JSON.stringify(error.error)},\n` +
         `Error message: ${error.message}`);
 
       this.errorResponse = error.error;
@@ -124,6 +114,54 @@ export class UsersService {
       })
     );*/
     return this.httpClient.delete<ErrorResponse>(url).pipe(
+      catchError(this.handleError.bind(this)));
+  }
+
+  editUser2(user: User): void {
+    const url = `${Urls.BaseAuthUrl}/user/${user.id}/edit`;
+    console.log(...this.logger.info(`Raw data:\n${JSON.stringify(user)}`));
+    this.httpClient.post<HttpResponse<any>>(Urls.CreateUserUrl, user, createUserOptions).pipe(
+      catchError(this.handleError.bind(this))).subscribe(
+      result => {
+        console.log(...this.logger.info(`User edited.`));
+        this.errorResponse = {
+          detail: `Konto użytkownika '${user.firstName} ${user.lastName}' zostało utworzone.`,
+          status: 200
+        };
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  editUser(user: User): Observable<any> {
+    const url = `${Urls.BaseAuthUrl}/user/${user.id}/edit`;
+
+    console.log(...this.logger.info(`Edit user - ${user.id} - sending query ...`));
+    return this.httpClient.post<HttpResponse<Observable<ErrorResponse>>>(url, user, createUserOptions).pipe(
+      catchError(this.handleError.bind(this)));
+  }
+
+  GetALlRoles(): Observable<Roles[]> {
+    return this.httpClient.get<Roles[]>(Urls.GetAllRoles).pipe(
+      catchError(this.handleError.bind(this))
+    );
+  }
+
+  GetUserRole(userId: string): Observable<string[]> {
+    const url = `${Urls.BaseAuthUrl}/user/${userId}/getRole`;
+
+    return this.httpClient.get<string[]>(url).pipe(
+      catchError(this.handleError.bind(this))
+    );
+  }
+
+  AddRoleToUser(user: User, roleName: string): Observable<HttpResponse<ErrorResponse>> {
+    console.log(...this.logger.info(`Adding role '${roleName}' to ${user.userName}`));
+    const url = `${Urls.BaseAuthUrl}/user/${user.id}/addRole/${roleName}`;
+
+    return this.httpClient.post<HttpResponse<Observable<ErrorResponse>>>(url, {}, createUserOptions).pipe(
       catchError(this.handleError.bind(this)));
   }
 }
