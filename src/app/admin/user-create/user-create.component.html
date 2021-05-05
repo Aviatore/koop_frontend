@@ -1,0 +1,131 @@
+<div class="container rounded mb-0">
+  <form [formGroup]="userData" (ngSubmit)="onSubmit()">
+    <div class="row mb-0">
+    <!--    <div class="col-md-3 border-right">
+        <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" src="../../../assets/img/admin.svg"><span class="font-weight-bold">{{inFirstName.value + ' ' + inLastName.value}}</span><span class="text-black-50">{{inEmail.value}}</span><span> </span></div>
+      </div>-->
+      <div class="col-md-8 border-right">
+        <div class="py-0">
+          <div class="d-flex justify-content-between align-items-center mb-0">
+            <h2 class="text-right">Nowy użytkownik</h2>
+          </div>
+          <div class="row mt-0">
+            <div class="col-md-6">
+              <mat-form-field>
+                <input matInput placeholder="Imię" [class.is-invalid]="submitted && field.firstName.invalid && field.firstName.touched" formControlName="firstName" autocomplete="given-name" value="">
+              </mat-form-field>
+              <div class="mb-3">
+                <div *ngIf="submitted && field.firstName.invalid && field.firstName.touched" class="text-danger small error">
+                  <div *ngIf="field.firstName.errors.required">Imię jest wymagane</div>
+                  <div *ngIf="field.firstName.errors.minlength">Imię musi składać się z co najmniej 3 znaków</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <mat-form-field>
+                <input matInput placeholder="Nazwisko" [class.is-invalid]="submitted && field.lastName.invalid && field.lastName.touched" formControlName="lastName" autocomplete="family-name" value="">
+              </mat-form-field>
+              <div class="mb-3">
+                <div *ngIf="submitted && field.lastName.invalid && field.lastName.touched" class="text-danger small error">
+                  <div *ngIf="field.lastName.errors.required">Nazwisko jest wymagane</div>
+                  <div *ngIf="field.lastName.errors.minlength">Nazwisko musi składać się z co najmniej 3 znaków</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <input matInput placeholder="Nazwa użytkownika" [class.is-invalid]="submitted && field.userName.invalid && field.userName.touched" formControlName="userName" autocomplete="username" value="">
+              </mat-form-field>
+              <div class="mb-3">
+                <div *ngIf="submitted && field.userName.invalid && field.userName.touched" class="text-danger small error">
+                  <div *ngIf="field.userName.errors.required">Nazwa użytkownika jest wymagana</div>
+                  <div *ngIf="field.userName.errors.minlength">Nazwa użytkownika musi składać się z co najmniej 3 znaków</div>
+                  <div *ngIf="field.userName.errors.uniqueUsername">Nazwa użytkownika już istnieje</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <mat-form-field>
+                <input matInput placeholder="Numer telefonu" formControlName="phoneNumber" autocomplete="tel-local" value="">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <input matInput placeholder="E-mail" [class.is-invalid]="submitted && field.email.invalid && field.email.touched" formControlName="email" autocomplete="email" value="">
+              </mat-form-field>
+              <div class="mb-3">
+                <div *ngIf="submitted && field.email.invalid && field.email.touched" class="text-danger small error">
+                  <div *ngIf="field.email.errors.required">Adres e-mail jest wymagany</div>
+                  <div *ngIf="field.email.errors.email">E-mail jest nieprawidłowy</div>
+                  <div *ngIf="field.email.errors.uniqueEmail">Adres już istnieje, proszę podać inny</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <mat-form-field>
+                <input type="password" matInput placeholder="Nowe hasło" [class.is-invalid]="submitted && field.newPassword.invalid && field.newPassword.touched" formControlName="newPassword" autocomplete="new-password" value="">
+              </mat-form-field>
+              <div *ngIf="submitted && field.newPassword.invalid && field.newPassword.touched" class="text-danger small error">
+                <div *ngIf="field.newPassword.errors.required">Hasło jest wymagane</div>
+                <div *ngIf="field.newPassword.errors.minlength">Hasło musi składać się z co najmniej 8 znaków</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <input type="password" matInput placeholder="Powtórz hasło" [class.is-invalid]="submitted && field.repeatPassword.invalid && field.repeatPassword.touched" formControlName="repeatPassword" autocomplete="new-password" value="">
+              </mat-form-field>
+              <div *ngIf="submitted && field.repeatPassword.invalid && field.repeatPassword.touched" class="text-danger small error">
+                <div *ngIf="field.repeatPassword.errors.required">Musisz powtórzyć hasło</div>
+                <div *ngIf="field.repeatPassword.errors.compare">Podane hasło jest nieprawidłowe</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <mat-form-field>
+                <input type="number" matInput placeholder="Dług" formControlName="debt" value="" style="text-align: right">
+                <span matSuffix>zł</span>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label for="fund">Fundusz</mat-label>
+                <mat-select id="fund" [class.is-invalid]="submitted && field.fundId.invalid && field.fundId.touched" formControlName="fundId">
+                  <mat-option value="0">Wybierz ...</mat-option>
+                  <mat-option *ngFor="let item of funds | async" [value]="item.fundId">
+                    {{item.value}}<span>%</span>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div *ngIf="submitted && field.fundId.invalid && field.fundId.touched" class="text-danger small error">
+                <div *ngIf="field.fundId.errors.required">Musisz wybrać wartość</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mt-5">
+        <div class="mb-1"></div>
+        <app-role-selector [class.is-invalid]="submitted && field.role.invalid && field.role.touched"
+                           [userData]="userData"></app-role-selector>
+        <div *ngIf="submitted && field.role.invalid && field.role.touched" class="text-danger small error">
+          <div *ngIf="field.role.errors.required">Użytkownik musi mieć wybraną co najmniej jedną rolę</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mt-3"><button class="btn btn-primary profile-button" type="button" (click)="onSubmit()">Utwórz</button></div>
+    <div class="alert alert-dismissible fade mt-3" [class.show]="alertVisibility > 0" [ngClass]="us.errorResponse?.status === 200 ? 'alert-success' : us.errorResponse?.status === 300 ? 'alert-warning' : 'alert-danger'" role="alert">
+      {{us.errorResponse?.detail}}
+    </div>
+  </form>
+</div>
