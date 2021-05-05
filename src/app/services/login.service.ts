@@ -4,6 +4,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular
 import {catchError} from 'rxjs/operators';
 import {CountDownTokenService} from './count-down-token.service';
 import {RefTokenTimer, TokenTimer} from '../injection-tokens/tokens';
+import {ErrorResponse} from '../admin/admin-interfaces/errorResponse';
 
 
 export interface LoginResponse {
@@ -11,6 +12,7 @@ export interface LoginResponse {
   refreshT: string;
   tokenExp: number;
   refTokenExp: number;
+  userId: string;
 }
 
 const loginUrl = 'http://localhost:5000/api/auth/signin';
@@ -25,6 +27,10 @@ const loginOptions: object = {
 })
 export class LoginService {
   loginResult: boolean;
+  errorResponse: ErrorResponse = {
+    detail: '',
+    status: 0
+  };
 
   constructor(private httpClient: HttpClient,
               @Inject(TokenTimer) private tokenT: CountDownTokenService,
@@ -38,6 +44,7 @@ export class LoginService {
         const loginResponse = result.body;
         localStorage.setItem('token', loginResponse.token);
         localStorage.setItem('refresh_token', loginResponse.refreshT);
+        localStorage.setItem('login_userId', loginResponse.userId);
 
         this.tokenT.timeSeconds = loginResponse.tokenExp;
         this.refTokenT.timeSeconds = loginResponse.refTokenExp;
@@ -53,6 +60,7 @@ export class LoginService {
   LogOut(): void {
     localStorage.setItem('token', '');
     localStorage.setItem('refresh_token', '');
+    localStorage.setItem('login_userId', '');
     this.loginResult = false;
     this.tokenT.timeSeconds = 0;
     this.refTokenT.timeSeconds = 0;
@@ -69,7 +77,7 @@ export class LoginService {
     return this.httpClient.post<HttpResponse<LoginResponse>>(
       loginUrl,
       loginBody, loginOptions).pipe(
-        catchError(this.handleError)
+        catchError(this.handleError.bind(this))
     );
   }
 
@@ -83,6 +91,8 @@ export class LoginService {
     }
 
     this.loginResult = false;
+
+    this.errorResponse = error.error;
 
     return throwError(
       `Error:\n status: ${error.status}\n ${error.statusText}`);

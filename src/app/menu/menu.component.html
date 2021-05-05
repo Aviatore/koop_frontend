@@ -1,8 +1,38 @@
-<ul>
+<mat-toolbar class="navi-bar">
+  <div>
+    <a [routerLink]="[urls.getHome]" class="logo-link">Koop</a>
+  </div>
+  <span class="navi-bar-spacer"></span>
+  <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+    <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+      <li><button mat-button [routerLink]="[urls.getUnits]" class="top-link">Units</button></li>
+      <li>
+        <app-report-dropdown-menu></app-report-dropdown-menu>
+      </li>
+      <li><button mat-button [routerLink]="[urls.admin]" class="top-link">Admin</button></li>
+      <li><button mat-button  [routerLink]="[urls.getLogin]" class="top-link"
+              (click)="LoginAction()">{{(this.loginService.loginResult ? 'logout' : 'login') | titlecase}}</button></li>
+    </ul>
+  </div>
+  <div fxHide.gt-xs>
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<!--<ul>
   <li><a [routerLink]="['home']">Home</a></li>
   <li><a [routerLink]="['login']"
-          (click)="LoginAction()">{{(this.loginService.loginResult ? 'logout' : 'login') | titlecase}}</a></li>
+         (click)="LoginAction()">{{(this.loginService.loginResult ? 'logout' : 'login') | titlecase}}</a></li>
   <li><a [routerLink]="['units']">Units</a></li>
-  <li><app-counter [timer]="tokenTimer" name="Token"></app-counter></li>
-  <li><app-counter [timer]="refTokenTimer" name="RefToken"></app-counter></li>
-</ul>
+  <li>
+    <app-report-dropdown-menu></app-report-dropdown-menu>
+  </li>
+  <li>
+    <app-counter [timer]="tokenTimer" name="Token"></app-counter>
+  </li>
+  <li>
+    <app-counter [timer]="refTokenTimer" name="RefToken"></app-counter>
+  </li>
+</ul>-->
