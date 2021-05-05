@@ -17,10 +17,9 @@ export class StoreEditDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  editProduct(productId: string, amountInMagazine: string, amountMax: string): void {
+  editProduct(productId: string, amountInMagazine: string): void {
     const amount = +amountInMagazine;
-    const max = +amountMax;
-    this.service.editAmountsInStore(productId, amount, max)
+    this.service.editAmountsInStore(productId, amount, amount)
       .subscribe((data) => {
           this.dialogRef.close({msg: data.info});
         },
