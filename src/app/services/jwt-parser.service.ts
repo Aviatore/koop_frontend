@@ -20,7 +20,7 @@ export class JwtParserService {
   getUserRoles(): string[] {
     let roles: string[] = [];
     const token = localStorage.getItem('token');
-    if (token !== null)
+    if (token !== null && token !== '')
     {
       const tokenDecoded = this.parseJwt(token);
       const roleKey = Object.keys(tokenDecoded).find(p => p.endsWith('role'));
