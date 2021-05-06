@@ -5,12 +5,14 @@ import {ReportPackListComponent} from './report-pack-list/report-pack-list.compo
 import {ReportSupplierReceivablesComponent} from './report-supplier-receivables/report-supplier-receivables.component';
 import {AppUrl} from '../urls/app-url';
 import {ReportGrandeOrderComponent} from './report-grande-order/report-grande-order.component';
+import {ReportOrderBySupplierComponent} from './report-order-by-supplier/report-order-by-supplier.component';
 
 const routes: Routes = [
   {path: AppUrl.ROUTE.getReportCoopDebt, component: ReportCoopDebtComponent},
   {path: AppUrl.ROUTE.getReportPackList, component: ReportPackListComponent},
   {path: AppUrl.ROUTE.getReportSupReceivables, component: ReportSupplierReceivablesComponent},
-  {path: AppUrl.ROUTE.getReportGrandeOrder, component: ReportGrandeOrderComponent}
+  {path: AppUrl.ROUTE.getReportGrandeOrder, component: ReportGrandeOrderComponent},
+  {path: AppUrl.ROUTE.getReportOrderBySupplier, component: ReportOrderBySupplierComponent}
 ];
 
 @NgModule({

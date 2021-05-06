@@ -7,6 +7,6 @@ import {AppUrl} from './urls/app-url';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Koop';
+  title = 'Koop - Wawelska Kooperatywa Spożywcza';
   home = AppUrl.HOME_PAGE_URL;
 }

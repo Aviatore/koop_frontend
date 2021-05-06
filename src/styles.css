@@ -28,3 +28,29 @@ body {
 .txt-shadow {
   text-shadow: 2px 2px #e3dddd;
 }
+
+.snack-bar-green {
+  color: #fff !important;
+  background-color: rgb(108, 160, 52) !important;
+}
+
+.snack-bar-red {
+  color: #fff !important;
+  background-color: rgb(191, 36, 36) !important;
+}
+
+
+.mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: green !important;
+}
+
+.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: green !important;
+}
+
+.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: green !important;;
+}

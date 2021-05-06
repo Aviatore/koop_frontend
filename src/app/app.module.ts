@@ -38,6 +38,15 @@ import { ProductComponent } from './product/product.component';
 import {CategoriesService} from './services/categories.service';
 import {AdminModule} from './admin/admin.module';
 import {ProductService} from './services/product.service';
+import {CoopOrderModule} from './coop-order/coop-order.module';
+import {JwtModule} from '@auth0/angular-jwt';
+import {StoreModule} from './stores/store.module';
+import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
+import {LoggerService} from './services/logger.service';
+import {UserPanelModule} from './user-panel/user-panel.module';
+import { EmailFormComponent } from './password-reset/email-form/email-form.component';
+import {PasswordResetModule} from './password-reset/password-reset.module';
+import {Visibility} from './menu/visibility/visibility';
 
 registerLocaleData(localePL);
 
@@ -55,6 +64,7 @@ registerLocaleData(localePL);
     HamburgerMenuComponent,
     CategoriesComponent,
     ProductComponent,
+    EmailFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,10 +72,18 @@ registerLocaleData(localePL);
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    LoggerModule.forRoot({
+      level: NgxLoggerLevel.DEBUG,
+      serverLogLevel: NgxLoggerLevel.ERROR
+    }),
     NgbModule,
-    ReportModule,
     MaterialModule,
+    ReportModule,
+    CoopOrderModule,
+    StoreModule,
     AdminModule,
+    UserPanelModule,
+    PasswordResetModule,
     AppRoutingModule
   ],
   providers: [
@@ -84,7 +102,7 @@ registerLocaleData(localePL);
                    tokenT: CountDownTokenService,
                    refTokenT: CountDownTokenService) => {
         return new UnauthorizeInterceptor(refreshToken, routeState, router, loginService,
-          inject(TokenTimer), inject(RefTokenTimer));
+          inject(TokenTimer), inject(RefTokenTimer), inject(LoggerService));
       },
       multi: true,
       deps: [

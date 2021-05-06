@@ -21,7 +21,14 @@ export class AppUrl {
     getReportPackList: `report-pack-list`,
     getReportSupReceivables: `report-supplier-receivables`,
     getReportGrandeOrder: 'report-report-grande-order',
-    admin: 'admin'
+    getReportOrderBySupplier: 'report-order-by-supplier',
+    getCoopOrders: 'coop-orders',
+    getCoopLastOrder: 'coop-last-order',
+    getStore: 'store',
+    getSupplierStore: 'supplier-store',
+    admin: 'admin',
+    user: 'user',
+    passwordReset: 'password-reset'
   };
 
 }

@@ -22,7 +22,8 @@
     </mat-form-field>
   </div>
 </div>
-<div class="ms-2" [hidden]="grandeOrderLen === 0"><span class="fw-bold">Data rozpoczęcia</span>: {{grandeOrder?.orderStartDate| replace: ['T'] : ' '}}<br>
+<div class="ms-2" [hidden]="grandeOrderLen === 0">
+  <span class="fw-bold">Data rozpoczęcia</span>: {{grandeOrder?.orderStartDate | replace: ['T'] : ' '}}<br>
   <span class="fw-bold">Data zakończnia</span>: {{grandeOrder?.orderStopDate | replace: ['T'] : ' '}}<br>
   <span class="fw-bold">Cana całkowita</span>: {{grandeOrder?.totalGrandePrice | currency: 'zł'}}<br>
   <span class="fw-bold">Cena z funduszem</span>: {{grandeOrder?.totalGrandeFundPrice | currency: 'zł'}}<br>

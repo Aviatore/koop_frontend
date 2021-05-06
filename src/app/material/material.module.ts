@@ -8,6 +8,13 @@ import {MatListModule} from '@angular/material/list';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTableModule} from '@angular/material/table';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [],
@@ -20,7 +27,14 @@ import {MatMenuModule} from '@angular/material/menu';
     MatListModule,
     MatGridListModule,
     FlexLayoutModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSlideToggleModule,
+    MatExpansionModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatSnackBarModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   exports: [
     MatIconModule,
@@ -30,7 +44,14 @@ import {MatMenuModule} from '@angular/material/menu';
     MatListModule,
     MatGridListModule,
     FlexLayoutModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSlideToggleModule,
+    MatExpansionModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatSnackBarModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class MaterialModule {
