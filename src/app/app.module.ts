@@ -34,8 +34,10 @@ import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
 import {MaterialModule} from './material/material.module';
 import { CategoriesComponent } from './categories/categories.component';
+import { ProductComponent } from './product/product.component';
 import {CategoriesService} from './services/categories.service';
 import {AdminModule} from './admin/admin.module';
+import {ProductService} from './services/product.service';
 
 registerLocaleData(localePL);
 
@@ -52,6 +54,7 @@ registerLocaleData(localePL);
     LayoutComponent,
     HamburgerMenuComponent,
     CategoriesComponent,
+    ProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +72,7 @@ registerLocaleData(localePL);
     UnitsService,
     CookieService,
     CategoriesService,
+    ProductService,
     {provide: LOCALE_ID, useValue: 'pl'},
     { provide: MatPaginatorIntl, useValue: AppPaginatorConfig() },
     {

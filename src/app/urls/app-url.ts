@@ -16,6 +16,7 @@ export class AppUrl {
     getHome: AppUrl.HOME_PAGE_URL,
     getUnits: `units`,
     getLogin: `login`,
+    getProducts: `product/:categoryId`,
     getReportCoopDebt: `report-coop-debt`,
     getReportPackList: `report-pack-list`,
     getReportSupReceivables: `report-supplier-receivables`,
