@@ -5,7 +5,6 @@ import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import { homePageUrl } from '../environments/environment';
-import {SuppliersListComponent} from './suppliers/suppliers-list/suppliers-list.component';
 
 const routes: Routes = [
   { path: 'units', component: UnitComponent },
@@ -13,7 +12,6 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '',   redirectTo: homePageUrl, pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
-  // { path: 'allsuppliers', component: SuppliersListComponent }
 ];
 
 @NgModule({
