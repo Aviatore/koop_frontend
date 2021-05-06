@@ -29,29 +29,20 @@ import {AppPaginatorConfig} from './app-paginator-config';
 import {LOCALE_ID} from '@angular/core';
 import {registerLocaleData} from '@angular/common';
 import localePL from '@angular/common/locales/pl';
-import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {FlexLayoutModule} from '@angular/flex-layout';
+import {MatPaginatorIntl} from '@angular/material/paginator';
 import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
-import {MatMenuModule} from '@angular/material/menu';
-import { SuppliersListComponent } from './suppliers/suppliers-list/suppliers-list.component';
-import { SupplierDetailComponent } from './suppliers/supplier-detail/supplier-detail.component';
-import {MatTableModule} from '@angular/material/table';
-import { SuppliersModule } from './suppliers/suppliers.module';
-import { SupplierInfoComponent } from './suppliers/supplier-info/supplier-info.component';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import { LayoutComponent } from './layout/layout.component';
 import {MaterialModule} from './material/material.module';
 import {AdminModule} from './admin/admin.module';
 import {CoopOrderModule} from './coop-order/coop-order.module';
 import {JwtModule} from '@auth0/angular-jwt';
 import {StoreModule} from './stores/store.module';
+import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
+import {LoggerService} from './services/logger.service';
+import {UserPanelModule} from './user-panel/user-panel.module';
+import { EmailFormComponent } from './password-reset/email-form/email-form.component';
+import {PasswordResetModule} from './password-reset/password-reset.module';
+import {Visibility} from './menu/visibility/visibility';
 
 registerLocaleData(localePL);
 
@@ -67,7 +58,7 @@ registerLocaleData(localePL);
     PageNotFoundComponent,
     LayoutComponent,
     HamburgerMenuComponent,
-    SupplierInfoComponent,
+    EmailFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,27 +66,20 @@ registerLocaleData(localePL);
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    LoggerModule.forRoot({
+      level: NgxLoggerLevel.DEBUG,
+      serverLogLevel: NgxLoggerLevel.ERROR
+    }),
     NgbModule,
     MaterialModule,
     ReportModule,
-    MatIconModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatGridListModule,
-    FlexLayoutModule,
-    MatMenuModule,
-    MatTableModule,
-    MatPaginatorModule,
-    SuppliersModule,
-    MatCheckboxModule
     CoopOrderModule,
     StoreModule,
     AdminModule,
+    UserPanelModule,
+    PasswordResetModule,
     AppRoutingModule
   ],
-  exports: [AppRoutingModule, LayoutComponent],
   providers: [
     UnitsService,
     CookieService,
@@ -110,7 +94,7 @@ registerLocaleData(localePL);
                    tokenT: CountDownTokenService,
                    refTokenT: CountDownTokenService) => {
         return new UnauthorizeInterceptor(refreshToken, routeState, router, loginService,
-          inject(TokenTimer), inject(RefTokenTimer));
+          inject(TokenTimer), inject(RefTokenTimer), inject(LoggerService));
       },
       multi: true,
       deps: [

@@ -5,9 +5,8 @@
   <span class="navi-bar-spacer"></span>
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
     <ul fxLayout fxLayoutGap="15px" class="navigation-items">
-      <li><a [routerLink]="['allsuppliers']" class="top-link">Suppliers</a></li>
       <li><button mat-button [routerLink]="[urls.getUnits]" class="top-link">Units</button></li>
-      <li>
+      <li *ngIf="visibility.set([role.ADMIN, role.OPRO, role.PACZKERS])">
         <app-report-dropdown-menu></app-report-dropdown-menu>
       </li>
       <li><button mat-button [routerLink]="[urls.admin]" class="top-link">Admin</button></li>

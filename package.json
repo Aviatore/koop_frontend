@@ -7,8 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "postinstall": "ngcc"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -35,6 +34,7 @@
     "jspdf": "^2.3.1",
     "jspdf-autotable": "^3.5.14",
     "ngx-cookie-service": "^11.0.2",
+    "ngx-logger": "^4.2.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

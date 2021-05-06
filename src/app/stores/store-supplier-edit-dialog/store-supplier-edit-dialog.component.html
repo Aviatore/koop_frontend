@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Edycja</h1>
+<div mat-dialog-content>
+  <mat-divider></mat-divider>
+  <div class="pt-2 pb-2">
+    <span class="fw-bold px-2">{{data.productName}}</span>
+    <mat-divider class="py-2"></mat-divider>
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label class="mat-input-label">Ilość</mat-label>
+      <input type="number" matInput [value]="data.amountMax.toString()" min="0" #itemAmountMax>
+    </mat-form-field>
+    <mat-divider></mat-divider>
+    <section>
+      <mat-checkbox [checked]="data.available" #checkAvailable>Dostępność</mat-checkbox>
+    </section>
+    <mat-divider></mat-divider>
+    <section>
+      <mat-checkbox [checked]="data.blocked" #checkBlocked>Zablokowany</mat-checkbox>
+    </section>
+    <mat-divider></mat-divider>
+  </div>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+  <button mat-raised-button mat-dialog-close class="cancel-button">Anuluj</button>
+  <button mat-raised-button (click)="editProduct(data.productId, itemAmountMax.value, checkAvailable.checked, checkBlocked.checked)" [mat-dialog-close]="true" color="warn">Edytuj</button>
+</div>

@@ -24,7 +24,10 @@ export class AppUrl {
     getCoopOrders: 'coop-orders',
     getCoopLastOrder: 'coop-last-order',
     getStore: 'store',
-    admin: 'admin'
+    getSupplierStore: 'supplier-store',
+    admin: 'admin',
+    user: 'user',
+    passwordReset: 'password-reset'
   };
 
 }

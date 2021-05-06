@@ -1,0 +1,32 @@
+<div class="d-flex flex-column justify-content-center align-items-center login-container">
+  <div class="mb-4">
+    <span class="login-form-label">Resetowanie hasła</span>
+  </div>
+  <div class="form-container border border-secondary">
+
+    <form [formGroup]="passResetForm" (ngSubmit)="onSubmit()" class="my-2 main-green form-center">
+      <div class="form-group">
+        <label for="email">Podaj adres e-mail, który jest powiązany z Twoim kontem, a my wyślemy na niego link umożliwiający ustawienie nowego hasła</label>
+        <input type="email" id="email" [class.is-invalid]="submitted && field.email.invalid && field.email.touched" class="form-control" formControlName="email" autocomplete="email" placeholder="E-mail" #email>
+        <div *ngIf="submitted && field.email.invalid && field.email.touched" class="text-danger small">
+          <div *ngIf="field.email.errors.required">Adres e-mail jest wymagany</div>
+          <div *ngIf="field.email.errors.email">E-mail jest nieprawidłowy</div>
+        </div>
+      </div>
+      <div class="form-group mt-3">
+        <label for="email">Hasło</label>
+
+      </div>
+
+      <div class="d-grid gap-4 mt-3">
+        <input type="submit" class="btn btn-primary btn-block" value="Wyślij link do resetowania hasła">
+      </div>
+
+      <div class="text-center alert alert-dismissible fade mt-3" [class.show]="alertVisibility > 0" [ngClass]="passwordResetS.errorResponse?.status === 200 ? 'alert-success' : passwordResetS.errorResponse?.status === 300 ? 'alert-warning' : 'alert-danger'" role="alert">
+        <span>{{passwordResetS.errorResponse.detail}}</span><br>
+        <!--<a [routerLink]="passwordResetS.errorResponse.data" *ngIf="passwordResetS.errorResponse?.status === 200">Reset link</a>-->
+        <a [href]="passwordResetS.errorResponse.data" *ngIf="passwordResetS.errorResponse?.status === 200">Reset link</a>
+      </div>
+    </form>
+  </div>
+</div>
