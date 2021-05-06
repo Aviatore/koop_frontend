@@ -1,10 +1,6 @@
 import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {LoginService} from '../services/login.service';
 import {ProductService} from '../services/product.service';
-import {Inject} from '@angular/core';
-import {CountDownTokenService} from '../services/count-down-token.service';
-import {RefTokenTimer, TokenTimer} from '../injection-tokens/tokens';
-import {AppUrl} from '../urls/app-url';
 import {CategoriesService} from '../services/categories.service';
 import {CountDownTokenService} from '../services/count-down-token.service';
 import {RefTokenTimer, TokenTimer} from '../injection-tokens/tokens';
