@@ -1,0 +1,14 @@
+<mat-form-field>
+  <mat-chip-list #chipList>
+    <mat-chip *ngFor="let item of userData.get('role').value" selectable="true" removable="true" (removed)="removeRole(item)">
+      {{item}}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+  <mat-label for="role" style="padding-bottom: 5px;">Role</mat-label>
+  <mat-select id="role" (selectionChange)="selected($event)" #roleSelect>
+    <mat-option *ngFor="let role of filteredRoles | async" [value]="role">
+      {{role}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

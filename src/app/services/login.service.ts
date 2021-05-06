@@ -5,6 +5,8 @@ import {catchError} from 'rxjs/operators';
 import {CountDownTokenService} from './count-down-token.service';
 import {RefTokenTimer, TokenTimer} from '../injection-tokens/tokens';
 import {ErrorResponse} from '../admin/admin-interfaces/errorResponse';
+import {NGXLogger} from 'ngx-logger';
+import {LoggerService} from './logger.service';
 
 
 export interface LoginResponse {
@@ -33,28 +35,14 @@ export class LoginService {
   };
 
   constructor(private httpClient: HttpClient,
+              private logger: LoggerService,
               @Inject(TokenTimer) private tokenT: CountDownTokenService,
               @Inject(RefTokenTimer) private refTokenT: CountDownTokenService) { }
 
-  LogIn(email: string, password: string): void {
-    this.GetUserCredentials(email, password).subscribe(
-      result => {
-        console.log(`Response: ${result.body}`);
+  LogIn(email: string, password: string): Observable<HttpResponse<LoginResponse>> {
+    return this.GetUserCredentials(email, password);
 
-        const loginResponse = result.body;
-        localStorage.setItem('token', loginResponse.token);
-        localStorage.setItem('refresh_token', loginResponse.refreshT);
-        localStorage.setItem('login_userId', loginResponse.userId);
-
-        this.tokenT.timeSeconds = loginResponse.tokenExp;
-        this.refTokenT.timeSeconds = loginResponse.refTokenExp;
-
-        this.loginResult = true;
-      },
-      error => {
-        console.error(error);
-        this.loginResult = false;
-      });
+    // return this.errorResponse;
   }
 
   LogOut(): void {
@@ -67,7 +55,7 @@ export class LoginService {
   }
 
   GetUserCredentials(email: string, password: string): Observable<HttpResponse<LoginResponse>> {
-    console.log('Sending login request ...');
+    console.log(...this.logger.info('Sending login request ...'));
 
     const loginBody = {
       Email: email,
@@ -83,11 +71,9 @@ export class LoginService {
 
   private handleError(error: HttpErrorResponse): ObservableInput<any> {
     if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
+      console.log(...this.logger.info(`An error occurred:, ${error.error.message}`));
     } else {
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `Returned body was: ${error.error}`);
+      console.log(...this.logger.error(error.error.detail));
     }
 
     this.loginResult = false;
