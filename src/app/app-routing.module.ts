@@ -6,12 +6,16 @@ import {LoginComponent} from './login/login.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {AppUrl} from './urls/app-url';
 import {AdminComponent} from './admin/admin/admin.component';
+import {UserComponent} from './user-panel/user/user.component';
+import {EmailFormComponent} from './password-reset/email-form/email-form.component';
 
 const routes: Routes = [
   { path: AppUrl.ROUTE.getUnits, component: UnitComponent },
   { path: AppUrl.HOME_PAGE_URL, component: HomeComponent },
   { path: AppUrl.ROUTE.getLogin, component: LoginComponent },
   { path: AppUrl.ROUTE.admin, component: AdminComponent },
+  { path: AppUrl.ROUTE.user, component: UserComponent },
+  { path: AppUrl.ROUTE.passwordReset, component: EmailFormComponent },
   { path: '',   redirectTo: AppUrl.HOME_PAGE_URL, pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
