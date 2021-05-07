@@ -10,5 +10,6 @@ export const Urls = {
   GetAllCategories: 'http://localhost:5000/api/test/categories',
   GetAllUnits: 'http://localhost:5000/api/test/allUnits',
   GetAllSuppliers: 'http://localhost:5000/api/test/allsuppliers',
-  GetAvailQuantities: 'http://localhost:5000/api/test/allsuppliers/product/availAllQuantities' // ?productid=
+  GetAvailAllQuantities: 'http://localhost:5000/api/test/allsuppliers/product/availAllQuantities', // ?productid=
+  GetProductById: 'http://localhost:5000/api/test/product' // <productid>/get
 };

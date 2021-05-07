@@ -1,0 +1,14 @@
+<mat-form-field>
+  <mat-chip-list #chipList>
+    <mat-chip *ngFor="let item of productData.get('category').value" selectable="true" removable="true" (removed)="removeCategory(item)">
+      {{item.categoryName}}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+  <mat-label for="category" style="padding-bottom: 5px;">Kategoria</mat-label>
+  <mat-select id="category" (selectionChange)="selected($event)" #categorySelect>
+    <mat-option *ngFor="let category of filteredCategories | async" [value]="category.categoryId">
+      {{category.categoryName}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

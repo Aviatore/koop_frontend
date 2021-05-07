@@ -4,6 +4,7 @@ import {UserCreateComponent} from './user-create/user-create.component';
 import {UsersListComponent} from './users-list/users-list.component';
 import {AdminComponent} from './admin/admin.component';
 import {UserEditComponent} from './user-edit/user-edit.component';
+import {ProductCreatorComponent} from './product-editor/product-creator.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
         path: 'user/edit/:userId',
         component: UserEditComponent,
         data: {adminMode: true}
+      },
+      {
+        path: 'product/new',
+        component: ProductCreatorComponent
       }
     ]
   }
