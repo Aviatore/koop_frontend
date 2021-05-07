@@ -20,6 +20,7 @@ import { RoleSelectorComponent } from './role-selector/role-selector.component';
 import { ProductCreatorComponent } from './product-editor/product-creator.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { CategorySelectorComponent } from './category-selector/category-selector.component';
+import { AvailQuantSelectorComponent } from './avail-quant-selector/avail-quant-selector.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { CategorySelectorComponent } from './category-selector/category-selector
     UserEditComponent,
     RoleSelectorComponent,
     ProductCreatorComponent,
-    CategorySelectorComponent
+    CategorySelectorComponent,
+    AvailQuantSelectorComponent
   ],
   exports: [
     AdminComponent,

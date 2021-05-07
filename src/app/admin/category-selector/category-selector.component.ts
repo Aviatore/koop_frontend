@@ -12,7 +12,6 @@ import {ProductsService} from '../admin-services/products.service';
 export class CategorySelectorComponent implements OnInit {
   filteredCategories: Observable<Category[]>;
   allCategories: Category[] = [];
-  test = ['p1', 'p2'];
   @ViewChild('categorySelect') categorySelect: MatSelect;
   @Input() productData;
   constructor(private productsService: ProductsService) { }
@@ -51,9 +50,9 @@ export class CategorySelectorComponent implements OnInit {
     }).slice());
   }
 
-  removeCategory(role: Category): void {
+  removeCategory(category: Category): void {
     const catTmp: Category[] = this.productData.get('category').value.slice();
-    const index = catTmp.map(p => p.categoryId).indexOf(role.categoryId);
+    const index = catTmp.map(p => p.categoryId).indexOf(category.categoryId);
     if (index >= 0) {
       catTmp.splice(index, 1);
     }

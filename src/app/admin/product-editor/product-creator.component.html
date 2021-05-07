@@ -201,11 +201,25 @@
       </div>
 
       <div class="col-md-4 mt-5">
-        <div class="mb-1"></div>
-        <app-category-selector [class.is-invalid]="submitted && field.category.invalid && field.category.touched"
-                           [productData]="productData"></app-category-selector>
-        <div *ngIf="submitted && field.role.invalid && field.role.touched" class="text-danger small error">
-          <div *ngIf="field.role.errors.required">Użytkownik musi mieć wybraną co najmniej jedną rolę</div>
+        <div class="row mb-0">
+          <div class="col-md-12 mt-5">
+            <div class="mb-1"></div>
+            <app-category-selector [class.is-invalid]="submitted && field.category.invalid && field.category.touched"
+                               [productData]="productData"></app-category-selector>
+            <div *ngIf="submitted && field.role.invalid && field.role.touched" class="text-danger small error">
+              <div *ngIf="field.role.errors.required">Użytkownik musi mieć wybraną co najmniej jedną rolę</div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-0">
+          <div class="col-md-12 mt-5">
+            <div class="mb-1"></div>
+            <app-avail-quant-selector [class.is-invalid]="submitted && field.category.invalid && field.category.touched"
+                                   [productData]="productData"></app-avail-quant-selector>
+            <div *ngIf="submitted && field.role.invalid && field.role.touched" class="text-danger small error">
+              <div *ngIf="field.role.errors.required">Użytkownik musi mieć wybraną co najmniej jedną rolę</div>
+            </div>
+          </div>
         </div>
       </div>
 
