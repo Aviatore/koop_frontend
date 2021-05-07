@@ -1,6 +1,7 @@
 import {Role} from './role';
-import {Injectable} from '@angular/core';
+import {Inject, Injectable, InjectionToken} from '@angular/core';
 import {JwtParserService} from '../../services/jwt-parser.service';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -8,14 +9,18 @@ import {JwtParserService} from '../../services/jwt-parser.service';
 
 export class Visibility {
 
-  constructor() { }
+  constructor(jwtHelper: JwtHelperService) { }
 
   static set(roles: Role[]): boolean {
-    const tokenRoles = new JwtParserService().getUserRoles();
-    for (const role of roles) {
-      for (const tokenRole of tokenRoles) {
-        if (role === tokenRole) {
-          return true;
+    const token = localStorage.getItem('token');
+    const jwtHelper = new JwtHelperService();
+    if (token && !jwtHelper.isTokenExpired(token)) {
+      const tokenRoles = new JwtParserService().getUserRoles();
+      for (const role of roles) {
+        for (const tokenRole of tokenRoles) {
+          if (role === tokenRole) {
+            return true;
+          }
         }
       }
     }
