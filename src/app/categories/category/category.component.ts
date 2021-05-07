@@ -5,6 +5,8 @@ import {Category} from '../models/category';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {CategoryService} from '../services/category.service';
+import {MatDialog} from '@angular/material/dialog';
+import {CategoryEditAddDialogComponent} from '../category-edit-add-dialog/category-edit-add-dialog.component';
 
 @Component({
   selector: 'app-category',
@@ -28,7 +30,8 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private service: CategoryService) {
+  constructor(private service: CategoryService,
+              public editDialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -66,9 +69,24 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   }
 
   openCategoryEditDialog(categoryId: string, categoryName: string, picture: string): void {
-
+    const dialogRef = this.editDialog.open(CategoryEditAddDialogComponent, {
+      data: {
+        dialogFlag: 'EditCategory',
+        categoryId,
+        categoryName,
+        picture
+      }
+    });
   }
 
   openCategoryAddDialog(): void {
+    const dialogRef = this.editDialog.open(CategoryEditAddDialogComponent, {
+      data: {
+        dialogFlag: 'AddCategory',
+        categoryId: null,
+        categoryName: '',
+        picture: ''
+      }
+    });
   }
 }
