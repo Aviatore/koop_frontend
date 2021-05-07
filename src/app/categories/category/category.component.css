@@ -12,7 +12,11 @@ table {
 }
 
 .mat-column-actionButtons {
-  text-align: right;
+  text-align: center;
+}
+
+.mat-column-picture {
+  text-align: center;
 }
 
 .mat-cell {
