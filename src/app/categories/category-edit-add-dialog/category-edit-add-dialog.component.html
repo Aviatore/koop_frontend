@@ -1,1 +1,21 @@
-<p>category-edit-add-dialog works!</p>
+<h1 mat-dialog-title>{{data.dialogFlag === 'AddCategory' ? 'Dodaj kategoię' : 'Edytuj kategorię'}}</h1>
+<div mat-dialog-content>
+  <mat-divider></mat-divider>
+  <div class="text-center pt-2 pb-2">
+    <mat-form-field>
+      <mat-label>Nazwa kategorii</mat-label>
+      <input matInput [value]="data.categoryName" #catName>
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+  <button mat-raised-button mat-dialog-close class="cancel-button">Anuluj</button>
+  <button *ngIf="data.categoryId !== null" mat-raised-button (click)="editCategory(data.categoryId.toString(), catName.value, null)"
+          [mat-dialog-close]="true" color="warn">
+    {{data.dialogFlag === 'AddCategory' ? 'Dodaj' : 'Edytuj'}}
+  </button>
+  <button *ngIf="data.categoryId === null" mat-raised-button (click)="editCategory(null, catName.value, null)"
+          [mat-dialog-close]="true" color="warn">
+    {{data.dialogFlag === 'AddCategory' ? 'Dodaj' : 'Edytuj'}}
+  </button>
+</div>

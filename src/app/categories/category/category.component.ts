@@ -7,6 +7,7 @@ import {MatSort} from '@angular/material/sort';
 import {CategoryService} from '../services/category.service';
 import {MatDialog} from '@angular/material/dialog';
 import {CategoryEditAddDialogComponent} from '../category-edit-add-dialog/category-edit-add-dialog.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-category',
@@ -31,7 +32,8 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private service: CategoryService,
-              public editDialog: MatDialog) {
+              public addEditDialog: MatDialog,
+              private snackBarAddEdit: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -69,7 +71,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   }
 
   openCategoryEditDialog(categoryId: string, categoryName: string, picture: string): void {
-    const dialogRef = this.editDialog.open(CategoryEditAddDialogComponent, {
+    const dialogRef = this.addEditDialog.open(CategoryEditAddDialogComponent, {
       data: {
         dialogFlag: 'EditCategory',
         categoryId,
@@ -77,16 +79,51 @@ export class CategoryComponent implements OnInit, AfterViewInit {
         picture
       }
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getCategories();
+      if (result.msg !== undefined) {
+        this.openSnackBarAddEdit(result.msg);
+      }
+    });
   }
 
   openCategoryAddDialog(): void {
-    const dialogRef = this.editDialog.open(CategoryEditAddDialogComponent, {
+    const dialogRef = this.addEditDialog.open(CategoryEditAddDialogComponent, {
       data: {
         dialogFlag: 'AddCategory',
         categoryId: null,
         categoryName: '',
         picture: ''
       }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getCategories();
+      if (result.msg !== undefined) {
+        this.openSnackBarAddEdit(result.msg);
+      }
+    });
+  }
+
+  openSnackBarAddEdit(message: string, action?: string): void {
+    let snackBarCss = 'snack-bar-red';
+    if (message !== undefined && message.includes('The new category has been added.')) {
+      message = 'Nowa kategoria została dodana.';
+      snackBarCss = 'snack-bar-green';
+    } else if (message !== undefined && message.includes('The category has been updated.')) {
+      message = 'Kategoria została zaktualizowana.';
+      snackBarCss = 'snack-bar-green';
+    } else if (message !== undefined && message.includes('Something went wrong, the category')) {
+      message = 'Coś poszło nie tak, kategoria nie została dodana.';
+    } else if (message !== undefined && message.includes('The category with ID:')) {
+      message = 'Kategoria nie jest dostępna.';
+    } else if (message !== undefined && message.includes('The category field cannot be empty.')) {
+      message = 'Pole kategorii nie może być puste. Kategoria nie została dodana.';
+    }
+    this.snackBarAddEdit.open(message, action, {
+      duration: 3500,
+      panelClass: snackBarCss
     });
   }
 }

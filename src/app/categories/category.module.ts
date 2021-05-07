@@ -7,6 +7,8 @@ import {MaterialModule} from '../material/material.module';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { CategoryEditAddDialogComponent } from './category-edit-add-dialog/category-edit-add-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { CategoryEditAddDialogComponent } from './category-edit-add-dialog/categ
     CategoryRoutingModule,
     MaterialModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule,
+    FormsModule
   ]
 })
 export class CategoryModule { }
