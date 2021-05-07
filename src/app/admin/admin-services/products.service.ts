@@ -32,6 +32,13 @@ export class ProductsService {
       catchError(this.handleError));
   }
 
+  GetProductCategories(productId: string): Observable<Category[]> {
+    return this.httpClient.get<Category[]>(Urls.GetProductCategories, {
+      params: new HttpParams().set('productId', productId)
+    }).pipe(
+      catchError(this.handleError));
+  }
+
   GetAllUnits(): Observable<Unit[]> {
     return this.httpClient.get<Unit[]>(Urls.GetAllUnits).pipe(
       catchError(this.handleError));

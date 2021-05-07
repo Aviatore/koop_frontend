@@ -2,6 +2,7 @@ import {AvailQuantity} from './availQuantity';
 import {Category} from './categories';
 
 export interface Product {
+  productId: string;
   productName: string;
   price: number;
   picture: string;

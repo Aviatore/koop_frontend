@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {Category} from '../admin-interfaces/categories';
 import {MatSelect, MatSelectChange} from '@angular/material/select';
 import {ProductsService} from '../admin-services/products.service';
@@ -14,6 +14,7 @@ export class CategorySelectorComponent implements OnInit {
   allCategories: Category[] = [];
   @ViewChild('categorySelect') categorySelect: MatSelect;
   @Input() productData;
+  @Input() onProductDataUpdated: Subject<any>;
   constructor(private productsService: ProductsService) { }
 
   ngOnInit(): void {
@@ -23,14 +24,28 @@ export class CategorySelectorComponent implements OnInit {
       // Subscribe to the Subject provided as an Input to listen.
       // When the userData is updated the Subject sends empty data by the next() method
       // which triggers filling-up filteredRoles.
-      this.filteredCategories = of(this.allCategories.filter(p => !this.productData.get('category').value.includes(p)).slice());
+      if (this.onProductDataUpdated) {
+        this.onProductDataUpdated.subscribe(result => {
+          console.log('loaded');
+          this.filteredCategories = of(this.allCategories.filter(category => {
+            const tmp = this.productData.get('category').value.filter(p => p.categoryId === category.categoryId);
+            return tmp.length === 0;
+          }).slice());
+        });
+      } else {
+        this.filteredCategories = of(this.allCategories.filter(category => {
+          const tmp = this.productData.get('category').value.filter(p => p.categoryId === category.categoryId);
+          return tmp.length === 0;
+        }).slice());
+      }
     });
   }
 
   selected(event: MatSelectChange): void {
     const newCat: Category = {
       categoryId: event.value,
-      categoryName: event.source.triggerValue
+      categoryName: event.source.triggerValue,
+      productId: '00000000-0000-0000-0000-000000000000'
     };
     const catTmp = this.productData.get('category').value.slice();
     catTmp.push(newCat);

@@ -8,8 +8,9 @@ export const Urls = {
   BaseAuthUrl: 'http://localhost:5000/api/auth',
   GetAllRoles: 'http://localhost:5000/api/auth/roles',
   GetAllCategories: 'http://localhost:5000/api/test/categories',
+  GetProductCategories: 'http://localhost:5000/api/test/product/categories', // ?productid=
   GetAllUnits: 'http://localhost:5000/api/test/allUnits',
   GetAllSuppliers: 'http://localhost:5000/api/test/allsuppliers',
-  GetAvailAllQuantities: 'http://localhost:5000/api/test/allsuppliers/product/availAllQuantities', // ?productid=
+  GetAvailAllQuantities: 'http://localhost:5000/api/test/product/availAllQuantities', // ?productid=
   GetProductById: 'http://localhost:5000/api/test/product' // <productid>/get
 };

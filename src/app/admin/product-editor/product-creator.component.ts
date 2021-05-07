@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductsService} from '../admin-services/products.service';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {Unit} from '../admin-interfaces/unit';
 import {Supplier} from '../admin-interfaces/supplier';
 import {Category} from '../admin-interfaces/categories';
@@ -25,6 +25,7 @@ export class ProductCreatorComponent implements OnInit {
   categories: Observable<Category[]>;
   availQuantities: Observable<AvailQuantity[]>;
   productId: string;
+  ProductDataUpdated: Subject<any> = new Subject();
   productData;
   constructor(private formBuilder: FormBuilder,
               private productsService: ProductsService,
@@ -32,7 +33,8 @@ export class ProductCreatorComponent implements OnInit {
               private logger: LoggerService) { }
 
   ngOnInit(): void {
-    this.productId = this.router.snapshot.paramMap.get('productId');
+    this.productId = this.router.snapshot.queryParamMap.get('productId');
+    console.log(`productId: ${this.productId}`);
     this.ps = this.productsService;
     this.units = this.ps.GetAllUnits();
     this.suppliers = this.ps.GetAllSuppliers();
@@ -40,6 +42,7 @@ export class ProductCreatorComponent implements OnInit {
     this.availQuantities = this.ps.GetAvailQuantities(this.productId);
 
     this.productData = this.formBuilder.group({
+      productId: ['00000000-0000-0000-0000-000000000000'],
       productName: ['', [
         Validators.required
       ]],
@@ -73,20 +76,28 @@ export class ProductCreatorComponent implements OnInit {
 
     if (this.productId !== null) {
       this.ps.GetProductById(this.productId).subscribe(result => {
-        this.productData.setValue({
-          productName: result.productName,
-          price: result.price,
-          picture: result.picture,
-          blocked: result.blocked,
-          unitId: result.unitId,
-          available: result.available,
-          amountMax: result.amountMax,
-          description: result.description,
-          supplierId: result.supplierId,
-          deposit: result.deposit,
-          magazine: result.magazine,
-          availQuantity: result.availQuantity,
-          category: result.category
+        this.ps.GetProductCategories(this.productId).subscribe(categoryResult => {
+          this.ps.GetAvailQuantities(this.productId).subscribe(quantResult => {
+            console.log(`Data: ${JSON.stringify(categoryResult)}`);
+            this.productData.setValue({
+              productId: result.productId,
+              productName: result.productName,
+              price: result.price,
+              picture: result.picture,
+              blocked: result.blocked,
+              unitId: result.unitId,
+              available: result.available,
+              amountMax: result.amountMax,
+              description: result.description,
+              supplierId: result.supplierId,
+              deposit: result.deposit,
+              magazine: result.magazine,
+              availQuantity: quantResult === undefined ? [] : quantResult,
+              category: categoryResult === undefined ? [] : categoryResult
+            });
+
+            this.ProductDataUpdated.next();
+          });
         });
       });
     }
@@ -111,6 +122,10 @@ export class ProductCreatorComponent implements OnInit {
       });
     } else {
       this.submitted = false;
+
+      this.ps.errorResponse.detail = 'Przetwarzanie danych. Proszę czekać ...';
+      this.ps.errorResponse.status = 300;
+      this.alertVisibility = 1;
     }
   }
 
