@@ -41,7 +41,8 @@ import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 import {LoggerService} from './services/logger.service';
 import {UserPanelModule} from './user-panel/user-panel.module';
 import { EmailFormComponent } from './password-reset/email-form/email-form.component';
-import {PasswordResetModule} from "./password-reset/password-reset.module";
+import {PasswordResetModule} from './password-reset/password-reset.module';
+import {Visibility} from './menu/visibility/visibility';
 
 registerLocaleData(localePL);
 

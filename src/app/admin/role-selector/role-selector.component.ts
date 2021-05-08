@@ -20,13 +20,17 @@ export class RoleSelectorComponent implements OnInit {
   ngOnInit(): void {
     this.usersService.GetALlRoles().subscribe(rolesResult => {
       rolesResult.forEach(role => this.allRoles.push(role.name));
-    });
 
-    // Subscribe to the Subject provided as an Input to listen.
-    // When the userData is updated the Subject sends empty data by the next() method
-    // which triggers filling-up filteredRoles.
-    this.onUserDataUpdated.subscribe(() => {
-      this.filteredRoles = of(this.allRoles.filter(p => !this.userData.get('role').value.includes(p)).slice());
+      // Subscribe to the Subject provided as an Input to listen.
+      // When the userData is updated the Subject sends empty data by the next() method
+      // which triggers filling-up filteredRoles.
+      if (this.onUserDataUpdated) {
+        this.onUserDataUpdated.subscribe(() => {
+          this.filteredRoles = of(this.allRoles.filter(p => !this.userData.get('role').value.includes(p)).slice());
+        });
+      } else {
+        this.filteredRoles = of(this.allRoles.filter(p => !this.userData.get('role').value.includes(p)).slice());
+      }
     });
   }
 
