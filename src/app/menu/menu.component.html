@@ -11,7 +11,7 @@
       </li>
       <li><button mat-button [routerLink]="[urls.admin]" class="top-link">Admin</button></li>
       <li><button mat-button  [routerLink]="[urls.getLogin]" class="top-link"
-              (click)="LoginAction()">{{(this.loginService.loginResult ? 'logout' : 'login') | titlecase}}</button></li>
+              (click)="LoginAction()">{{(isTokenExpired() ? 'login' : 'logout') | titlecase}}</button></li>
     </ul>
   </div>
   <div fxHide.gt-xs>
