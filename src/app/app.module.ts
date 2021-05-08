@@ -47,6 +47,11 @@ import {UserPanelModule} from './user-panel/user-panel.module';
 import { EmailFormComponent } from './password-reset/email-form/email-form.component';
 import {PasswordResetModule} from './password-reset/password-reset.module';
 import {CategoryModule} from './categories/category.module';
+import {JwtParserService} from './services/jwt-parser.service';
+
+export function tokenGetter(): string | null {
+  return localStorage.getItem('token');
+}
 
 registerLocaleData(localePL);
 
@@ -79,6 +84,12 @@ registerLocaleData(localePL);
     NgbModule,
     MaterialModule,
     ReportModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        allowedDomains: [],
+        disallowedRoutes: []
+      }}),
     CoopOrderModule,
     StoreModule,
     CategoryModule,
@@ -91,7 +102,7 @@ registerLocaleData(localePL);
     UnitsService,
     CookieService,
     CategoriesService,
-    ProductService,
+    JwtParserService,
     {provide: LOCALE_ID, useValue: 'pl'},
     { provide: MatPaginatorIntl, useValue: AppPaginatorConfig() },
     {
