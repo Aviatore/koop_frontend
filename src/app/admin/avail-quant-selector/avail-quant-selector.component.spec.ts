@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProductEditorComponent } from './product-editor.component';
+import { AvailQuantSelectorComponent } from './avail-quant-selector.component';
 
-describe('ProductEditorComponent', () => {
-  let component: ProductEditorComponent;
-  let fixture: ComponentFixture<ProductEditorComponent>;
+describe('AvailQuantSelectorComponent', () => {
+  let component: AvailQuantSelectorComponent;
+  let fixture: ComponentFixture<AvailQuantSelectorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProductEditorComponent ]
+      declarations: [ AvailQuantSelectorComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProductEditorComponent);
+    fixture = TestBed.createComponent(AvailQuantSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
