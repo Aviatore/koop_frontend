@@ -33,7 +33,11 @@ import {MatPaginatorIntl} from '@angular/material/paginator';
 import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
 import {MaterialModule} from './material/material.module';
+import { CategoriesComponent } from './categories/categories.component';
+import { ProductComponent } from './product/product.component';
+import {CategoriesService} from './services/categories.service';
 import {AdminModule} from './admin/admin.module';
+import {ProductService} from './services/product.service';
 import {CoopOrderModule} from './coop-order/coop-order.module';
 import {JwtModule} from '@auth0/angular-jwt';
 import {StoreModule} from './stores/store.module';
@@ -58,6 +62,8 @@ registerLocaleData(localePL);
     PageNotFoundComponent,
     LayoutComponent,
     HamburgerMenuComponent,
+    CategoriesComponent,
+    ProductComponent,
     EmailFormComponent,
   ],
   imports: [
@@ -84,6 +90,8 @@ registerLocaleData(localePL);
   providers: [
     UnitsService,
     CookieService,
+    CategoriesService,
+    ProductService,
     {provide: LOCALE_ID, useValue: 'pl'},
     { provide: MatPaginatorIntl, useValue: AppPaginatorConfig() },
     {
