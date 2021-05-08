@@ -6,7 +6,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {LoggerService} from '../../services/logger.service';
-import {tap} from 'rxjs/operators';
+import {debounceTime, delay, retry, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-users-list',
@@ -16,7 +16,7 @@ import {tap} from 'rxjs/operators';
 export class UsersListComponent implements OnInit, AfterViewInit {
   alertVisibility: number;
   alertVisibilityTimeSec = 3;
-  us: UsersService
+  us: UsersService;
   columnHeaders = ['firstName', 'lastName', 'email', 'action'];
   dataSource: MatTableDataSource<User>;
   users$: Observable<User[]>;
@@ -49,8 +49,13 @@ export class UsersListComponent implements OnInit, AfterViewInit {
   }
 
   removeUser(user: User): void {
-    this.usersService.remUser(user.id).subscribe({
+    this.usersService.remUser(user.id).pipe(
+      tap(p => console.log('A')),
+      retry(1),
+      tap(p => console.log('B'))
+    ).subscribe({
       next: () => {
+        console.log('NEXT');
         console.log(...this.logger.info(`User with Id: ${user.id} was removed.`));
         this.us.errorResponse = {
           detail: `Konto użytkownika zostało usunięte.`,
@@ -58,6 +63,7 @@ export class UsersListComponent implements OnInit, AfterViewInit {
         };
       },
       error: error => {
+        console.log('TEST');
         console.log(...this.logger.error(error));
         this.showAlert().subscribe();
       },

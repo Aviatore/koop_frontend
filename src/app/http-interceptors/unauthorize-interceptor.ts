@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse, HttpHeaders, HttpClient} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {Observable, of, throwError} from 'rxjs';
+import {catchError, retry, switchMap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {RefreshTokenService} from '../services/refresh-token.service';
 import {RoutingStateService} from '../services/routing-state.service';
@@ -36,6 +36,7 @@ export class UnauthorizeInterceptor implements HttpInterceptor {
     // console.log(`TokenRefresh header: ${req.headers.get('TokenRefresh')}`);
 
     return next.handle(req).pipe(
+      retry(1),
       catchError(err => this.handleAuthError(err))
     );
   }
@@ -45,9 +46,11 @@ export class UnauthorizeInterceptor implements HttpInterceptor {
       this.isActive = true;
       this.routeState.loadRouting();
 
+      console.log('JEDEN');
+
       console.log(...this.logger.info(`Refresh token before: ${localStorage.getItem('refresh_token')}`));
-      this.refreshToken.RefreshToken().subscribe(
-        result => {
+      return this.refreshToken.RefreshToken().pipe(
+        switchMap(result => {
           console.log(...this.logger.info(`Response: ${result.body}`));
 
           const loginResponse = result.body;
@@ -66,21 +69,28 @@ export class UnauthorizeInterceptor implements HttpInterceptor {
 
           // Hack to reload the current page
           // Without it, the page after refreshing the token will be incomplete
-          this.router.navigateByUrl('/').then(() => this.router.navigateByUrl(redirectUrl));
+          // this.router.navigateByUrl('/').then(() => this.router.navigateByUrl(redirectUrl));
+          console.log('DWA');
           this.isActive = false;
+          return of(err);
+        })
+      );
+        /*.subscribe(
+        result => {
+
         },
         error => {
           console.log(...this.logger.error(error));
 
-          /*localStorage.setItem('token', '');
-          localStorage.setItem('refresh_token', '');*/
+          /!*localStorage.setItem('token', '');
+          localStorage.setItem('refresh_token', '');*!/
 
           console.log(...this.logger.error('Refresh failed.'));
 
           this.loginService.loginResult = false;
           this.router.navigateByUrl(`login`);
           this.isActive = false;
-        });
+        });*/
     }
     return throwError(err);
   }
