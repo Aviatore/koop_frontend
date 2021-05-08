@@ -33,8 +33,8 @@ export class AvailQuantSelectorComponent implements OnInit {
     }
     const newQuant: AvailQuantity = {
       quantity: Number(event.value),
-      availableQuantityId: null,
-      productId: this.productId === undefined ? null : this.productId
+      availableQuantityId: '00000000-0000-0000-0000-000000000000',
+      productId: this.productId === undefined ? '00000000-0000-0000-0000-000000000000' : this.productId
     };
 
     const quantTmp = this.productData.get('availQuantity').value.slice();

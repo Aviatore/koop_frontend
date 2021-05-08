@@ -19,25 +19,18 @@ export class CategorySelectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.productsService.GetAllCategories().subscribe(rolesResult => {
+      console.log('cat-selector start');
       rolesResult.forEach(role => this.allCategories.push(role));
 
-      // Subscribe to the Subject provided as an Input to listen.
+      // Subscribe to the BehaviourSubject provided as an Input to listen.
       // When the userData is updated the Subject sends empty data by the next() method
       // which triggers filling-up filteredRoles.
-      if (this.onProductDataUpdated) {
-        this.onProductDataUpdated.subscribe(result => {
-          console.log('loaded');
-          this.filteredCategories = of(this.allCategories.filter(category => {
-            const tmp = this.productData.get('category').value.filter(p => p.categoryId === category.categoryId);
-            return tmp.length === 0;
-          }).slice());
-        });
-      } else {
+      this.onProductDataUpdated.subscribe(result => {
         this.filteredCategories = of(this.allCategories.filter(category => {
           const tmp = this.productData.get('category').value.filter(p => p.categoryId === category.categoryId);
           return tmp.length === 0;
         }).slice());
-      }
+      });
     });
   }
 

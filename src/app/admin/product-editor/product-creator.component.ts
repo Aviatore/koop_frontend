@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, OnInit} from '@angular/core';
 import {ProductsService} from '../admin-services/products.service';
-import {Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {Unit} from '../admin-interfaces/unit';
 import {Supplier} from '../admin-interfaces/supplier';
 import {Category} from '../admin-interfaces/categories';
@@ -8,6 +8,8 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {LoggerService} from '../../services/logger.service';
 import {AvailQuantity} from '../admin-interfaces/availQuantity';
 import {ActivatedRoute} from '@angular/router';
+import {delay} from 'rxjs/operators';
+import {Product} from '../admin-interfaces/product';
 
 
 @Component({
@@ -25,7 +27,7 @@ export class ProductCreatorComponent implements OnInit {
   categories: Observable<Category[]>;
   availQuantities: Observable<AvailQuantity[]>;
   productId: string;
-  ProductDataUpdated: Subject<any> = new Subject();
+  ProductDataUpdated: BehaviorSubject<any> = new BehaviorSubject<any>('');
   productData;
   constructor(private formBuilder: FormBuilder,
               private productsService: ProductsService,
@@ -54,7 +56,7 @@ export class ProductCreatorComponent implements OnInit {
       unitId: ['', [
         Validators.required
       ]],
-      available: [''],
+      available: [false],
       amountMax: [0, [
         Validators.required, Validators.min(0)
       ]],
@@ -65,7 +67,7 @@ export class ProductCreatorComponent implements OnInit {
         Validators.required
       ]],
       deposit: [''],
-      magazine: [''],
+      magazine: [false],
       availQuantity: [[], [
         Validators.required
       ]],
@@ -96,7 +98,7 @@ export class ProductCreatorComponent implements OnInit {
               category: categoryResult === undefined ? [] : categoryResult
             });
 
-            this.ProductDataUpdated.next();
+            this.ProductDataUpdated.next('');
           });
         });
       });
@@ -106,6 +108,8 @@ export class ProductCreatorComponent implements OnInit {
       detail: '',
       status: 0
     };
+
+    this.ProductDataUpdated.next('');
   }
 
   get field(): any {
@@ -126,6 +130,21 @@ export class ProductCreatorComponent implements OnInit {
       this.ps.errorResponse.detail = 'Przetwarzanie danych. Proszę czekać ...';
       this.ps.errorResponse.status = 300;
       this.alertVisibility = 1;
+
+      this.productData.patchValue({
+        available: this.productData.get('amountMax').value > 0
+      });
+
+      const product: Product = this.productData.getRawValue();
+      console.log(...this.logger.info(`Prouct data: ${product.productName}`));
+
+      this.productsService.UpdateProduct(product).pipe(delay(2000)).subscribe({
+        next: result => {
+          console.log(...this.logger.info(`Response body: ${JSON.stringify(result.body)}`));
+          this.ps.errorResponse = result.body;
+          this.showAlert().subscribe();
+        }
+      });
     }
   }
 
