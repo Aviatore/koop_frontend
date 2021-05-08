@@ -27,7 +27,8 @@ export class AppUrl {
     getSupplierStore: 'supplier-store',
     admin: 'admin',
     user: 'user',
-    passwordReset: 'password-reset'
+    passwordReset: 'password-reset',
+    getCategories: 'categories'
   };
 
 }
