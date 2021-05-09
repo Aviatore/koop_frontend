@@ -1,0 +1,11 @@
+.cancel-button, .cancel-button:hover {
+  background: rgb(3, 130, 17);
+  color: #fff;
+}
+
+.upload {
+  font-weight:bold;
+  color: rgb(3, 130, 17);
+  margin-left: 15px;
+  line-height: 36px;
+}

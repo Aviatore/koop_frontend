@@ -8,6 +8,8 @@ import {CategoryService} from '../services/category.service';
 import {MatDialog} from '@angular/material/dialog';
 import {CategoryEditAddDialogComponent} from '../category-edit-add-dialog/category-edit-add-dialog.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {UploadImgDialogComponent} from '../upload-img-dialog/upload-img-dialog.component';
+import {AppUrl} from '../../urls/app-url';
 
 @Component({
   selector: 'app-category',
@@ -27,12 +29,14 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   categories: Category[];
   dataSource: MatTableDataSource<Category>;
   itemsPerPage = [10, 25, 50, 100];
+  domain = AppUrl.DOMAIN;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private service: CategoryService,
               public addEditDialog: MatDialog,
+              public addImgDialog: MatDialog,
               private snackBarAddEdit: MatSnackBar) {
   }
 
@@ -124,6 +128,22 @@ export class CategoryComponent implements OnInit, AfterViewInit {
     this.snackBarAddEdit.open(message, action, {
       duration: 3500,
       panelClass: snackBarCss
+    });
+  }
+
+  openUploadImgDialog(categoryId: string, picture: string): void {
+    const dialogRef = this.addImgDialog.open(UploadImgDialogComponent, {
+      data: {
+        categoryId,
+        picture
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getCategories();
+      if (result.msg !== undefined) {
+        this.openSnackBarAddEdit(result.msg);
+      }
     });
   }
 }

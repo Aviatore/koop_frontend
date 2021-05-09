@@ -5,6 +5,8 @@ import {Injectable} from '@angular/core';
 })
 export class AppUrl {
 
+  public static readonly DOMAIN = 'http://localhost:5000/';
+
   public static readonly BASE_URL = 'http://localhost:5000/api/';
 
   public static readonly HOME_PAGE_URL = 'home';

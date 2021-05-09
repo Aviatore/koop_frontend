@@ -38,6 +38,25 @@ export class CategoryService {
         catchError(this.handleError));
   }
 
+  uploadFileService(formData: FormData): Observable<any> {
+    return this.http.post(`${AppUrl.BASE_URL}Category/Upload/Image`, formData, {
+      reportProgress: true,
+      observe: 'events'
+    });
+  }
+
+  updateImageNameService(categoryId: string, picture: string): Observable<Info> {
+    return this.http.post<Info>(`${AppUrl.BASE_URL}Category/Update/Image/Name`,
+      {
+        categoryId,
+        picture
+      })
+      .pipe(map(res => {
+          return res;
+        }),
+        catchError(this.handleError));
+  }
+
   handleError(error: HttpErrorResponse): Observable<never> {
     return throwError(error);
   }
