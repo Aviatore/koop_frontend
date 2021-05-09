@@ -9,21 +9,25 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { CategoryEditAddDialogComponent } from './category-edit-add-dialog/category-edit-add-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {FormsModule} from '@angular/forms';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { UploadImgDialogComponent } from './upload-img-dialog/upload-img-dialog.component';
 
 
 @NgModule({
   declarations: [
     CategoryComponent,
-    CategoryEditAddDialogComponent
+    CategoryEditAddDialogComponent,
+    UploadImgDialogComponent
   ],
-  imports: [
-    CommonModule,
-    CategoryRoutingModule,
-    MaterialModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatDialogModule,
-    FormsModule
-  ]
+    imports: [
+        CommonModule,
+        CategoryRoutingModule,
+        MaterialModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatDialogModule,
+        FormsModule,
+        MatTooltipModule
+    ]
 })
 export class CategoryModule { }
