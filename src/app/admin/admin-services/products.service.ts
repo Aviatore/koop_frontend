@@ -1,13 +1,23 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import {LoggerService} from '../../services/logger.service';
-import {Observable, ObservableInput, throwError} from 'rxjs';
+import {Observable, ObservableInput, of, throwError} from 'rxjs';
 import {Funds} from '../admin-interfaces/funds';
 import {Urls} from '../urls';
 import {catchError} from 'rxjs/operators';
 import {ErrorResponse} from '../admin-interfaces/errorResponse';
 import {Category} from '../admin-interfaces/categories';
 import {Unit} from '../admin-interfaces/unit';
+import {Supplier} from '../admin-interfaces/supplier';
+import {AvailQuantity} from '../admin-interfaces/availQuantity';
+import {Product} from '../admin-interfaces/product';
+import {User} from '../admin-interfaces/user';
+
+const requestOptions: object = {
+  headers: new HttpHeaders().set('Content-Type', 'application/json'),
+  observe: 'response',
+  responseType: 'json'
+};
 
 @Injectable({
   providedIn: 'root'
@@ -23,19 +33,52 @@ export class ProductsService {
       catchError(this.handleError));
   }
 
+  GetProductCategories(productId: string): Observable<Category[]> {
+    return this.httpClient.get<Category[]>(Urls.GetProductCategories, {
+      params: new HttpParams().set('productId', productId)
+    }).pipe(
+      catchError(this.handleError));
+  }
+
   GetAllUnits(): Observable<Unit[]> {
     return this.httpClient.get<Unit[]>(Urls.GetAllUnits).pipe(
       catchError(this.handleError));
   }
 
-  GetAllSuppliers(): Observable<Unit[]> {
-    return this.httpClient.get<Unit[]>(Urls.GetAllSuppliers).pipe(
+  GetAllSuppliers(): Observable<Supplier[]> {
+    return this.httpClient.get<Supplier[]>(Urls.GetAllSuppliers).pipe(
       catchError(this.handleError));
   }
 
-  GetAvailQuantities(): Observable<Unit[]> {
-    return this.httpClient.get<Unit[]>(Urls.GetAvailQuantities).pipe(
+  GetAvailQuantities(productId: string = ''): Observable<AvailQuantity[]> {
+    if (productId === undefined || productId === '') {
+      return new Observable<AvailQuantity[]>(observer => {
+        const tmp: AvailQuantity[] = [];
+        observer.next(tmp);
+      });
+    }
+
+    return this.httpClient.get<AvailQuantity[]>(Urls.GetAvailAllQuantities, {
+      params: new HttpParams().set('productId', productId)
+    }).pipe(
       catchError(this.handleError));
+  }
+
+  GetProductById(productId: string): Observable<Product> {
+    const url = `${Urls.GetProductById}/${productId}/get`;
+    return this.httpClient.get<Product>(url).pipe(
+      catchError(this.handleError));
+  }
+
+  UpdateProduct(product: Product): Observable<any> {
+    console.log(...this.logger.info(`Edit user - ${product.productId} - sending query ...`));
+    return this.httpClient.post<HttpResponse<Observable<ErrorResponse>>>(Urls.UpdateProduct, product, {
+      params: new HttpParams().set('productId', product.productId),
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      observe: 'response',
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError.bind(this)));
   }
 
   private handleError(error: HttpErrorResponse): ObservableInput<any> {

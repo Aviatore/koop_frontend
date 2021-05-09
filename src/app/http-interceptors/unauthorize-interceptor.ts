@@ -79,6 +79,8 @@ export class UnauthorizeInterceptor implements HttpInterceptor {
 
           this.loginService.loginResult = false;
           this.router.navigateByUrl(`login`);
+          localStorage.setItem('token', '');
+          localStorage.setItem('refresh_token', '');
           this.isActive = false;
         });
     }

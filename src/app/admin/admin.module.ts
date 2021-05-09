@@ -17,7 +17,10 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { RoleSelectorComponent } from './role-selector/role-selector.component';
-import { ProductEditorComponent } from './product-editor/product-editor.component';
+import { ProductCreatorComponent } from './product-editor/product-creator.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { CategorySelectorComponent } from './category-selector/category-selector.component';
+import { AvailQuantSelectorComponent } from './avail-quant-selector/avail-quant-selector.component';
 
 
 @NgModule({
@@ -27,7 +30,9 @@ import { ProductEditorComponent } from './product-editor/product-editor.componen
     UsersListComponent,
     UserEditComponent,
     RoleSelectorComponent,
-    ProductEditorComponent
+    ProductCreatorComponent,
+    CategorySelectorComponent,
+    AvailQuantSelectorComponent
   ],
   exports: [
     AdminComponent,
@@ -46,7 +51,8 @@ import { ProductEditorComponent } from './product-editor/product-editor.componen
     MatSelectModule,
     MatChipsModule,
     MatIconModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSlideToggleModule
   ]
 })
 export class AdminModule { }
