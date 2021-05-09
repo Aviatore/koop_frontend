@@ -38,6 +38,13 @@ export class CategoryService {
         catchError(this.handleError));
   }
 
+  uploadFileService(formData: FormData): Observable<any> {
+    return this.http.post(`${AppUrl.BASE_URL}Category/Upload/Image`, formData, {
+      reportProgress: true,
+      observe: 'events'
+    });
+  }
+
   handleError(error: HttpErrorResponse): Observable<never> {
     return throwError(error);
   }

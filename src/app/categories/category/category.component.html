@@ -26,7 +26,19 @@
       </ng-component>
       <ng-component matColumnDef="picture">
         <th mat-header-cell *matHeaderCellDef>Obrazek</th>
-        <td mat-cell *matCellDef="let element">{{element.picture}}</td>
+        <td mat-cell *matCellDef="let element">
+          {{element.picture}}
+          <img *ngIf="element.picture !== null && element.picture.length > 0"
+               [src]="element.picture" alt="Category picture" style="height: 60px">
+          <button mat-icon-button
+                  (click)="openUploadImgDialog(element.categoryId, element.picture)"
+                  matTooltip="Dodaj obrazek"
+                  matTooltipClass="tooltip-green"
+                  [matTooltipPosition]="'before'"
+                  class="add-picture-button">
+            <mat-icon>add_photo_alternate</mat-icon>
+          </button>
+        </td>
       </ng-component>
       <ng-component matColumnDef="actionButtons">
         <th mat-header-cell *matHeaderCellDef>Akcja</th>
