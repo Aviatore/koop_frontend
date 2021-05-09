@@ -9,6 +9,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {CategoryEditAddDialogComponent} from '../category-edit-add-dialog/category-edit-add-dialog.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {UploadImgDialogComponent} from '../upload-img-dialog/upload-img-dialog.component';
+import {AppUrl} from '../../urls/app-url';
 
 @Component({
   selector: 'app-category',
@@ -28,6 +29,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   categories: Category[];
   dataSource: MatTableDataSource<Category>;
   itemsPerPage = [10, 25, 50, 100];
+  domain = AppUrl.DOMAIN;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -134,6 +136,13 @@ export class CategoryComponent implements OnInit, AfterViewInit {
       data: {
         categoryId,
         picture
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getCategories();
+      if (result.msg !== undefined) {
+        this.openSnackBarAddEdit(result.msg);
       }
     });
   }

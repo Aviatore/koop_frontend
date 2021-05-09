@@ -3,6 +3,8 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {UploadDataDialog} from '../models/upload-data-dialog';
 import {CategoryService} from '../services/category.service';
 import {HttpEventType} from '@angular/common/http';
+import {map} from 'rxjs/operators';
+import {Path} from '../models/path';
 
 @Component({
   selector: 'app-upload-img-dialog',
@@ -15,6 +17,7 @@ export class UploadImgDialogComponent implements OnInit {
   selectedFile: File = null;
   @Output() public onUploadFinished = new EventEmitter();
   isDisabled: boolean;
+  path: Path;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: UploadDataDialog,
               private dialogRef: MatDialogRef<UploadImgDialogComponent>,
@@ -37,9 +40,9 @@ export class UploadImgDialogComponent implements OnInit {
     const fileName = fileList.item(0).name.split('.');
     const fileExtension = fileName[fileName.length - 1];
 
-    const fd = new FormData();
-    fd.append('image', fileList.item(0), `${categoryId}.${fileExtension}`);
-    this.service.uploadFileService(fd)
+    const formData = new FormData();
+    formData.append('image', fileList.item(0), `${categoryId}.${fileExtension}`);
+    this.service.uploadFileService(formData)
       .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
           this.disableButton();
@@ -47,6 +50,9 @@ export class UploadImgDialogComponent implements OnInit {
         } else if (event.type === HttpEventType.Response) {
           this.message = 'Obrazek dodany';
           this.onUploadFinished.emit(event.body);
+          this.path = event.body;
+          const test = this.service.updateImageNameService(categoryId, this.path.dbPath);
+          console.log(test.subscribe((s) => s.info, error => error.error));
           setInterval(() => this.dialogRef.close({msg: event.body}), 1400);
         }
       });

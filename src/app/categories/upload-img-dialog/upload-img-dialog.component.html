@@ -1,6 +1,5 @@
-<h1 mat-dialog-title>Dodaj obrazek</h1>
+<h1 mat-dialog-title>{{data.picture?.length === 0 || data.picture === null ? 'Dodaj obrazek' : 'Edytuj obrazek'}}</h1>
 <div mat-dialog-content>
-  <mat-divider></mat-divider>
   <div class="text-center pt-2 pb-2">
     <input type="file" accept="image/*" #file placeholder="Choose file"
            (change)="uploadImg(data.categoryId.toString(), data.picture, file.files)"
@@ -12,7 +11,6 @@
         {{message}}
       </span>
   </div>
-  <mat-divider></mat-divider>
 </div>
 <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
   <button mat-raised-button mat-dialog-close class="cancel-button">Anuluj</button>
