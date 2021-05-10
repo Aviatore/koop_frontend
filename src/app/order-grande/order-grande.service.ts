@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Basket } from './basket';
 
 import {baseUrl} from '../../environments/environment';
 
@@ -6,6 +7,8 @@ import { Observable, of } from 'rxjs';
 import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import {Guid} from 'guid-typescript';
 import {catchError} from 'rxjs/operators';
+import {OrderGrande} from './order-grande';
+import {Status} from './status';
 
 const orderGrandeOptions: object = {
   headers: new HttpHeaders().set('Content-Type', 'application/json-patch+json'),
@@ -20,51 +23,25 @@ export class OrderGrandeService {
 
   constructor(private http: HttpClient) {}
 
-  // getSuppliers(): Observable<Supplier[]> {
-  //   return this.http.get<Supplier[]>(`${baseUrl}Supplier/allsuppliers`);
-  // }
-  //
-  // getSupplier(suppId: Guid | string): Observable<Supplier> {
-  //   return this.http.get<Supplier>(`${baseUrl}Supplier/supplier/${suppId}`);
-  // }
-  //
-  // getUsers(): Observable<UserName[]> {
-  // return this.http.get<UserName[]>(`${baseUrl}Cooperator/allNames`);
-  // }
-  //
-  // editSupplier(supplier: Supplier): void {
-  //   console.log(`Raw data: ${JSON.stringify(supplier)}`);
-  //   this.http.post<HttpResponse<any>>(`${baseUrl}Supplier/supplier/update`, supplier, supplierOptions)
-  //     .subscribe(
-  //       (response) => console.log(response),
-  //       (error) => console.log(error)
-  //     );
-  // }
-  //
-  // addSupplier(supplier: Supplier): void {
-  //   console.log(`Raw data: ${JSON.stringify(supplier)}`);
-  //   this.http.post<HttpResponse<any>>(`${baseUrl}Supplier/supplier/add`, supplier, supplierOptions)
-  //     .subscribe(
-  //       (response) => console.log(response),
-  //       (error) => console.log(error)
-  //     );
-  // }
-  //
-  // toggleAvail(supplierId: Guid): void {
-  //   console.log(`Raw data: ${JSON.stringify(supplierId)}`);
-  //   this.http.get<any>(`${baseUrl}Supplier/supplier/${supplierId}/toggleAvail`, supplierOptions)
-  //     .subscribe(
-  //       (response) => console.log(response),
-  //       (error) => console.log(error)
-  //     );
-  // }
-  //
-  // toggleBlocked(supplierId: Guid): void {
-  //   console.log(`Raw data: ${JSON.stringify(supplierId)}`);
-  //   this.http.get<any>(`${baseUrl}Supplier/supplier/${supplierId}/toggleBlocked`, supplierOptions)
-  //     .subscribe(
-  //       (response) => console.log(response),
-  //       (error) => console.log(error)
-  //     );
-  // }
+
+  getOrders(): Observable<OrderGrande[]> {
+      return this.http.get<OrderGrande[]>(`${baseUrl}Order/bigorders`);
+  }
+
+  getBaskets(): Observable<Basket[]> {
+    return this.http.get<Basket[]>(`${baseUrl}Order/order/baskets`);
+  }
+
+  changeStatus(orderId: Guid, statusName: string): void {
+    console.log(`Raw data: ${JSON.stringify(orderId + statusName)}`);
+    this.http.get<any>(`${baseUrl}Order/order/${orderId}/${statusName}`, orderGrandeOptions)
+      .subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      );
+  }
+
+  getStatuses(): Observable<Status[]> {
+    return this.http.get<Status[]>(`${baseUrl}Order/statuses`);
+  }
 }
