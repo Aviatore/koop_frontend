@@ -1,0 +1,7 @@
+img {
+  object-fit: cover;
+}
+
+.noimage {
+  object-fit: contain;
+}

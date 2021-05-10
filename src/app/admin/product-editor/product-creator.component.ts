@@ -32,7 +32,8 @@ export class ProductCreatorComponent implements OnInit {
   ProductDataUpdated: BehaviorSubject<any> = new BehaviorSubject<any>('');
   imageSelected = false;
   @ViewChild('img') img: ElementRef;
-  changePicture = new BehaviorSubject('#');
+  @ViewChild('file') file: ElementRef;
+  changePicture = new BehaviorSubject('');
   productData;
   productContainer;
   constructor(private formBuilder: FormBuilder,
@@ -41,8 +42,11 @@ export class ProductCreatorComponent implements OnInit {
               private logger: LoggerService) { }
 
   ngOnInit(): void {
-    this.changePicture.pipe(delay(100)).subscribe(value => {
+    this.changePicture.pipe(delay(10)).subscribe(value => {
       this.img?.nativeElement.setAttribute('src', value);
+      if (value === '') {
+        this.file.nativeElement.value = '';
+      }
     });
 
     this.productId = this.router.snapshot.queryParamMap.get('productId');
@@ -134,7 +138,9 @@ export class ProductCreatorComponent implements OnInit {
   }
 
   uploadFile(event): void {
+    console.log('start');
     if (event.target.files && event.target.files[0]) {
+      console.log('ok');
       const fileName = event.target.files[0].name.split('.');
       const fileExtension = fileName[fileName.length - 1];
 
@@ -150,8 +156,16 @@ export class ProductCreatorComponent implements OnInit {
     } else {
       console.log('No file selected');
       this.imageSelected = false;
-      this.changePicture.next('#');
+      this.changePicture.next('');
     }
+  }
+
+  removeImage(): void {
+    this.imageSelected = false;
+    this.changePicture.next('');
+    this.productData.patchValue({
+      picture: null
+    });
   }
 
   onSubmit(): void {

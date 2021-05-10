@@ -22,3 +22,11 @@
   color: #fff;
   text-decoration: none!important;
 }
+
+img {
+  object-fit: cover;
+}
+
+.noimage {
+  object-fit: contain;
+}

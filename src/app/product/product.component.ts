@@ -12,6 +12,7 @@ import {AppUrl} from '../urls/app-url';
 export class ProductComponent implements OnInit {
   products: Observable<Product[]>;
   domain = AppUrl.DOMAIN;
+  emptyImage = AppUrl.EMPTYIMAGE;
 
   constructor(private productS: ProductService, private route: ActivatedRoute) { }
 

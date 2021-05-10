@@ -27,8 +27,7 @@
       <ng-component matColumnDef="picture">
         <th mat-header-cell *matHeaderCellDef>Obrazek</th>
         <td mat-cell *matCellDef="let element">
-          <img *ngIf="element.picture !== null && element.picture.length > 0"
-               [src]="domain + element.picture" alt="Category thumbnail" style="height: 47px">
+          <img [src]="(element.picture === null || element.picture === '') ? emptyImage : domain + element.picture" alt="Category thumbnail" style="height: 47px">
         </td>
       </ng-component>
       <ng-component matColumnDef="actionButtons">

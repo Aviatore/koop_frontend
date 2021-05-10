@@ -68,3 +68,34 @@ label {
 /deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
   background-color: #079500;
 }
+
+.image-container {
+  height: 150px;
+  width: 90%;
+  padding: 0;
+}
+
+.image {
+  position: relative;
+
+}
+
+.close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+}
+
+.close:hover {
+  color: red;
+}
+
+img {
+  border-radius: 5px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.green {
+  border: 1px solid #079500;
+}
