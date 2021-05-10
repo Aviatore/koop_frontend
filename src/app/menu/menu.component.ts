@@ -8,6 +8,7 @@ import {AppUrl} from '../urls/app-url';
 import {Visibility} from './visibility/visibility';
 import {Role} from './visibility/role';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {BasketViewService} from '../basket-view/services/basket-view.service';
 
 @Component({
   selector: 'app-menu',
@@ -33,7 +34,8 @@ export class MenuComponent implements OnInit {
               private categorieS: CategoriesService,
               private jwtHelper: JwtHelperService,
               @Inject(TokenTimer) private tokenT: CountDownTokenService,
-              @Inject(RefTokenTimer) private refTokenT: CountDownTokenService) {
+              @Inject(RefTokenTimer) private refTokenT: CountDownTokenService,
+              private basketService: BasketViewService) {
   }
 
   ngOnInit(): void {
@@ -47,7 +49,9 @@ export class MenuComponent implements OnInit {
   LoginAction(): void {
     if (!this.isTokenExpired()) {
       this.loginService.LogOut();
+      this.basketService.editBasketQuantity();
     }
+    this.basketService.editBasketQuantity();
   }
 
   onToggleSidenav(): void {

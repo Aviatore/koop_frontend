@@ -53,7 +53,7 @@ export class UploadImgDialogComponent implements OnInit {
           this.path = event.body;
           this.service.updateImageNameService(categoryId, this.path.dbPath)
             .subscribe((data) => {
-                setInterval(() => this.dialogRef.close({msg: data.info}), 1400);
+                const delay = setTimeout(() => this.dialogRef.close({msg: data.info}), 1400);
               },
               err => {
                 if ('error' in err.error) {
