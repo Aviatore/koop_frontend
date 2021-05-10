@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {AppUrl} from '../urls/app-url';
-import {BacketViewComponent} from './backet-view/backet-view.component';
+import {BasketViewComponent} from './basket-view/basket-view.component';
 
 const routes: Routes = [
-  {path: AppUrl.ROUTE.getBasketView, component: BacketViewComponent}
+  {path: AppUrl.ROUTE.getBasketView, component: BasketViewComponent}
 ];
 
 @NgModule({

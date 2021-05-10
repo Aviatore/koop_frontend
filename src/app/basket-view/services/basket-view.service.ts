@@ -21,7 +21,6 @@ export class BasketViewService {
 
   editBasketQuantity(): void {
     const userId = localStorage.getItem('login_userId');
-    console.log(`${userId} - user`);
     this.getQuantityOfProducts(userId)
       .subscribe(amount => {
         this.quantity.next(amount);

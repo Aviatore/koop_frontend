@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BacketViewComponent } from './backet-view.component';
+import { BasketViewComponent } from './basket-view.component';
 
 describe('BacketViewComponent', () => {
-  let component: BacketViewComponent;
-  let fixture: ComponentFixture<BacketViewComponent>;
+  let component: BasketViewComponent;
+  let fixture: ComponentFixture<BasketViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BacketViewComponent ]
+      declarations: [ BasketViewComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BacketViewComponent);
+    fixture = TestBed.createComponent(BasketViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
