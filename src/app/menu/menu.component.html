@@ -14,8 +14,7 @@
               (click)="LoginAction()">{{(isTokenExpired() ? 'login' : 'logout') | titlecase}}</button></li>
     </ul>
   </div>
-  <!--TODO remove this DIV-->
-  <app-basket-icon></app-basket-icon>
+    <app-basket-icon></app-basket-icon>
   <div fxHide.gt-xs>
     <button mat-icon-button (click)="onToggleSidenav()">
       <mat-icon>menu</mat-icon>
