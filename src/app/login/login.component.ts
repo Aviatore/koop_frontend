@@ -4,11 +4,11 @@ import {LoginService} from '../services/login.service';
 import {RxwebValidators} from '@rxweb/reactive-form-validators';
 import {Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
-import {Urls} from '../admin/urls';
 import {AppUrl} from '../urls/app-url';
 import {tap} from 'rxjs/operators';
 import {ErrorResponse} from '../admin/admin-interfaces/errorResponse';
 import {LoggerService} from '../services/logger.service';
+import {BasketViewService} from '../basket-view/services/basket-view.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private loginService: LoginService,
               private route: Router,
-              private logger: LoggerService) { }
+              private logger: LoggerService,
+              private basketService: BasketViewService) { }
 
   ngOnInit(): void {
     this.loginS = this.loginService;
@@ -73,7 +74,10 @@ export class LoginComponent implements OnInit {
             this.loginS.loginResult = false;
             this.showAlert().subscribe();
           },
-          complete: () => this.showAlert().subscribe()
+          complete: () => {
+            this.showAlert().subscribe();
+            this.basketService.editBasketQuantity();
+          }
         });
       /*of(this.loginService.LogIn(this.loginForm.value.email, this.loginForm.value.password)).subscribe(er => {
         this.showAlert().subscribe();

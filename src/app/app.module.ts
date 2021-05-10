@@ -48,6 +48,7 @@ import { EmailFormComponent } from './password-reset/email-form/email-form.compo
 import {PasswordResetModule} from './password-reset/password-reset.module';
 import {CategoryModule} from './categories/category.module';
 import {JwtParserService} from './services/jwt-parser.service';
+import {BasketViewModule} from './basket-view/basket-view.module';
 
 export function tokenGetter(): string | null {
   return localStorage.getItem('token');
@@ -69,7 +70,7 @@ registerLocaleData(localePL);
     HamburgerMenuComponent,
     CategoriesComponent,
     ProductComponent,
-    EmailFormComponent,
+    EmailFormComponent
   ],
   imports: [
     BrowserModule,
@@ -93,6 +94,7 @@ registerLocaleData(localePL);
     CoopOrderModule,
     StoreModule,
     CategoryModule,
+    BasketViewModule,
     AdminModule,
     UserPanelModule,
     PasswordResetModule,
