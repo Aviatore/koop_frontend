@@ -10,6 +10,7 @@ import {AvailQuantity} from '../admin-interfaces/availQuantity';
 import {ActivatedRoute} from '@angular/router';
 import {delay} from 'rxjs/operators';
 import {Product} from '../admin-interfaces/product';
+import {AppUrl} from '../../urls/app-url';
 
 
 @Component({
@@ -18,6 +19,7 @@ import {Product} from '../admin-interfaces/product';
   styleUrls: ['./product-creator.component.css']
 })
 export class ProductCreatorComponent implements OnInit {
+  domain = AppUrl.DOMAIN;
   alertVisibilityTimeSec = 5;
   submitted = false;
   alertVisibility: number;
@@ -30,6 +32,7 @@ export class ProductCreatorComponent implements OnInit {
   ProductDataUpdated: BehaviorSubject<any> = new BehaviorSubject<any>('');
   imageSelected = false;
   @ViewChild('img') img: ElementRef;
+  changePicture = new BehaviorSubject('#');
   productData;
   productContainer;
   constructor(private formBuilder: FormBuilder,
@@ -38,6 +41,10 @@ export class ProductCreatorComponent implements OnInit {
               private logger: LoggerService) { }
 
   ngOnInit(): void {
+    this.changePicture.pipe(delay(100)).subscribe(value => {
+      this.img?.nativeElement.setAttribute('src', value);
+    });
+
     this.productId = this.router.snapshot.queryParamMap.get('productId');
     console.log(`productId: ${this.productId}`);
     this.ps = this.productsService;
@@ -104,6 +111,11 @@ export class ProductCreatorComponent implements OnInit {
             });
 
             this.ProductDataUpdated.next('');
+
+            this.imageSelected = true;
+            if (result.picture && result.picture.length > 0) {
+              this.changePicture.next(this.domain + result.picture);
+            }
           });
         });
       });
@@ -131,14 +143,14 @@ export class ProductCreatorComponent implements OnInit {
       const fileReader = new FileReader();
       this.imageSelected = true;
       fileReader.onload = (e) => {
-        this.img.nativeElement.setAttribute('src', e.target.result);
+        this.changePicture.next(`${e.target.result}`);
       };
 
       fileReader.readAsDataURL(event.target.files[0]);
     } else {
       console.log('No file selected');
       this.imageSelected = false;
-      this.img.nativeElement.setAttribute('src', '#');
+      this.changePicture.next('#');
     }
   }
 
@@ -171,6 +183,8 @@ export class ProductCreatorComponent implements OnInit {
           this.showAlert().subscribe();
         }
       });
+
+      this.productContainer = new FormData();
 
       /*const product: Product = this.productData.getRawValue();
       console.log(...this.logger.info(`Prouct data: ${product.productName}`));
