@@ -31,7 +31,8 @@ export class AppUrl {
     admin: 'admin',
     user: 'user',
     passwordReset: 'password-reset',
-    getCategories: 'categories'
+    getCategories: 'categories',
+    getBasketView: 'basket-view'
   };
 
 }
