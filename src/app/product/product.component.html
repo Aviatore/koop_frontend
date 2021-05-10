@@ -7,6 +7,9 @@
     <div class="row">
       <div *ngFor="let product of products | async" class="col-md-4">
         <div *ngIf="product.available" class="card mb-4 box-shadow">
+          <div class="edit" style="">
+            <i class="far fa-edit p-1 edit" style="float: right" (click)="editProduct(product.productId)"></i>
+          </div>
           <!--<img class="card-img-top" alt="Thumbnail [100%x225]" src="../../assets/img/test.png" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">-->
           <img class="card-img-top" alt="Thumbnail [100%x225]" [src]="(product.picture === null || product.picture === '') ? emptyImage : domain + product.picture" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;" [class.noimage]="(product.picture === null || product.picture === '')">
           <div class="card-body">

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Product, ProductService} from '../services/product.service';
 import {Observable} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AppUrl} from '../urls/app-url';
 
 @Component({
@@ -14,7 +14,9 @@ export class ProductComponent implements OnInit {
   domain = AppUrl.DOMAIN;
   emptyImage = AppUrl.EMPTYIMAGE;
 
-  constructor(private productS: ProductService, private route: ActivatedRoute) { }
+  constructor(private productS: ProductService,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
@@ -24,4 +26,12 @@ export class ProductComponent implements OnInit {
     console.log(this.products);
   }
 
+  editProduct(productId: string): void {
+    console.log(`productId: ${productId}`);
+    this.router.navigate(['/admin/product/new'], {
+      queryParams: {
+        productId
+      }
+    });
+  }
 }

@@ -10,7 +10,8 @@
           <div class="row mt-0">
             <div class="col-md-4">
               <div class="d-flex justify-content-between align-items-center mb-0">
-                <h2 class="text-right">Nowy produkt</h2>
+                <h2 class="text-right" *ngIf="!productId">Nowy produkt</h2>
+                <h2 class="text-right" *ngIf="productId">Edycja produktu</h2>
               </div>
             </div>
           </div>

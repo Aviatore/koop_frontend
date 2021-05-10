@@ -30,3 +30,12 @@ img {
 .noimage {
   object-fit: contain;
 }
+
+.edit {
+  color: #6f6f6f;
+  cursor: pointer;
+}
+
+.edit:hover {
+  color: #076d00;
+}

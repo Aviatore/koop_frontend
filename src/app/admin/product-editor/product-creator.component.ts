@@ -116,8 +116,9 @@ export class ProductCreatorComponent implements OnInit {
 
             this.ProductDataUpdated.next('');
 
-            this.imageSelected = true;
             if (result.picture && result.picture.length > 0) {
+              this.imageSelected = true;
+              console.log(`Image: ${result.picture}`);
               this.changePicture.next(this.domain + result.picture);
             }
           });

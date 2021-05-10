@@ -9,6 +9,7 @@ export interface Product {
   categoryNames: any;
   available: boolean;
   picture: string;
+  productId: string;
 }
 
 @Injectable({
