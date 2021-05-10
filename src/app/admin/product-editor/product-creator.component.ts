@@ -1,4 +1,4 @@
-import {AfterContentInit, AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ProductsService} from '../admin-services/products.service';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {Unit} from '../admin-interfaces/unit';
@@ -28,7 +28,10 @@ export class ProductCreatorComponent implements OnInit {
   availQuantities: Observable<AvailQuantity[]>;
   productId: string;
   ProductDataUpdated: BehaviorSubject<any> = new BehaviorSubject<any>('');
+  imageSelected = false;
+  @ViewChild('img') img: ElementRef;
   productData;
+  productContainer;
   constructor(private formBuilder: FormBuilder,
               private productsService: ProductsService,
               private router: ActivatedRoute,
@@ -42,6 +45,8 @@ export class ProductCreatorComponent implements OnInit {
     this.suppliers = this.ps.GetAllSuppliers();
     this.categories = this.ps.GetAllCategories();
     this.availQuantities = this.ps.GetAvailQuantities(this.productId);
+
+    this.productContainer = new FormData();
 
     this.productData = this.formBuilder.group({
       productId: ['00000000-0000-0000-0000-000000000000'],
@@ -66,7 +71,7 @@ export class ProductCreatorComponent implements OnInit {
       supplierId: ['', [
         Validators.required
       ]],
-      deposit: [''],
+      deposit: [0],
       magazine: [false],
       availQuantity: [[], [
         Validators.required
@@ -116,6 +121,27 @@ export class ProductCreatorComponent implements OnInit {
     return this.productData.controls;
   }
 
+  uploadFile(event): void {
+    if (event.target.files && event.target.files[0]) {
+      const fileName = event.target.files[0].name.split('.');
+      const fileExtension = fileName[fileName.length - 1];
+
+      this.productContainer.append('file', event.target.files[0], `pic.${fileExtension}`);
+
+      const fileReader = new FileReader();
+      this.imageSelected = true;
+      fileReader.onload = (e) => {
+        this.img.nativeElement.setAttribute('src', e.target.result);
+      };
+
+      fileReader.readAsDataURL(event.target.files[0]);
+    } else {
+      console.log('No file selected');
+      this.imageSelected = false;
+      this.img.nativeElement.setAttribute('src', '#');
+    }
+  }
+
   onSubmit(): void {
     if (this.productData.invalid) {
       this.submitted = true;
@@ -135,7 +161,18 @@ export class ProductCreatorComponent implements OnInit {
         available: this.productData.get('amountMax').value > 0
       });
 
+      this.productContainer.append('data', JSON.stringify(this.productData.getRawValue()));
+
       const product: Product = this.productData.getRawValue();
+      this.productsService.UpdateProduct(this.productContainer, product.productId).pipe(delay(2000)).subscribe({
+        next: result => {
+          console.log(...this.logger.info(`Response body: ${JSON.stringify(result.body)}`));
+          this.ps.errorResponse = result.body;
+          this.showAlert().subscribe();
+        }
+      });
+
+      /*const product: Product = this.productData.getRawValue();
       console.log(...this.logger.info(`Prouct data: ${product.productName}`));
 
       this.productsService.UpdateProduct(product).pipe(delay(2000)).subscribe({
@@ -144,7 +181,7 @@ export class ProductCreatorComponent implements OnInit {
           this.ps.errorResponse = result.body;
           this.showAlert().subscribe();
         }
-      });
+      });*/
     }
   }
 

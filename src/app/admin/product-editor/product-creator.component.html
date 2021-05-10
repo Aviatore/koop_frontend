@@ -21,7 +21,9 @@
               </div>
             </div>
             <div class="col-md-6">
-              picture ...
+              <input type="file" accept="image/*" style="display: none" (change)="uploadFile($event)" #file>
+              <i class="fas fa-image fa-3x text-secondary" style="cursor: pointer;" (click)="file.click()" *ngIf="!imageSelected"></i>
+              <img src="#" *ngIf="imageSelected" (click)="file.click()" #img>
             </div>
           </div>
 

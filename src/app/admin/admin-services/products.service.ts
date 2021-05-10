@@ -70,11 +70,10 @@ export class ProductsService {
       catchError(this.handleError));
   }
 
-  UpdateProduct(product: Product): Observable<any> {
-    console.log(...this.logger.info(`Edit user - ${product.productId} - sending query ...`));
+  UpdateProduct(product: FormData, productId: string): Observable<any> {
     return this.httpClient.post<HttpResponse<Observable<ErrorResponse>>>(Urls.UpdateProduct, product, {
-      params: new HttpParams().set('productId', product.productId),
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: new HttpParams().set('productId', productId),
+      // headers: new HttpHeaders().set('Content-Type', 'application/json'),
       observe: 'response',
       responseType: 'json'
     }).pipe(

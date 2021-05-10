@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Product, ProductService} from '../services/product.service';
 import {Observable} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
+import {AppUrl} from '../urls/app-url';
 
 @Component({
   selector: 'app-product',
@@ -10,6 +11,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class ProductComponent implements OnInit {
   products: Observable<Product[]>;
+  domain = AppUrl.DOMAIN;
 
   constructor(private productS: ProductService, private route: ActivatedRoute) { }
 
