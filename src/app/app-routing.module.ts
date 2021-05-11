@@ -6,7 +6,7 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {AppUrl} from './urls/app-url';
 import {CategoriesComponent } from './categories/categories.component';
 import {AdminComponent} from './admin/admin/admin.component';
-import {ProductComponent} from './product/product.component';
+import {ProductComponent} from './shop/product/product.component';
 import {UserComponent} from './user-panel/user/user.component';
 import {EmailFormComponent} from './password-reset/email-form/email-form.component';
 

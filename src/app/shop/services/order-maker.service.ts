@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {AppUrl} from '../urls/app-url';
+import {AppUrl} from '../../urls/app-url';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import {BehaviorSubject, Observable, ObservableInput, throwError} from 'rxjs';
-import {ErrorResponse} from '../admin/admin-interfaces/errorResponse';
+import {ErrorResponse} from '../../admin/admin-interfaces/errorResponse';
 import {catchError} from 'rxjs/operators';
 
 export interface AvailQuantities {

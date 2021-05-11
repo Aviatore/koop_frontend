@@ -9,7 +9,7 @@ import {AppUrl} from '../urls/app-url';
 import {tap} from 'rxjs/operators';
 import {ErrorResponse} from '../admin/admin-interfaces/errorResponse';
 import {LoggerService} from '../services/logger.service';
-import {OrderMakerService} from '../services/order-maker.service';
+import {OrderMakerService} from '../shop/services/order-maker.service';
 
 @Component({
   selector: 'app-login',

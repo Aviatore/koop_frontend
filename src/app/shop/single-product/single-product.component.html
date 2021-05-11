@@ -1,0 +1,24 @@
+<div class="card mb-4 box-shadow">
+  <div class="edit" style="">
+    <i class="far fa-edit p-1 edit" style="float: right" (click)="editProduct(product.productId)"></i>
+  </div>
+  <!--<img class="card-img-top" alt="Thumbnail [100%x225]" src="../../assets/img/test.png" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">-->
+  <img class="card-img-top" alt="Thumbnail [100%x225]"
+       [src]="(product.picture === null || product.picture === '') ? emptyImage : domain + product.picture"
+       data-holder-rendered="true"
+       style="height: 225px; width: 100%; display: block;" [class.noimage]="(product.picture === null || product.picture === '')"
+       [class.img-gray]="!available">
+  <div class="card-body">
+    <p class="card-text">
+      {{product.productName}}
+    </p>
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="btn-group">
+        <span class="badge badge-secondary badge-margin badge-price">{{product.price}} zł</span>
+        <span class="badge badge-secondary badge-margin badge-unit">{{product.unit}}</span>
+      </div>
+      <span class="button badge bg-primary" (click)="openDialog(product.productName, product.productId)" style="cursor: pointer" [ngStyle]="{'display': available ? 'block' : 'none'}">Dodaj do koszyka</span>
+      <span class="badge bg-secondary" (click)="openDialog(product.productName, product.productId)" style="cursor: not-allowed" [ngStyle]="{'display': available ? 'none' : 'block'}">Produkt niedostępny</span>
+    </div>
+  </div>
+</div>

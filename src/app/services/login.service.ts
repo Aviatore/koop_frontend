@@ -7,7 +7,7 @@ import {RefTokenTimer, TokenTimer} from '../injection-tokens/tokens';
 import {ErrorResponse} from '../admin/admin-interfaces/errorResponse';
 import {NGXLogger} from 'ngx-logger';
 import {LoggerService} from './logger.service';
-import {OrderMakerService} from './order-maker.service';
+import {OrderMakerService} from '../shop/services/order-maker.service';
 
 
 export interface LoginResponse {

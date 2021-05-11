@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Product, ProductService} from '../services/product.service';
+import {Product, ProductService} from '../../services/product.service';
 import {Observable} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AppUrl} from '../urls/app-url';
+import {AppUrl} from '../../urls/app-url';
 import {MatDialog} from '@angular/material/dialog';
 import {OrderDialogComponent, OrderDialogData} from '../order-dialog/order-dialog.component';
 import {OrderMakerService} from '../services/order-maker.service';
@@ -32,7 +32,7 @@ export class ProductComponent implements OnInit {
     console.log(this.products);
   }
 
-  editProduct(productId: string): void {
+  /*editProduct(productId: string): void {
     console.log(`productId: ${productId}`);
     this.router.navigate(['/admin/product/new'], {
       queryParams: {
@@ -57,5 +57,5 @@ export class ProductComponent implements OnInit {
         });
       }
     });
-  }
+  }*/
 }

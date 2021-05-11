@@ -34,7 +34,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
 import {MaterialModule} from './material/material.module';
 import { CategoriesComponent } from './categories/categories.component';
-import { ProductComponent } from './product/product.component';
+import { ProductComponent } from './shop/product/product.component';
 import {CategoriesService} from './services/categories.service';
 import {AdminModule} from './admin/admin.module';
 import {ProductService} from './services/product.service';
@@ -49,10 +49,11 @@ import {PasswordResetModule} from './password-reset/password-reset.module';
 import {CategoryModule} from './categories/category.module';
 import {JwtParserService} from './services/jwt-parser.service';
 import {MatBadgeModule} from '@angular/material/badge';
-import { OrderDialogComponent } from './order-dialog/order-dialog.component';
+import { OrderDialogComponent } from './shop/order-dialog/order-dialog.component';
 import {MatOptionModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
+import {ShopModule} from './shop/shop.module';
 
 export function tokenGetter(): string | null {
   return localStorage.getItem('token');
@@ -73,9 +74,7 @@ registerLocaleData(localePL);
     LayoutComponent,
     HamburgerMenuComponent,
     CategoriesComponent,
-    ProductComponent,
-    EmailFormComponent,
-    OrderDialogComponent,
+    EmailFormComponent
   ],
   imports: [
     BrowserModule,
@@ -101,13 +100,14 @@ registerLocaleData(localePL);
     StoreModule,
     CategoryModule,
     AdminModule,
+    ShopModule,
     UserPanelModule,
     PasswordResetModule,
-    AppRoutingModule,
     MatBadgeModule,
     MatOptionModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    AppRoutingModule
   ],
   providers: [
     UnitsService,

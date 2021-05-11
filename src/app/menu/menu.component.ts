@@ -9,7 +9,7 @@ import {Visibility} from './visibility/visibility';
 import {Role} from './visibility/role';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {MatBadgeModule} from '@angular/material/badge';
-import {OrderMakerService} from '../services/order-maker.service';
+import {OrderMakerService} from '../shop/services/order-maker.service';
 
 @Component({
   selector: 'app-menu',
