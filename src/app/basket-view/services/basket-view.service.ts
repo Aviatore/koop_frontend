@@ -6,6 +6,7 @@ import {Info} from '../models/info';
 import {AppUrl} from '../../urls/app-url';
 import {catchError, map} from 'rxjs/operators';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {ResponeResult} from '../models/respone-result';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +61,24 @@ export class BasketViewService {
       );
     }
     return of(null);
+  }
+
+  setProductQuantity(orderedItemId: string, quantity: string): Observable<ResponeResult> {
+    return this.http.post<ResponeResult>(
+      `${AppUrl.BASE_URL}Test/orderedItem/${orderedItemId}/setQuantity/${quantity}`, {})
+      .pipe(map(res => {
+          return res;
+        }),
+        catchError(this.handleError));
+  }
+
+  removeProductFromBasket(orderedItemId: string): Observable<ResponeResult> {
+    return this.http.post<ResponeResult>(
+      `${AppUrl.BASE_URL}Test/orderedItem/${orderedItemId}/remove`, {})
+      .pipe(map(res => {
+          return res;
+        }),
+        catchError(this.handleError));
   }
 
   isUserLogin(): boolean {
