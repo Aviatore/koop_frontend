@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import {LoggerService} from '../../services/logger.service';
 import {Observable, ObservableInput, of, throwError} from 'rxjs';
 import {Funds} from '../admin-interfaces/funds';
@@ -11,6 +11,7 @@ import {Unit} from '../admin-interfaces/unit';
 import {Supplier} from '../admin-interfaces/supplier';
 import {AvailQuantity} from '../admin-interfaces/availQuantity';
 import {Product} from '../admin-interfaces/product';
+import {User} from '../admin-interfaces/user';
 
 const requestOptions: object = {
   headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -67,6 +68,16 @@ export class ProductsService {
     const url = `${Urls.GetProductById}/${productId}/get`;
     return this.httpClient.get<Product>(url).pipe(
       catchError(this.handleError));
+  }
+
+  UpdateProduct(product: FormData, productId: string): Observable<any> {
+    return this.httpClient.post<HttpResponse<Observable<ErrorResponse>>>(Urls.UpdateProduct, product, {
+      params: new HttpParams().set('productId', productId),
+      // headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      observe: 'response',
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError.bind(this)));
   }
 
   private handleError(error: HttpErrorResponse): ObservableInput<any> {

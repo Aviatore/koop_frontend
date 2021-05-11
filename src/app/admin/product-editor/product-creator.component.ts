@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ProductsService} from '../admin-services/products.service';
-import {Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {Unit} from '../admin-interfaces/unit';
 import {Supplier} from '../admin-interfaces/supplier';
 import {Category} from '../admin-interfaces/categories';
@@ -8,7 +8,15 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {LoggerService} from '../../services/logger.service';
 import {AvailQuantity} from '../admin-interfaces/availQuantity';
 import {ActivatedRoute} from '@angular/router';
+import {delay} from 'rxjs/operators';
+import {Product} from '../admin-interfaces/product';
+import {AppUrl} from '../../urls/app-url';
 
+
+export enum Test {
+  val,
+  val2
+}
 
 @Component({
   selector: 'app-product-editor',
@@ -16,6 +24,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./product-creator.component.css']
 })
 export class ProductCreatorComponent implements OnInit {
+  domain = AppUrl.DOMAIN;
   alertVisibilityTimeSec = 5;
   submitted = false;
   alertVisibility: number;
@@ -25,14 +34,26 @@ export class ProductCreatorComponent implements OnInit {
   categories: Observable<Category[]>;
   availQuantities: Observable<AvailQuantity[]>;
   productId: string;
-  ProductDataUpdated: Subject<any> = new Subject();
+  ProductDataUpdated: BehaviorSubject<any> = new BehaviorSubject<any>('');
+  imageSelected = false;
+  @ViewChild('img') img: ElementRef;
+  @ViewChild('file') file: ElementRef;
+  changePicture = new BehaviorSubject('');
   productData;
+  productContainer;
   constructor(private formBuilder: FormBuilder,
               private productsService: ProductsService,
               private router: ActivatedRoute,
               private logger: LoggerService) { }
 
   ngOnInit(): void {
+    this.changePicture.pipe(delay(10)).subscribe(value => {
+      this.img?.nativeElement.setAttribute('src', value);
+      if (value === '') {
+        this.file.nativeElement.value = '';
+      }
+    });
+
     this.productId = this.router.snapshot.queryParamMap.get('productId');
     console.log(`productId: ${this.productId}`);
     this.ps = this.productsService;
@@ -40,6 +61,8 @@ export class ProductCreatorComponent implements OnInit {
     this.suppliers = this.ps.GetAllSuppliers();
     this.categories = this.ps.GetAllCategories();
     this.availQuantities = this.ps.GetAvailQuantities(this.productId);
+
+    this.productContainer = new FormData();
 
     this.productData = this.formBuilder.group({
       productId: ['00000000-0000-0000-0000-000000000000'],
@@ -54,7 +77,7 @@ export class ProductCreatorComponent implements OnInit {
       unitId: ['', [
         Validators.required
       ]],
-      available: [''],
+      available: [false],
       amountMax: [0, [
         Validators.required, Validators.min(0)
       ]],
@@ -64,8 +87,8 @@ export class ProductCreatorComponent implements OnInit {
       supplierId: ['', [
         Validators.required
       ]],
-      deposit: [''],
-      magazine: [''],
+      deposit: [0],
+      magazine: [false],
       availQuantity: [[], [
         Validators.required
       ]],
@@ -96,7 +119,13 @@ export class ProductCreatorComponent implements OnInit {
               category: categoryResult === undefined ? [] : categoryResult
             });
 
-            this.ProductDataUpdated.next();
+            this.ProductDataUpdated.next('');
+
+            if (result.picture && result.picture.length > 0) {
+              this.imageSelected = true;
+              console.log(`Image: ${result.picture}`);
+              this.changePicture.next(this.domain + result.picture);
+            }
           });
         });
       });
@@ -106,10 +135,43 @@ export class ProductCreatorComponent implements OnInit {
       detail: '',
       status: 0
     };
+
+    this.ProductDataUpdated.next('');
   }
 
   get field(): any {
     return this.productData.controls;
+  }
+
+  uploadFile(event): void {
+    console.log('start');
+    if (event.target.files && event.target.files[0]) {
+      console.log('ok');
+      const fileName = event.target.files[0].name.split('.');
+      const fileExtension = fileName[fileName.length - 1];
+
+      this.productContainer.append('file', event.target.files[0], `pic.${fileExtension}`);
+
+      const fileReader = new FileReader();
+      this.imageSelected = true;
+      fileReader.onload = (e) => {
+        this.changePicture.next(`${e.target.result}`);
+      };
+
+      fileReader.readAsDataURL(event.target.files[0]);
+    } else {
+      console.log('No file selected');
+      this.imageSelected = false;
+      this.changePicture.next('');
+    }
+  }
+
+  removeImage(): void {
+    this.imageSelected = false;
+    this.changePicture.next('');
+    this.productData.patchValue({
+      picture: null
+    });
   }
 
   onSubmit(): void {
@@ -126,6 +188,34 @@ export class ProductCreatorComponent implements OnInit {
       this.ps.errorResponse.detail = 'Przetwarzanie danych. Proszę czekać ...';
       this.ps.errorResponse.status = 300;
       this.alertVisibility = 1;
+
+      this.productData.patchValue({
+        available: this.productData.get('amountMax').value > 0
+      });
+
+      this.productContainer.append('data', JSON.stringify(this.productData.getRawValue()));
+
+      const product: Product = this.productData.getRawValue();
+      this.productsService.UpdateProduct(this.productContainer, product.productId).pipe(delay(2000)).subscribe({
+        next: result => {
+          console.log(...this.logger.info(`Response body: ${JSON.stringify(result.body)}`));
+          this.ps.errorResponse = result.body;
+          this.showAlert().subscribe();
+        }
+      });
+
+      this.productContainer = new FormData();
+
+      /*const product: Product = this.productData.getRawValue();
+      console.log(...this.logger.info(`Prouct data: ${product.productName}`));
+
+      this.productsService.UpdateProduct(product).pipe(delay(2000)).subscribe({
+        next: result => {
+          console.log(...this.logger.info(`Response body: ${JSON.stringify(result.body)}`));
+          this.ps.errorResponse = result.body;
+          this.showAlert().subscribe();
+        }
+      });*/
     }
   }
 

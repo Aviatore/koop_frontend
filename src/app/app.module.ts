@@ -33,7 +33,11 @@ import {MatPaginatorIntl} from '@angular/material/paginator';
 import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
 import {MaterialModule} from './material/material.module';
+import { CategoriesComponent } from './categories/categories.component';
+import { ProductComponent } from './shop/product/product.component';
+import {CategoriesService} from './services/categories.service';
 import {AdminModule} from './admin/admin.module';
+import {ProductService} from './services/product.service';
 import {CoopOrderModule} from './coop-order/coop-order.module';
 import {JwtModule} from '@auth0/angular-jwt';
 import {StoreModule} from './stores/store.module';
@@ -43,6 +47,17 @@ import {UserPanelModule} from './user-panel/user-panel.module';
 import { EmailFormComponent } from './password-reset/email-form/email-form.component';
 import {PasswordResetModule} from './password-reset/password-reset.module';
 import {CategoryModule} from './categories/category.module';
+import {JwtParserService} from './services/jwt-parser.service';
+import {MatBadgeModule} from '@angular/material/badge';
+import { OrderDialogComponent } from './shop/order-dialog/order-dialog.component';
+import {MatOptionModule} from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
+import {ShopModule} from './shop/shop.module';
+
+export function tokenGetter(): string | null {
+  return localStorage.getItem('token');
+}
 
 registerLocaleData(localePL);
 
@@ -58,7 +73,8 @@ registerLocaleData(localePL);
     PageNotFoundComponent,
     LayoutComponent,
     HamburgerMenuComponent,
-    EmailFormComponent,
+    CategoriesComponent,
+    EmailFormComponent
   ],
   imports: [
     BrowserModule,
@@ -73,17 +89,31 @@ registerLocaleData(localePL);
     NgbModule,
     MaterialModule,
     ReportModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        allowedDomains: [],
+        disallowedRoutes: []
+      }
+    }),
     CoopOrderModule,
     StoreModule,
     CategoryModule,
     AdminModule,
+    ShopModule,
     UserPanelModule,
     PasswordResetModule,
+    MatBadgeModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatDialogModule,
     AppRoutingModule
   ],
   providers: [
     UnitsService,
     CookieService,
+    CategoriesService,
+    JwtParserService,
     {provide: LOCALE_ID, useValue: 'pl'},
     { provide: MatPaginatorIntl, useValue: AppPaginatorConfig() },
     {
