@@ -16,7 +16,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {ReportService} from '../reports/services/report.service';
 import {SupplierService} from './supplier.service';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
@@ -26,13 +25,15 @@ import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {SupplierInfoComponent} from './supplier-info/supplier-info.component';
 
 
 
 @NgModule({
   declarations: [
     SuppliersListComponent,
-    SupplierDetailComponent
+    SupplierDetailComponent,
+    SupplierInfoComponent
   ],
   imports: [
     CommonModule,
@@ -59,6 +60,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
   exports: [
     SupplierDetailComponent,
     SuppliersListComponent,
+    SupplierInfoComponent,
     MatNativeDateModule
   ],
   providers: [

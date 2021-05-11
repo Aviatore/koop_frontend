@@ -8,7 +8,6 @@ import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import {Guid} from 'guid-typescript';
 import {catchError} from 'rxjs/operators';
 import {OrderGrande} from './order-grande';
-import {Status} from './status';
 
 const orderGrandeOptions: object = {
   headers: new HttpHeaders().set('Content-Type', 'application/json-patch+json'),
@@ -32,6 +31,15 @@ export class OrderGrandeService {
     return this.http.get<Basket[]>(`${baseUrl}Order/order/baskets`);
   }
 
+  addOrder(order: OrderGrande): void {
+    console.log(`Raw data: ${JSON.stringify(order)}`);
+    this.http.post<HttpResponse<any>>(`${baseUrl}Order/order/add`, order, orderGrandeOptions)
+      .subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      );
+  }
+
   changeStatus(orderId: Guid, statusName: string): void {
     console.log(`Raw data: ${JSON.stringify(orderId + statusName)}`);
     this.http.get<any>(`${baseUrl}Order/order/${orderId}/${statusName}`, orderGrandeOptions)
@@ -41,7 +49,8 @@ export class OrderGrandeService {
       );
   }
 
-  getStatuses(): Observable<Status[]> {
-    return this.http.get<Status[]>(`${baseUrl}Order/statuses`);
+  getStatuses(): Observable<string[]> {
+    return this.http.get<string[]>(`${baseUrl}Order/statuses`);
+
   }
 }

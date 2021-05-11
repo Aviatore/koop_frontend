@@ -49,7 +49,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { OrderGrandeRoutingModule } from './order-grande/order-grande-routing.module';
 import { OrdersListComponent } from './order-grande/orders-list/orders-list.component';
 import { OrderDetailComponent } from './order-grande/order-detail/order-detail.component';
-import { BasketsComponent } from './order-grande/baskets/baskets.component';
+// import { BasketsComponent } from './order-grande/baskets/baskets.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {OrderGrandeModule} from './order-grande/order-grande.module';
 
 registerLocaleData(localePL);
 
@@ -65,10 +68,6 @@ registerLocaleData(localePL);
     PageNotFoundComponent,
     LayoutComponent,
     HamburgerMenuComponent,
-    SupplierInfoComponent,
-    OrdersListComponent,
-    OrderDetailComponent,
-    BasketsComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,9 +88,11 @@ registerLocaleData(localePL);
     MatTableModule,
     MatPaginatorModule,
     SuppliersModule,
+    OrderGrandeModule,
     MatCheckboxModule,
-    OrderGrandeRoutingModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   exports: [AppRoutingModule, LayoutComponent],
   providers: [

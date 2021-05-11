@@ -1,1 +1,28 @@
-<p>baskets works!</p>
+<div class="position-relative mx-auto px-2">
+  <h2 class="text-md-center txt-shadow">Koszyki - Kooperanci</h2>
+  <button mat-icon-button [ngStyle]="{'color': 'rgb(3, 130, 17)'}" style="position: absolute; top: 0; right: 10px;"
+          (click)="readFile()">
+    <mat-icon>picture_as_pdf</mat-icon>
+  </button>
+</div>
+<div class="table-responsive-sm px-2 mx-auto">
+  <table mat-table [dataSource]="dataSource" matSort class="table-striped mat-elevation-z10">
+    <ng-component matColumnDef="basketName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Koszyk</th>
+      <td mat-cell *matCellDef="let element">{{element.basketName}}</td>
+    </ng-component>
+    <ng-component matColumnDef="cooperator">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Kooperant</th>
+      <td mat-cell *matCellDef="let element">{{element.cooperator}}</td>
+    </ng-component>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+<div class="mx-auto px-2 mat-elevation-z10">
+  <mat-paginator [pageSizeOptions]="itemsPerPage"></mat-paginator>
+</div>
+
+
+
