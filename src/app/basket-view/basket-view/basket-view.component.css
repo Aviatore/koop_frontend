@@ -18,6 +18,10 @@ table {
   padding: 0 5px 0 5px;
 }
 
+.mat-column-productName {
+  text-align: left;
+}
+
 .mat-column-unit {
   text-align: center;
 }
@@ -72,4 +76,14 @@ table {
 
 .del-button:hover {
   color: rgb(255, 0, 0);
+}
+
+.order-button {
+  background-color: rgb(3, 130, 17);
+  color: #fff;
+}
+
+.order-button:hover {
+  background-color: rgb(3, 109, 22);
+  color: #fff;
 }

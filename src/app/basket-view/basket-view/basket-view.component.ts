@@ -4,6 +4,9 @@ import {MatTableDataSource} from '@angular/material/table';
 import {BasketViewService} from '../services/basket-view.service';
 import {ProductInBasket} from '../models/product-in-basket';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {CoopLastOrderDelDialogComponent} from '../../coop-order/coop-last-order-del-dialog/coop-last-order-del-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
+import {SubmitOrderDialogComponent} from '../submit-order-dialog/submit-order-dialog.component';
 
 @Component({
   selector: 'app-basket-view',
@@ -36,7 +39,8 @@ export class BasketViewComponent implements OnInit {
   userId: string;
 
   constructor(private service: BasketViewService,
-              private snackBarInfo: MatSnackBar) {
+              private snackBarInfo: MatSnackBar,
+              public submitDialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -93,6 +97,31 @@ export class BasketViewComponent implements OnInit {
         error => {
           this.openSnackBarInfo('Błąd usuwania produktu z koszyka.');
         });
+  }
+
+  submitOrder(): void {
+    this.service.submitOrder(this.userId)
+      .subscribe((res) => {
+          this.getBasket();
+          this.service.editBasketQuantity();
+          this.openSubmitDialog(res.info);
+        },
+        error => {
+          this.openSnackBarInfo('Wystąpił błąd przy składaniu zamówienia. Zamówienie nie zostało przyjęte.');
+        });
+  }
+
+  openSubmitDialog(info: string): void {
+    const dialogRef = this.submitDialog.open(SubmitOrderDialogComponent, {
+      data: {
+        info
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getBasket();
+      this.service.editBasketQuantity();
+    });
   }
 
   openSnackBarInfo(message: string, action?: string): void {

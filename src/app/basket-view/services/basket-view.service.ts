@@ -81,6 +81,15 @@ export class BasketViewService {
         catchError(this.handleError));
   }
 
+  submitOrder(userId: string): Observable<Info> {
+    return this.http.post<Info>(
+      `${AppUrl.BASE_URL}Test/User/${userId}/Order/Submit`, {})
+      .pipe(map(res => {
+          return res;
+        }),
+        catchError(this.handleError));
+  }
+
   isUserLogin(): boolean {
     const userId = localStorage.getItem('login_userId');
     const token = localStorage.getItem('token');
