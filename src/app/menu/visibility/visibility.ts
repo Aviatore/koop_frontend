@@ -9,7 +9,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 
 export class Visibility {
 
-  constructor(jwtHelper: JwtHelperService) { }
+  constructor() { }
 
   static set(roles: Role[]): boolean {
     const token = localStorage.getItem('token');

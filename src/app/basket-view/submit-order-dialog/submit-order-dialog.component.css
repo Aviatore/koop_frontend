@@ -1,0 +1,8 @@
+.ok-button, .ok-button:hover {
+  background: rgb(3, 130, 17);
+  color: #fff;
+}
+
+.mat-dialog-title {
+  text-align: center;
+}

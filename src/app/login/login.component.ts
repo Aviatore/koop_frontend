@@ -9,6 +9,7 @@ import {AppUrl} from '../urls/app-url';
 import {tap} from 'rxjs/operators';
 import {ErrorResponse} from '../admin/admin-interfaces/errorResponse';
 import {LoggerService} from '../services/logger.service';
+import {BasketViewService} from '../basket-view/services/basket-view.service';
 import {OrderMakerService} from '../shop/services/order-maker.service';
 
 @Component({
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit {
               private loginService: LoginService,
               private route: Router,
               private logger: LoggerService,
-              private orderMakerService: OrderMakerService) { }
+              private orderMakerService: OrderMakerService,
+              private basketService: BasketViewService) { }
 
   ngOnInit(): void {
     this.loginS = this.loginService;
@@ -69,15 +71,16 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('login_userId', loginResponse.userId);
 
             this.loginS.loginResult = true;
-
-            this.orderMakerService.setBadge();
           },
           error: error => {
             console.log(...this.logger.error(error));
             this.loginS.loginResult = false;
             this.showAlert().subscribe();
           },
-          complete: () => this.showAlert().subscribe()
+          complete: () => {
+            this.showAlert().subscribe();
+            this.basketService.editBasketQuantity();
+          }
         });
       /*of(this.loginService.LogIn(this.loginForm.value.email, this.loginForm.value.password)).subscribe(er => {
         this.showAlert().subscribe();

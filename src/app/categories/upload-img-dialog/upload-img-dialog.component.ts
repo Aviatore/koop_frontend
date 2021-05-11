@@ -15,7 +15,7 @@ export class UploadImgDialogComponent implements OnInit {
   progress: number;
   message: string;
   selectedFile: File = null;
-  @Output() public onUploadFinished = new EventEmitter();
+  // @Output() public onUploadFinished = new EventEmitter();
   isDisabled: boolean;
   path: Path;
 
@@ -49,11 +49,19 @@ export class UploadImgDialogComponent implements OnInit {
           this.progress = Math.round(event.loaded / event.total * 100);
         } else if (event.type === HttpEventType.Response) {
           this.message = 'Obrazek dodany';
-          this.onUploadFinished.emit(event.body);
+          // this.onUploadFinished.emit(event.body);
           this.path = event.body;
-          const test = this.service.updateImageNameService(categoryId, this.path.dbPath);
-          console.log(test.subscribe((s) => s.info, error => error.error));
-          setInterval(() => this.dialogRef.close({msg: event.body}), 1400);
+          this.service.updateImageNameService(categoryId, this.path.dbPath)
+            .subscribe((data) => {
+                const delay = setTimeout(() => this.dialogRef.close({msg: data.info}), 1400);
+              },
+              err => {
+                if ('error' in err.error) {
+                  this.dialogRef.close({msg: err.error.error});
+                } else if ('detail' in err.error) {
+                  this.dialogRef.close({msg: err.error.detail});
+                }
+              });
         }
       });
   }
