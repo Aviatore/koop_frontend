@@ -39,3 +39,7 @@ img {
 .edit:hover {
   color: #076d00;
 }
+
+.img-gray {
+  filter: grayscale(100%);
+}

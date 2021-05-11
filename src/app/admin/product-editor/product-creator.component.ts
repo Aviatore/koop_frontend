@@ -13,6 +13,11 @@ import {Product} from '../admin-interfaces/product';
 import {AppUrl} from '../../urls/app-url';
 
 
+export enum Test {
+  val,
+  val2
+}
+
 @Component({
   selector: 'app-product-editor',
   templateUrl: './product-creator.component.html',

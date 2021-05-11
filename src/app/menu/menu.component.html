@@ -1,4 +1,4 @@
-<mat-toolbar class="navi-bar">
+<mat-toolbar class="navi-bar border border-dark">
   <div>
     <a [routerLink]="[urls.getHome]" class="logo-link">Koop</a>
   </div>
@@ -12,6 +12,9 @@
       <li><button mat-button [routerLink]="[urls.admin]" class="top-link">Admin</button></li>
       <li><button mat-button  [routerLink]="[urls.getLogin]" class="top-link"
               (click)="LoginAction()">{{(isTokenExpired() ? 'login' : 'logout') | titlecase}}</button></li>
+      <li>
+        <i class="fab fa-shopify basket" [matBadge]="quantities == 0 ? '' : quantities" matBadgePosition="before" matBadgeColor="warn"></i>
+      </li>
     </ul>
   </div>
   <div fxHide.gt-xs>

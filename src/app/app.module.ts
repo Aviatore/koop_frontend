@@ -48,6 +48,11 @@ import { EmailFormComponent } from './password-reset/email-form/email-form.compo
 import {PasswordResetModule} from './password-reset/password-reset.module';
 import {CategoryModule} from './categories/category.module';
 import {JwtParserService} from './services/jwt-parser.service';
+import {MatBadgeModule} from '@angular/material/badge';
+import { OrderDialogComponent } from './order-dialog/order-dialog.component';
+import {MatOptionModule} from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
 
 export function tokenGetter(): string | null {
   return localStorage.getItem('token');
@@ -70,6 +75,7 @@ registerLocaleData(localePL);
     CategoriesComponent,
     ProductComponent,
     EmailFormComponent,
+    OrderDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,14 +95,19 @@ registerLocaleData(localePL);
         tokenGetter,
         allowedDomains: [],
         disallowedRoutes: []
-      }}),
+      }
+    }),
     CoopOrderModule,
     StoreModule,
     CategoryModule,
     AdminModule,
     UserPanelModule,
     PasswordResetModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatBadgeModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [
     UnitsService,

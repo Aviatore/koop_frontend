@@ -8,6 +8,8 @@ import {AppUrl} from '../urls/app-url';
 import {Visibility} from './visibility/visibility';
 import {Role} from './visibility/role';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {MatBadgeModule} from '@angular/material/badge';
+import {OrderMakerService} from '../services/order-maker.service';
 
 @Component({
   selector: 'app-menu',
@@ -26,12 +28,15 @@ export class MenuComponent implements OnInit {
   visibility = Visibility;
   role = Role;
 
+  quantities: number;
+
   @Output() public sidenavToggle = new EventEmitter();
 
   constructor(private loginS: LoginService,
               private productS: ProductService,
               private categorieS: CategoriesService,
               private jwtHelper: JwtHelperService,
+              private orderMakerService: OrderMakerService,
               @Inject(TokenTimer) private tokenT: CountDownTokenService,
               @Inject(RefTokenTimer) private refTokenT: CountDownTokenService) {
   }
@@ -42,6 +47,12 @@ export class MenuComponent implements OnInit {
     this.tokenTimer = this.tokenT;
     this.categoriesService = this.categorieS;
     this.refTokenTimer = this.refTokenT;
+
+    this.orderMakerService.orderedItemsCount.subscribe(result => {
+      this.quantities = result;
+    });
+
+    this.orderMakerService.setBadge();
   }
 
   LoginAction(): void {

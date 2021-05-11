@@ -9,6 +9,7 @@ import {AppUrl} from '../urls/app-url';
 import {tap} from 'rxjs/operators';
 import {ErrorResponse} from '../admin/admin-interfaces/errorResponse';
 import {LoggerService} from '../services/logger.service';
+import {OrderMakerService} from '../services/order-maker.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private loginService: LoginService,
               private route: Router,
-              private logger: LoggerService) { }
+              private logger: LoggerService,
+              private orderMakerService: OrderMakerService) { }
 
   ngOnInit(): void {
     this.loginS = this.loginService;
@@ -67,6 +69,8 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('login_userId', loginResponse.userId);
 
             this.loginS.loginResult = true;
+
+            this.orderMakerService.setBadge();
           },
           error: error => {
             console.log(...this.logger.error(error));
