@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Informacja</h1>
+<div mat-dialog-content>
+  <mat-divider></mat-divider>
+  <div class="pt-2 pb-2">
+    <span
+      class="fw-bold px-2">{{data.info == 'The order has been accepted.' ? 'Zamówienie zostało przyjęte.' : data.info}}</span>
+  </div>
+  <mat-divider></mat-divider>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+  <button mat-raised-button mat-dialog-close class="ok-button">OK</button>
+</div>
