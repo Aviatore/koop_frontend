@@ -20,5 +20,13 @@
       <span class="button badge bg-primary" (click)="openDialog(product.productName, product.productId)" style="cursor: pointer" [ngStyle]="{'display': available ? 'block' : 'none'}">Dodaj do koszyka</span>
       <span class="badge bg-secondary" (click)="openDialog(product.productName, product.productId)" style="cursor: not-allowed" [ngStyle]="{'display': available ? 'none' : 'block'}">Produkt niedostępny</span>
     </div>
+    <div class="warning" [class.collapsed]="!(alertVisibility > 0)">
+      <div class="alert alert-dismissible fade mt-3"
+           [class.show]="alertVisibility > 0"
+           [ngClass]="orderMakerS.errorResponse?.status === 200 ? 'alert-success' : orderMakerS.errorResponse?.status === 300 ? 'alert-warning' : 'alert-danger'"
+           role="alert">
+        {{orderMakerS.errorResponse?.detail}}
+      </div>
+    </div>
   </div>
 </div>

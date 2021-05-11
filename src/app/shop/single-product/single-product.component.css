@@ -43,3 +43,14 @@ img {
 .img-gray {
   filter: grayscale(100%);
 }
+
+.warning {
+  overflow: hidden;
+  transition: max-height 1s ease-out;
+  height: auto;
+  max-height: 200px;
+}
+
+.warning.collapsed {
+  max-height: 0;
+}

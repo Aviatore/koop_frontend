@@ -29,10 +29,15 @@ export class OrderMakerService {
   errorResponse: ErrorResponse;
   constructor(private httpClient: HttpClient) {
     this.orderedItemsCount = new BehaviorSubject<number>(0);
+    this.errorResponse = {
+      detail: '',
+      status: 200
+    };
   }
 
   makeOrder(productId: string, quantity: string): Observable<any> {
     return this.httpClient.get<HttpResponse<Observable<ErrorResponse>>>(this.orderUrl, {
+      observe: 'response',
       params: new HttpParams()
         .set('productId', productId)
         .set('quantity', quantity)

@@ -5,7 +5,7 @@ import {AppUrl} from '../../urls/app-url';
 import {OrderDialogComponent} from '../order-dialog/order-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {OrderMakerService} from '../services/order-maker.service';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
@@ -20,11 +20,15 @@ export class SingleProductComponent implements OnInit, OnDestroy {
   domain = AppUrl.DOMAIN;
   quantities: number;
   available = true;
+  alertVisibility: number;
+  alertVisibilityTimeSec = 5;
+  orderMakerS: OrderMakerService;
   constructor(private router: Router,
               public dialog: MatDialog,
               private orderMakerService: OrderMakerService) { }
 
   ngOnInit(): void {
+    this.orderMakerS = this.orderMakerService;
     if (!this.product.available) {
       this.available = false;
     }
@@ -47,14 +51,35 @@ export class SingleProductComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().pipe(takeUntil(this.onDestroy$)).subscribe(result => {
       if (result) {
+        this.orderMakerService.errorResponse.detail = 'Aktualizowanie danych użytkownika. Proszę czekać ...';
+        this.orderMakerService.errorResponse.status = 300;
+        this.alertVisibility = 1;
+
         this.orderMakerService.makeOrder(productId, result).pipe(takeUntil(this.onDestroy$)).subscribe(r => {
+          this.orderMakerS.errorResponse = r.body;
+          console.log(`Response: ${JSON.stringify(r.body)}`);
           this.orderMakerService.isProductAvailable(productId).pipe(takeUntil(this.onDestroy$)).subscribe(availResult => {
             this.available = availResult.detail === 'True';
             console.log(`Is available: ${this.available}`);
+            this.showAlert().subscribe();
           });
           this.orderMakerService.setBadge();
         });
       }
+    });
+  }
+
+  showAlert(): Observable<any> {
+    return new Observable(observer => {
+      this.alertVisibility = this.alertVisibilityTimeSec;
+
+      const handler = setInterval(() => {
+        this.alertVisibility--;
+
+        if (this.alertVisibility === 0) {
+          clearInterval(handler);
+        }
+      }, 1000);
     });
   }
 
