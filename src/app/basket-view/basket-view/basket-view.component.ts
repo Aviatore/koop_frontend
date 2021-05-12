@@ -23,7 +23,7 @@ export class BasketViewComponent implements OnInit {
     // 'lastName',
     'productName',
     // 'description',
-    'unit',
+    // 'unit',
     // 'orderStatus',
     'decreaseButton',
     'quantity',
