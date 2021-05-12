@@ -16,7 +16,9 @@
               (click)="LoginAction()">{{(isTokenExpired() ? 'login' : 'logout') | titlecase}}</button></li>
     </ul>
   </div>
+  <div *ngIf="visibility.set([role.DEFAULT])">
     <app-basket-icon></app-basket-icon>
+  </div>
   <div fxHide.gt-xs>
     <button mat-icon-button (click)="onToggleSidenav()">
       <mat-icon>menu</mat-icon>
