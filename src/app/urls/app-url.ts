@@ -32,7 +32,9 @@ export class AppUrl {
     user: 'user',
     passwordReset: 'password-reset',
     getCategories: 'categories',
-    getBasketView: 'basket-view'
+    getBasketView: 'basket-view',
+    getAllSuppliers: 'allsuppliers',
+    getOrdersAll: 'orders/all'
   };
 
 }

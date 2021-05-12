@@ -29,7 +29,7 @@ import {AppPaginatorConfig} from './app-paginator-config';
 import {LOCALE_ID} from '@angular/core';
 import {registerLocaleData} from '@angular/common';
 import localePL from '@angular/common/locales/pl';
-import {MatPaginatorIntl} from '@angular/material/paginator';
+import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
 import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
 import {MaterialModule} from './material/material.module';
@@ -53,6 +53,21 @@ import {BasketViewModule} from './basket-view/basket-view.module';
 export function tokenGetter(): string | null {
   return localStorage.getItem('token');
 }
+import {MatMenuModule} from '@angular/material/menu';
+import { SuppliersListComponent } from './suppliers/suppliers-list/suppliers-list.component';
+import { SupplierDetailComponent } from './suppliers/supplier-detail/supplier-detail.component';
+import {MatTableModule} from '@angular/material/table';
+import { SuppliersModule } from './suppliers/suppliers.module';
+import { SupplierInfoComponent } from './suppliers/supplier-info/supplier-info.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+// import { OrderGrandeComponent } from './order-grande/order-grande.component';
+import { OrderGrandeRoutingModule } from './order-grande/order-grande-routing.module';
+import { OrdersListComponent } from './order-grande/orders-list/orders-list.component';
+import { OrderDetailComponent } from './order-grande/order-detail/order-detail.component';
+// import { BasketsComponent } from './order-grande/baskets/baskets.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {OrderGrandeModule} from './order-grande/order-grande.module';
 
 registerLocaleData(localePL);
 
@@ -98,6 +113,15 @@ registerLocaleData(localePL);
     AdminModule,
     UserPanelModule,
     PasswordResetModule,
+    MaterialModule,
+    MatMenuModule,
+    MatTableModule,
+    MatPaginatorModule,
+    SuppliersModule,
+    OrderGrandeModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatSelectModule,
     AppRoutingModule
   ],
   providers: [

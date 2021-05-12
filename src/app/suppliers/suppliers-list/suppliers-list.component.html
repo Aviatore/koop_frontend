@@ -1,0 +1,71 @@
+<!--<h2>Dostawcy</h2>-->
+<!--<ul class="suppliers">-->
+<!--  <li *ngFor="let supplier of suppliers | async" (click)="onSelect(supplier)" [class.selected]="supplier === selectedSupplier"-->
+<!--  >-->
+<!--    <span class="badge">{{supplier.supplierAbbr}}</span> {{supplier.supplierName}} {{supplier.available}} {{supplier.blocked}}-->
+<!--  </li>-->
+<!--</ul>-->
+
+<!--<div *ngIf="selectedSupplier">-->
+<!--  <h2>{{selectedSupplier.supplierName | uppercase}} Details</h2>-->
+<!--  <div><span>skrót: </span>{{selectedSupplier.supplierAbbr}}</div>-->
+<!--  <div><span>nazwa: </span>{{selectedSupplier.supplierName}}</div>\-->
+<!--  <div>-->
+<!--    <label for="available">available: </label>-->
+<!--    <input type='checkbox' id="available" (change)="onChange(selectedSupplier)" [(ngModel)]="selectedSupplier.available" placeholder="available">-->
+<!--  </div>-->
+<!--</div>-->
+
+<h2 class="text-md-center px-2 txt-shadow">Dostawcy</h2>
+<div>
+  <button type="button" class="btn btn-primary" *ngIf="authorized" routerLink="/supplier/add" routerLinkActive="activebutton">Dodaj nowego dostawcę</button>
+</div>
+
+<div>
+  <mat-form-field>
+    <input matInput type="text" (keyup)="doFilter($any($event.target).value)" placeholder="Szukaj">
+  </mat-form-field>
+</div>
+
+<div class="table-responsive-sm px-2">
+  <table mat-table [dataSource]="dataSource" matSort class="table-striped mat-elevation-z10">
+    <ng-component matColumnDef="supplierAbbr">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="supplierAbbr">Skrót</th>
+      <td mat-cell *matCellDef="let element">
+
+        <a *ngIf="authorized" class="button" routerLink="/supplier/{{element.supplierId}}/edit" routerLinkActive="activebutton">{{element.supplierAbbr}}</a>
+        <a *ngIf="!authorized" class="button" routerLink="/supplier/{{element.supplierId}}" routerLinkActive="activebutton">{{element.supplierAbbr}}</a>
+      </td>
+    </ng-component>
+    <ng-component matColumnDef="supplierName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="supplierName">Nazwa</th>
+      <td mat-cell *matCellDef="let element">{{element.supplierName}}</td>
+    </ng-component>
+    <ng-component matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="email">Email</th>
+      <td mat-cell *matCellDef="let element">{{element.email}}</td>
+    </ng-component>
+    <ng-component matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="phone">Nr telefonu</th>
+      <td mat-cell *matCellDef="let element">{{element.phone}}</td>
+    </ng-component>
+    <ng-component matColumnDef="oproFullName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="oproFullName">OpRo</th>
+      <td mat-cell *matCellDef="let element">{{element.oproFullName}}</td>
+    </ng-component>
+    <ng-component matColumnDef="available">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="available">Dostępny</th>
+      <td mat-cell *matCellDef="let element"><input type='checkbox' [disabled]="!authorized" id="available" (change)="toggleAvailability(element.supplierId)" [(ngModel)]="element.available"></td>
+    </ng-component>
+    <ng-component matColumnDef="blocked">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="blocked">Zablokowany</th>
+      <td mat-cell *matCellDef="let element"><input type='checkbox' [disabled]="!authorized" id="blocked" (change)="toggleBlocked(element.supplierId)" [(ngModel)]="element.blocked"></td>
+    </ng-component>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+<div class="mx-auto px-2 mat-elevation-z10">
+  <mat-paginator [pageSizeOptions]="itemsPerPage"></mat-paginator>
+</div>
