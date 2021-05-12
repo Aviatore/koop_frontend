@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Basket } from './basket';
 
-import {baseUrl} from '../../environments/environment';
-
 import { Observable, of } from 'rxjs';
 import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import {Guid} from 'guid-typescript';
 import {catchError} from 'rxjs/operators';
 import {OrderGrande} from './order-grande';
+import {AppUrl} from '../urls/app-url';
 
 const orderGrandeOptions: object = {
   headers: new HttpHeaders().set('Content-Type', 'application/json-patch+json'),
@@ -24,16 +23,16 @@ export class OrderGrandeService {
 
 
   getOrders(): Observable<OrderGrande[]> {
-      return this.http.get<OrderGrande[]>(`${baseUrl}Order/bigorders`);
+      return this.http.get<OrderGrande[]>(`${AppUrl.BASE_URL}Order/bigorders`);
   }
 
   getBaskets(): Observable<Basket[]> {
-    return this.http.get<Basket[]>(`${baseUrl}Order/order/baskets`);
+    return this.http.get<Basket[]>(`${AppUrl.BASE_URL}Order/order/baskets`);
   }
 
   addOrder(order: OrderGrande): void {
     console.log(`Raw data: ${JSON.stringify(order)}`);
-    this.http.post<HttpResponse<any>>(`${baseUrl}Order/order/add`, order, orderGrandeOptions)
+    this.http.post<HttpResponse<any>>(`${AppUrl.BASE_URL}Order/order/add`, order, orderGrandeOptions)
       .subscribe(
         (response) => console.log(response),
         (error) => console.log(error)
@@ -42,7 +41,7 @@ export class OrderGrandeService {
 
   changeStatus(orderId: Guid, statusName: string): void {
     console.log(`Raw data: ${JSON.stringify(orderId + statusName)}`);
-    this.http.get<any>(`${baseUrl}Order/order/${orderId}/${statusName}`, orderGrandeOptions)
+    this.http.get<any>(`${AppUrl.BASE_URL}Order/order/${orderId}/${statusName}`, orderGrandeOptions)
       .subscribe(
         (response) => console.log(response),
         (error) => console.log(error)
@@ -50,7 +49,7 @@ export class OrderGrandeService {
   }
 
   getStatuses(): Observable<string[]> {
-    return this.http.get<string[]>(`${baseUrl}Order/statuses`);
+    return this.http.get<string[]>(`${AppUrl.BASE_URL}Order/statuses`);
 
   }
 }

@@ -29,7 +29,7 @@ import {AppPaginatorConfig} from './app-paginator-config';
 import {LOCALE_ID} from '@angular/core';
 import {registerLocaleData} from '@angular/common';
 import localePL from '@angular/common/locales/pl';
-import {MatPaginatorIntl} from '@angular/material/paginator';
+import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
 import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
 import {MaterialModule} from './material/material.module';
@@ -113,23 +113,16 @@ registerLocaleData(localePL);
     AdminModule,
     UserPanelModule,
     PasswordResetModule,
-    AppRoutingModule
-    MatIconModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatGridListModule,
-    FlexLayoutModule,
+    MaterialModule,
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
     SuppliersModule,
     OrderGrandeModule,
     MatCheckboxModule,
-    AppRoutingModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    AppRoutingModule
   ],
   providers: [
     UnitsService,
