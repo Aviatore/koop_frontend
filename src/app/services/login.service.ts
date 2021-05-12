@@ -7,6 +7,7 @@ import {RefTokenTimer, TokenTimer} from '../injection-tokens/tokens';
 import {ErrorResponse} from '../admin/admin-interfaces/errorResponse';
 import {NGXLogger} from 'ngx-logger';
 import {LoggerService} from './logger.service';
+import {OrderMakerService} from '../shop/services/order-maker.service';
 
 
 export interface LoginResponse {
@@ -36,6 +37,7 @@ export class LoginService {
 
   constructor(private httpClient: HttpClient,
               private logger: LoggerService,
+              private orderMakerService: OrderMakerService,
               @Inject(TokenTimer) private tokenT: CountDownTokenService,
               @Inject(RefTokenTimer) private refTokenT: CountDownTokenService) { }
 
@@ -52,6 +54,7 @@ export class LoginService {
     this.loginResult = false;
     this.tokenT.timeSeconds = 0;
     this.refTokenT.timeSeconds = 0;
+    this.orderMakerService.orderedItemsCount.next(0);
   }
 
   GetUserCredentials(email: string, password: string): Observable<HttpResponse<LoginResponse>> {

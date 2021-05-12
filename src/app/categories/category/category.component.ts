@@ -17,7 +17,7 @@ import {AppUrl} from '../../urls/app-url';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit, AfterViewInit {
-
+  emptyImage = AppUrl.EMPTYIMAGE;
   displayedColumns: string[] = [
     // 'categoryId',
     'categoryName',

@@ -22,3 +22,24 @@
   color: #fff;
   text-decoration: none!important;
 }
+
+img {
+  object-fit: cover;
+}
+
+.noimage {
+  object-fit: contain;
+}
+
+.edit {
+  color: #6f6f6f;
+  cursor: pointer;
+}
+
+.edit:hover {
+  color: #076d00;
+}
+
+.img-gray {
+  filter: grayscale(100%);
+}

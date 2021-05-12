@@ -16,6 +16,7 @@ export class CategoriesComponent implements OnInit {
   info: Info;
   problem: string;
   url = AppUrl.DOMAIN;
+  emptyImage = AppUrl.EMPTYIMAGE;
 
   constructor(private service: CategoryService) { }
 
