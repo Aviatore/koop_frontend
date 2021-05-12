@@ -7,6 +7,7 @@ import {OrderGrandeService} from '../order-grande.service';
 import Util from '../../util';
 import {Observable} from 'rxjs';
 import {Guid} from 'guid-typescript';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-orders-list',
@@ -38,7 +39,8 @@ export class OrdersListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private orderGrandeService: OrderGrandeService) {
+  constructor(private orderGrandeService: OrderGrandeService,
+              private snackBarInfo: MatSnackBar) {
     this.getDataFromObservable();
     this.checkAuthorization();
   }
@@ -84,11 +86,36 @@ export class OrdersListComponent implements OnInit {
   changeStatus(orderId: Guid, statusName: string): void {
     this.orderId = orderId;
     // console.log('status: ' + statusName);
-    this.orderGrandeService.changeStatus(orderId, statusName);
+    this.orderGrandeService.changeStatus(orderId, statusName)
+      .subscribe(
+        (response) => {
+          console.log(response);
+          const index = this.dataSource.data.findIndex(p => p.orderId === orderId);
+          this.dataSource.data[index].orderStatusName = statusName;
+          this.dataSource._updateChangeSubscription();
+          this.openSnackBarInfo('Good');
+        },
+        (error) => {
+          console.log(error);
+          this.openSnackBarInfo('Bad');
+        }
+      );
   }
 
   public doFilter = (value: string) => {
     this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+
+  openSnackBarInfo(message: string, action?: string): void {
+    let snackBarCss = 'snack-bar-red';
+    if (message !== undefined && message.includes('Good')) {
+      message = 'Ilości produktu zostały zmienione.';
+      snackBarCss = 'snack-bar-green';
+    }
+    this.snackBarInfo.open(message, action, {
+      duration: 3000,
+      panelClass: snackBarCss
+    });
   }
 
 }

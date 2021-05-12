@@ -39,13 +39,9 @@ export class OrderGrandeService {
       );
   }
 
-  changeStatus(orderId: Guid, statusName: string): void {
+  changeStatus(orderId: Guid, statusName: string): Observable<any> {
     console.log(`Raw data: ${JSON.stringify(orderId + statusName)}`);
-    this.http.get<any>(`${AppUrl.BASE_URL}Order/order/${orderId}/${statusName}`, orderGrandeOptions)
-      .subscribe(
-        (response) => console.log(response),
-        (error) => console.log(error)
-      );
+    return this.http.get<any>(`${AppUrl.BASE_URL}Order/order/${orderId}/${statusName}`, orderGrandeOptions);
   }
 
   getStatuses(): Observable<string[]> {
