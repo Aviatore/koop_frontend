@@ -110,6 +110,22 @@ export class CategoryComponent implements OnInit, AfterViewInit {
     });
   }
 
+  openUploadImgDialog(categoryId: string, picture: string): void {
+    const dialogRef = this.addImgDialog.open(UploadImgDialogComponent, {
+      data: {
+        categoryId,
+        picture
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getCategories();
+      if (result.msg !== undefined) {
+        this.openSnackBarAddEdit(result.msg);
+      }
+    });
+  }
+
   openSnackBarAddEdit(message: string, action?: string): void {
     let snackBarCss = 'snack-bar-red';
     if (message !== undefined && message.includes('The new category has been added.')) {
@@ -124,26 +140,17 @@ export class CategoryComponent implements OnInit, AfterViewInit {
       message = 'Kategoria nie jest dostępna.';
     } else if (message !== undefined && message.includes('The category field cannot be empty.')) {
       message = 'Pole kategorii nie może być puste. Kategoria nie została dodana.';
+    } else if (message !== undefined && message.includes('The picture of category has been updated.')) {
+      message = 'Obraz kategorii został zaktualizowany.';
+      snackBarCss = 'snack-bar-green';
+    } else if (message !== undefined && message.includes('The selected category is not available.')) {
+      message = 'Wybrana kategoria jest niedostępna.';
+    } else if (message !== undefined && message.includes('The picture name field cannot be empty.')) {
+      message = 'Pole nazwy obrazu nie może być puste. Zdjęcie nie zostało zaktualizowane.';
     }
     this.snackBarAddEdit.open(message, action, {
       duration: 3500,
       panelClass: snackBarCss
-    });
-  }
-
-  openUploadImgDialog(categoryId: string, picture: string): void {
-    const dialogRef = this.addImgDialog.open(UploadImgDialogComponent, {
-      data: {
-        categoryId,
-        picture
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.getCategories();
-      if (result.msg !== undefined) {
-        this.openSnackBarAddEdit(result.msg);
-      }
     });
   }
 }

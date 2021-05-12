@@ -1,0 +1,89 @@
+table {
+  width: 100%;
+}
+
+.mat-header-cell {
+  font-size: 1em;
+  color: #000;
+  text-align: center;
+  padding: 0 5px 0 5px;
+  white-space: nowrap;
+}
+
+.mat-footer-row {
+  font-weight: bolder;
+}
+
+.mat-cell {
+  padding: 0 5px 0 5px;
+}
+
+.mat-column-productName {
+  text-align: left;
+}
+
+.mat-column-unit {
+  text-align: center;
+}
+
+.mat-column-decreaseButton {
+  text-align: right;
+  width: 0;
+}
+
+.mat-column-quantity {
+  text-align: center;
+  width: 50px;
+}
+
+.mat-column-increaseButton {
+  text-align: left;
+  width: 0;
+}
+
+.mat-column-unitPrice {
+  text-align: center;
+}
+
+.mat-column-price {
+  text-align: center;
+}
+
+.mat-column-delButton {
+  text-align: center;
+  width: 0;
+}
+
+.decrease-button {
+  color: rgb(255, 72, 72);
+}
+
+.decrease-button:hover {
+  color: rgb(255, 0, 0);
+}
+
+.increase-button {
+  color: rgb(3, 130, 17);
+}
+
+.increase-button:hover {
+  color: rgb(3, 109, 22);
+}
+
+.del-button {
+  color: rgb(255, 72, 72);
+}
+
+.del-button:hover {
+  color: rgb(255, 0, 0);
+}
+
+.order-button {
+  background-color: rgb(3, 130, 17);
+  color: #fff;
+}
+
+.order-button:hover {
+  background-color: rgb(3, 109, 22);
+  color: #fff;
+}

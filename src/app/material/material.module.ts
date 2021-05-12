@@ -15,6 +15,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @NgModule({
   declarations: [],
@@ -34,7 +35,8 @@ import {MatInputModule} from '@angular/material/input';
     MatTableModule,
     MatSnackBarModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatBadgeModule
   ],
   exports: [
     MatIconModule,
@@ -51,7 +53,8 @@ import {MatInputModule} from '@angular/material/input';
     MatTableModule,
     MatSnackBarModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatBadgeModule
   ]
 })
 export class MaterialModule {

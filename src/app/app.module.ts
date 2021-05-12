@@ -48,6 +48,7 @@ import { EmailFormComponent } from './password-reset/email-form/email-form.compo
 import {PasswordResetModule} from './password-reset/password-reset.module';
 import {CategoryModule} from './categories/category.module';
 import {JwtParserService} from './services/jwt-parser.service';
+import {BasketViewModule} from './basket-view/basket-view.module';
 import {MatBadgeModule} from '@angular/material/badge';
 import { OrderDialogComponent } from './shop/order-dialog/order-dialog.component';
 import {MatOptionModule} from '@angular/material/core';
@@ -99,6 +100,7 @@ registerLocaleData(localePL);
     CoopOrderModule,
     StoreModule,
     CategoryModule,
+    BasketViewModule,
     AdminModule,
     ShopModule,
     UserPanelModule,

@@ -10,6 +10,7 @@ import {Role} from './visibility/role';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {MatBadgeModule} from '@angular/material/badge';
 import {OrderMakerService} from '../shop/services/order-maker.service';
+import {BasketViewService} from '../basket-view/services/basket-view.service';
 
 @Component({
   selector: 'app-menu',
@@ -38,7 +39,8 @@ export class MenuComponent implements OnInit {
               private jwtHelper: JwtHelperService,
               private orderMakerService: OrderMakerService,
               @Inject(TokenTimer) private tokenT: CountDownTokenService,
-              @Inject(RefTokenTimer) private refTokenT: CountDownTokenService) {
+              @Inject(RefTokenTimer) private refTokenT: CountDownTokenService,
+              private basketService: BasketViewService) {
   }
 
   ngOnInit(): void {
@@ -51,14 +53,14 @@ export class MenuComponent implements OnInit {
     this.orderMakerService.orderedItemsCount.subscribe(result => {
       this.quantities = result;
     });
-
-    this.orderMakerService.setBadge();
   }
 
   LoginAction(): void {
     if (!this.isTokenExpired()) {
       this.loginService.LogOut();
+      this.basketService.editBasketQuantity();
     }
+    this.basketService.editBasketQuantity();
   }
 
   onToggleSidenav(): void {

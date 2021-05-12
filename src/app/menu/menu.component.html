@@ -17,25 +17,10 @@
       </li>
     </ul>
   </div>
+    <app-basket-icon></app-basket-icon>
   <div fxHide.gt-xs>
     <button mat-icon-button (click)="onToggleSidenav()">
       <mat-icon>menu</mat-icon>
     </button>
   </div>
 </mat-toolbar>
-
-<!--<ul>
-  <li><a [routerLink]="['home']">Home</a></li>
-  <li><a [routerLink]="['login']"
-         (click)="LoginAction()">{{(this.loginService.loginResult ? 'logout' : 'login') | titlecase}}</a></li>
-  <li><a [routerLink]="['units']">Units</a></li>
-  <li>
-    <app-report-dropdown-menu></app-report-dropdown-menu>
-  </li>
-  <li>
-    <app-counter [timer]="tokenTimer" name="Token"></app-counter>
-  </li>
-  <li>
-    <app-counter [timer]="refTokenTimer" name="RefToken"></app-counter>
-  </li>
-</ul>-->

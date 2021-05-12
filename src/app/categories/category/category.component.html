@@ -47,8 +47,11 @@
                   (click)="openCategoryEditDialog(
                   element.categoryId,
                   element.categoryName,
-                  element.picture
-                  )" class="edit-button">
+                  element.picture)"
+                  matTooltip="Edytuj"
+                  matTooltipClass="tooltip-green"
+                  [matTooltipPosition]="'before'"
+                  class="edit-button">
             <mat-icon>edit</mat-icon>
           </button>
           </span>
