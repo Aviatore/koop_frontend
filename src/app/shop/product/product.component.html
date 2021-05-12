@@ -1,0 +1,13 @@
+<h2 *ngFor="let product of products | async; let i = index" class="text-center px-2 txt-shadow">
+  <span *ngIf="i<1">{{product.categoryNames[0]}}</span>
+</h2>
+
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <div *ngFor="let product of products | async" class="col-md-4">
+        <app-single-product [product]="product"></app-single-product>
+      </div>
+    </div>
+  </div>
+</div>

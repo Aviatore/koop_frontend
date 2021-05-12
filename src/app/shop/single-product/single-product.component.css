@@ -1,0 +1,56 @@
+.badge-margin {
+  margin-right: 3px;
+  margin-left: 3px;
+}
+
+.badge-price {
+  background-color: #076d00;
+}
+
+.badge-unit {
+  background-color: #5b0282;
+}
+
+.badge-cart {
+  background-color: #5e5e5e;
+  color: #fff;
+  text-decoration: none!important;
+}
+
+.badge-cart:hover {
+  background-color: #3b3b3b;
+  color: #fff;
+  text-decoration: none!important;
+}
+
+img {
+  object-fit: cover;
+}
+
+.noimage {
+  object-fit: contain;
+}
+
+.edit {
+  color: #6f6f6f;
+  cursor: pointer;
+}
+
+.edit:hover {
+  color: #076d00;
+}
+
+.img-gray {
+  filter: grayscale(100%);
+}
+
+.warning {
+  overflow: hidden;
+  transition: max-height 1s ease-out;
+  height: auto;
+  max-height: 200px;
+}
+
+.warning.collapsed {
+  max-height: 0;
+}

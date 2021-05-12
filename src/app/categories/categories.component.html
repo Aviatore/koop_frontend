@@ -3,7 +3,7 @@
     <div class="row">
       <div *ngFor="let category of categories" class="col-md-4">
         <div class="card mb-4 box-shadow">
-          <img class="card-img-top" alt="Thumbnail [100%x225]" src="{{url + category.picture}}" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
+          <img class="card-img-top" alt="Thumbnail [100%x225]" src="{{(category.picture === null || category.picture === '') ? emptyImage : url + category.picture}}" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;" [class.noimage]="(category.picture === null || category.picture === '')">
           <div class="card-body">
             <p class="card-text">
               {{category.categoryName}}
