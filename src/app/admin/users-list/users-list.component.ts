@@ -16,7 +16,7 @@ import {tap} from 'rxjs/operators';
 export class UsersListComponent implements OnInit, AfterViewInit {
   alertVisibility: number;
   alertVisibilityTimeSec = 3;
-  us: UsersService
+  us: UsersService;
   columnHeaders = ['firstName', 'lastName', 'email', 'action'];
   dataSource: MatTableDataSource<User>;
   users$: Observable<User[]>;
