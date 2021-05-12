@@ -10,6 +10,7 @@ import {FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import { SingleProductComponent } from './single-product/single-product.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -18,13 +19,14 @@ import { SingleProductComponent } from './single-product/single-product.componen
     OrderDialogComponent,
     SingleProductComponent
   ],
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    MatSelectModule,
-    FormsModule,
-    MatButtonModule,
-    ShopRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        MatDialogModule,
+        MatSelectModule,
+        FormsModule,
+        MatButtonModule,
+        ShopRoutingModule,
+        MatTooltipModule
+    ]
 })
 export class ShopModule { }
