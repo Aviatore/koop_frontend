@@ -56,10 +56,10 @@ export class ReportPackListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.service.getReportForPackers()
       .subscribe((data) => {
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      });
+          this.dataSource = new MatTableDataSource(data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        });
   }
 
   async readFile(): Promise<void> {
@@ -115,11 +115,19 @@ export class ReportPackListComponent implements OnInit, AfterViewInit {
   getDataForPdf(): any[] {
     const pdfList = [];
 
-    this.packList$.forEach(x => {
+    /*this.packList$.forEach(x => {
       x.forEach((currentValue, index) => {
         pdfList.push([`${index + 1}.`, currentValue.productName, currentValue.productsInBaskets]);
       });
-    }).then(() => console.log('Done'));
+    }).then(() => console.log('Done'));*/
+
+    this.packList$.subscribe((data) => {
+      if (data.length > 0) {
+        data.forEach((currentValue, index) => {
+          pdfList.push([`${index + 1}.`, currentValue.productName, currentValue.productsInBaskets]);
+        });
+      }
+    });
 
     return pdfList;
   }
