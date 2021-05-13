@@ -9,7 +9,7 @@ import {UniqueEmailValidator} from '../admin-validators/async-validators';
 import {UniqueUserNameValidator} from '../admin-validators/userName-validator';
 import {LoggerService} from '../../services/logger.service';
 import {Roles} from '../admin-interfaces/roles';
-import {delay} from "rxjs/operators";
+import {delay, map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-edit',
