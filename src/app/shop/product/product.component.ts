@@ -7,6 +7,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {OrderDialogComponent, OrderDialogData} from '../order-dialog/order-dialog.component';
 import {OrderMakerService} from '../services/order-maker.service';
 import {takeUntil} from 'rxjs/operators';
+import {ErrorResponse} from '../../admin/admin-interfaces/errorResponse';
 
 @Component({
   selector: 'app-product',
@@ -19,6 +20,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   domain = AppUrl.DOMAIN;
   emptyImage = AppUrl.EMPTYIMAGE;
   quantities: number;
+  orderStatus: ErrorResponse;
 
   constructor(private productS: ProductService,
               private route: ActivatedRoute,
@@ -32,6 +34,9 @@ export class ProductComponent implements OnInit, OnDestroy {
     console.log(`Getting products ...`);
     this.products = this.productS.GetProducts(categoryIdFromRoute).pipe(takeUntil(this.onDestroy$));
     console.log(this.products);
+    this.orderMakerService.checkOrderStatus().subscribe(result => {
+      this.orderStatus = result;
+    });
   }
 
   ngOnDestroy(): void {

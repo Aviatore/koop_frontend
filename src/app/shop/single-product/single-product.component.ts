@@ -7,6 +7,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {OrderMakerService} from '../services/order-maker.service';
 import {Observable, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {ErrorResponse} from '../../admin/admin-interfaces/errorResponse';
 
 @Component({
   selector: 'app-single-product',
@@ -16,6 +17,11 @@ import {takeUntil} from 'rxjs/operators';
 export class SingleProductComponent implements OnInit, OnDestroy {
   private onDestroy$: Subject<void> = new Subject<void>();
   @Input() product: Product;
+  @Input() orderStatusContainer: ErrorResponse;
+  orderStatus: string;
+  orderStart: string;
+  isClosed: boolean;
+
   emptyImage = AppUrl.EMPTYIMAGE;
   domain = AppUrl.DOMAIN;
   quantities: number;
@@ -31,6 +37,18 @@ export class SingleProductComponent implements OnInit, OnDestroy {
     this.orderMakerS = this.orderMakerService;
     if (!this.product.available) {
       this.available = false;
+    }
+
+    const os = this.orderStatusContainer.detail.split(';');
+    if (os.length === 3) {
+      this.orderStart = `Sklep zostanie otwarty ${os[1]} o godz. ${os[2]}`;
+    }
+    this.orderStatus = os[0];
+
+    if (this.orderStatus === 'closed' || this.orderStatus === 'planned') {
+      this.isClosed = true;
+    } else {
+      this.isClosed = false;
     }
   }
 
