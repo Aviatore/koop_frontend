@@ -45,8 +45,16 @@ export class ReportService {
         catchError(this.handleError));
   }
 
-  getReportSupplierReceivables(): Observable<SupplierReceivables[]> {
-    return this.http.get<SupplierReceivables[]>(`${AppUrl.BASE_URL}Report/Debts/To/Suppliers`);
+  getReportSupplierReceivables(): Observable<SupplierReceivables[] | Info> {
+    return this.http.get<SupplierReceivables[]| Info>(`${AppUrl.BASE_URL}Report/Debts/To/Suppliers`)
+      .pipe(map(res => {
+          if ('info' in res) {
+            return res;
+          } else {
+            return res;
+          }
+        }),
+        catchError(this.handleError));
   }
 
   getReportGrandeOrderItems(dateStart?: string): Observable<GrandeOrderItem[]> {
