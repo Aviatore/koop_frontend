@@ -73,6 +73,7 @@ import { OrderDetailComponent } from './admin/modules/order-grande/order-detail/
 // import { BasketsComponent } from './order-grande/baskets/baskets.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {OrderGrandeModule} from './admin/modules/order-grande/order-grande.module';
+import { TestComponent } from './test/test.component';
 
 registerLocaleData(localePL);
 
@@ -89,7 +90,8 @@ registerLocaleData(localePL);
     LayoutComponent,
     HamburgerMenuComponent,
     CategoriesComponent,
-    EmailFormComponent
+    EmailFormComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,

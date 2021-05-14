@@ -10,6 +10,7 @@ import {AdminComponent} from './admin/admin/admin.component';
 import {ProductComponent} from './shop/product/product.component';
 import {UserComponent} from './user-panel/user/user.component';
 import {EmailFormComponent} from './password-reset/email-form/email-form.component';
+import {TestComponent} from './test/test.component';
 
 const routes: Routes = [
   { path: AppUrl.ROUTE.getUnits, component: UnitComponent },
@@ -19,6 +20,10 @@ const routes: Routes = [
   { path: AppUrl.ROUTE.admin, component: AdminComponent },
   { path: AppUrl.ROUTE.user, component: UserComponent },
   { path: AppUrl.ROUTE.passwordReset, component: EmailFormComponent },
+  {
+    path: 'test',
+    component: TestComponent
+  },
   { path: '',   redirectTo: AppUrl.HOME_PAGE_URL, pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

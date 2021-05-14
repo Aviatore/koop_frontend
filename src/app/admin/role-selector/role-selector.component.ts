@@ -44,6 +44,8 @@ export class RoleSelectorComponent implements OnInit {
       role: rolesTmp
     });
 
+    this.userRoles = this.userData.get('role').value.filter(p => p !== 'Default');
+
     this.roleSelect.value = '';
 
     const userCurrentRoles: string[] = this.userData.get('role').value;
