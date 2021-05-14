@@ -60,11 +60,11 @@ export function tokenGetter(): string | null {
   return localStorage.getItem('token');
 }
 import {MatMenuModule} from '@angular/material/menu';
-import { SuppliersListComponent } from './suppliers/suppliers-list/suppliers-list.component';
-import { SupplierDetailComponent } from './suppliers/supplier-detail/supplier-detail.component';
+import { SuppliersListComponent } from './admin/modules/suppliers/suppliers-list/suppliers-list.component';
+import { SupplierDetailComponent } from './admin/modules/suppliers/supplier-detail/supplier-detail.component';
 import {MatTableModule} from '@angular/material/table';
-import { SuppliersModule } from './suppliers/suppliers.module';
-import { SupplierInfoComponent } from './suppliers/supplier-info/supplier-info.component';
+import { SuppliersModule } from './admin/modules/suppliers/suppliers.module';
+import { SupplierInfoComponent } from './admin/modules/suppliers/supplier-info/supplier-info.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 // import { OrderGrandeComponent } from './order-grande/order-grande.component';
 import { OrderGrandeRoutingModule } from './order-grande/order-grande-routing.module';
@@ -126,7 +126,6 @@ registerLocaleData(localePL);
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
-    SuppliersModule,
     OrderGrandeModule,
     MatCheckboxModule,
     MatFormFieldModule,

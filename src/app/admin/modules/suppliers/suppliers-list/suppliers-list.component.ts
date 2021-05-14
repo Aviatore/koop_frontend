@@ -9,7 +9,7 @@ import {MatSort} from '@angular/material/sort';
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 
 
-import Util from '../../util';
+import Util from '../../../../util';
 
 @Component({
   selector: 'app-suppliers-list',
