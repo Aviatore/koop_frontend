@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {OrderGrandeService} from '../order-grande.service';
-import {SupplierService} from '../../admin/modules/suppliers/supplier.service';
+import {SupplierService} from '../../suppliers/supplier.service';
 import {Observable, of} from 'rxjs';
-import {UserName} from '../../admin/modules/suppliers/userName';
+import {UserName} from '../../suppliers/userName';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Supplier} from '../../admin/modules/suppliers/supplier';
+import {Supplier} from '../../suppliers/supplier';
 import {OrderGrande} from '../order-grande';
 import {ActivatedRoute, Router} from '@angular/router';
 

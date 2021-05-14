@@ -8,6 +8,7 @@ import {OrderMakerService} from '../services/order-maker.service';
 import {Observable, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {ErrorResponse} from '../../admin/admin-interfaces/errorResponse';
+import {BasketViewService} from '../../basket-view/services/basket-view.service';
 
 @Component({
   selector: 'app-single-product',
@@ -31,7 +32,8 @@ export class SingleProductComponent implements OnInit, OnDestroy {
   orderMakerS: OrderMakerService;
   constructor(private router: Router,
               public dialog: MatDialog,
-              private orderMakerService: OrderMakerService) { }
+              private orderMakerService: OrderMakerService,
+              private basketViewService: BasketViewService) { }
 
   ngOnInit(): void {
     this.orderMakerS = this.orderMakerService;
@@ -82,6 +84,7 @@ export class SingleProductComponent implements OnInit, OnDestroy {
             this.showAlert().subscribe();
           });
           this.orderMakerService.setBadge();
+          this.basketViewService.editBasketQuantity();
         });
       }
     });

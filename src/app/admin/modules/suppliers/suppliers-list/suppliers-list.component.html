@@ -18,10 +18,6 @@
 
 <h2 class="text-md-center px-2 txt-shadow">Dostawcy</h2>
 <div>
-  <button type="button" class="btn btn-primary" *ngIf="authorized" routerLink="../supplier/add" routerLinkActive="activebutton">Dodaj nowego dostawcę</button>
-</div>
-
-<div>
   <mat-form-field>
     <input matInput type="text" (keyup)="doFilter($any($event.target).value)" placeholder="Szukaj">
   </mat-form-field>

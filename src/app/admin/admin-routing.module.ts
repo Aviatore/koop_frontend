@@ -8,6 +8,9 @@ import {ProductCreatorComponent} from './product-editor/product-creator.componen
 import {SuppliersListComponent} from './modules/suppliers/suppliers-list/suppliers-list.component';
 import {SupplierDetailComponent} from './modules/suppliers/supplier-detail/supplier-detail.component';
 import {SupplierInfoComponent} from './modules/suppliers/supplier-info/supplier-info.component';
+import {OrdersListComponent} from './modules/order-grande/orders-list/orders-list.component';
+import {OrderDetailComponent} from './modules/order-grande/order-detail/order-detail.component';
+import {BasketsComponent} from './modules/order-grande/baskets/baskets.component';
 
 const routes: Routes = [
   {
@@ -36,6 +39,10 @@ const routes: Routes = [
         component: SuppliersListComponent
       },
       {
+        path: 'allsuppliers',
+        component: SuppliersListComponent
+      },
+      {
         path: 'supplier/:id/edit',
         component: SupplierDetailComponent
       },
@@ -46,6 +53,18 @@ const routes: Routes = [
       {
         path: 'supplier/:id',
         component: SupplierInfoComponent
+      },
+      {
+        path: 'orders/all',
+        component: OrdersListComponent
+      },
+      {
+        path: 'order/add',
+        component: OrderDetailComponent
+      },
+      {
+        path: 'order/baskets',
+        component: BasketsComponent
       }
     ]
   }

@@ -22,6 +22,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { CategorySelectorComponent } from './category-selector/category-selector.component';
 import { AvailQuantSelectorComponent } from './avail-quant-selector/avail-quant-selector.component';
 import {SuppliersModule} from './modules/suppliers/suppliers.module';
+import {OrderGrandeModule} from './modules/order-grande/order-grande.module';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import {SuppliersModule} from './modules/suppliers/suppliers.module';
     MatTooltipModule,
     MatSelectModule,
     MatChipsModule,
+    OrderGrandeModule,
     MatIconModule,
     MatAutocompleteModule,
     SuppliersModule,

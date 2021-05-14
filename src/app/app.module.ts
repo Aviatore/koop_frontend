@@ -67,12 +67,12 @@ import { SuppliersModule } from './admin/modules/suppliers/suppliers.module';
 import { SupplierInfoComponent } from './admin/modules/suppliers/supplier-info/supplier-info.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 // import { OrderGrandeComponent } from './order-grande/order-grande.component';
-import { OrderGrandeRoutingModule } from './order-grande/order-grande-routing.module';
-import { OrdersListComponent } from './order-grande/orders-list/orders-list.component';
-import { OrderDetailComponent } from './order-grande/order-detail/order-detail.component';
+import { OrderGrandeRoutingModule } from './admin/modules/order-grande/order-grande-routing.module';
+import { OrdersListComponent } from './admin/modules/order-grande/orders-list/orders-list.component';
+import { OrderDetailComponent } from './admin/modules/order-grande/order-detail/order-detail.component';
 // import { BasketsComponent } from './order-grande/baskets/baskets.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {OrderGrandeModule} from './order-grande/order-grande.module';
+import {OrderGrandeModule} from './admin/modules/order-grande/order-grande.module';
 
 registerLocaleData(localePL);
 
@@ -126,7 +126,6 @@ registerLocaleData(localePL);
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
-    OrderGrandeModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatSelectModule,

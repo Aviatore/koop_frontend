@@ -1,8 +1,4 @@
 <h2 class="text-md-center px-2 txt-shadow">Zamówienia tygodniowe</h2>
-<div>
-  <button type="button" class="btn btn-primary" *ngIf="authorized" routerLink="/order/add" routerLinkActive="activebutton">Zaplanuj nowe zamówienie</button>
-  <button type="button" class="btn btn-primary" *ngIf="authorized" routerLink="/order/baskets" routerLinkActive="activebutton">Zobacz koszyki</button>
-</div>
 
 <div>
   <mat-form-field>
@@ -29,7 +25,7 @@
     <ng-component matColumnDef="orderId">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="orderId">ID zamówienia</th>
       <td mat-cell *matCellDef="let element">
-        <a *ngIf="authorized" class="button" routerLink="/supplier/{{element.supplierId}}/edit" routerLinkActive="activebutton">{{element.orderId}}</a>
+        <a *ngIf="authorized" class="button" routerLink="../../supplier/{{element.supplierId}}/edit" routerLinkActive="activebutton">{{element.orderId}}</a>
       </td>
     </ng-component>
     <ng-component matColumnDef="orderStartDate">
