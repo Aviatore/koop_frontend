@@ -1,16 +1,17 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
 import {CoopDept} from '../models/coop-dept';
 import {PackList} from '../models/pack-list';
 import {SupplierReceivables} from '../models/supplier-receivables';
 import {AppUrl} from '../../urls/app-url';
 import {GrandeOrder} from '../models/grande-order';
-import {map} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {GrandeOrderItem} from '../models/grande-order-item';
 import {OrderStartDate} from '../models/order-start-date';
 import {Supplier} from '../models/supplier';
 import {SupplierReport} from '../models/supplier-report';
+import {Info} from '../models/info';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +25,16 @@ export class ReportService {
     return this.http.get<CoopDept[]>(`${AppUrl.BASE_URL}Report/Cooperators/Debt`);
   }
 
-  getReportForPackers(): Observable<PackList[]> {
-    return this.http.get<PackList[]>(`${AppUrl.BASE_URL}Report/Packers/Last/Grande`);
+  getReportForPackers(): Observable<PackList[] | Info> {
+    return this.http.get<PackList[] | Info>(`${AppUrl.BASE_URL}Report/Packers/Last/Grande`)
+      .pipe(map(res => {
+          if ('info' in res) {
+            return res;
+          } else {
+            return res;
+          }
+        }),
+        catchError(this.handleError));
   }
 
   getReportSupplierReceivables(): Observable<SupplierReceivables[]> {
@@ -62,5 +71,9 @@ export class ReportService {
 
   getReportOrdersGrandeBySupplier(supplierId: string): Observable<SupplierReport> {
     return this.http.get<SupplierReport>(`${AppUrl.BASE_URL}Report/Orders/Grande/By/Supplier/${supplierId}`);
+  }
+
+  handleError(error: HttpErrorResponse): Observable<never> {
+    return throwError(error);
   }
 }

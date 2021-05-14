@@ -7,9 +7,9 @@ import {jsPDF} from 'jspdf';
 import 'jspdf-autotable';
 import {formatDate} from '@angular/common';
 import {MatTableDataSource} from '@angular/material/table';
-import {SupplierReceivables} from '../models/supplier-receivables';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import {Info} from '../models/info';
 
 @Component({
   selector: 'app-report-pack-list',
@@ -28,13 +28,15 @@ export class ReportPackListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  packList$: Observable<PackList[]>;
+  packList$: Observable<PackList[] | Info>;
 
   // data for PDF generator
   head = [['L.p.', 'Nazwa Produktu', 'Nr koszyka: ilość']];
   data = [];
   reader: FileReader;
   fontInBase64: any;
+  info: Info;
+  problem: string;
 
   constructor(private service: ReportService) {
     this.getDataFromObservable();
@@ -47,19 +49,39 @@ export class ReportPackListComponent implements OnInit, AfterViewInit {
   }
 
   getDataFromObservable(): void {
-    this.service.getReportForPackers()
+    /*this.service.getReportForPackers()
       .subscribe((data) => {
         this.dataSource = new MatTableDataSource(data);
-      });
+      });*/
+    this.service.getReportForPackers()
+      .subscribe((data) => {
+        if ('info' in data) {
+          this.info = data;
+          this.problem = undefined;
+          this.dataSource = undefined;
+        } else {
+          this.info = undefined;
+          this.problem = undefined;
+          this.dataSource = new MatTableDataSource(data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }
+      },
+        error => {
+          this.problem = error.error;
+          this.info = undefined;
+          this.dataSource = undefined;
+        });
   }
 
   ngAfterViewInit(): void {
-    this.service.getReportForPackers()
+    /*this.service.getReportForPackers()
       .subscribe((data) => {
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
-        });
+        });*/
+    this.getDataFromObservable();
   }
 
   async readFile(): Promise<void> {
@@ -122,7 +144,7 @@ export class ReportPackListComponent implements OnInit, AfterViewInit {
     }).then(() => console.log('Done'));*/
 
     this.packList$.subscribe((data) => {
-      if (data.length > 0) {
+      if (!('info' in data) && data.length > 0) {
         data.forEach((currentValue, index) => {
           pdfList.push([`${index + 1}.`, currentValue.productName, currentValue.productsInBaskets]);
         });
