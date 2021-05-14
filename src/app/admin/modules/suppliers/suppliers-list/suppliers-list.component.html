@@ -18,10 +18,6 @@
 
 <h2 class="text-md-center px-2 txt-shadow">Dostawcy</h2>
 <div>
-  <button type="button" class="btn btn-primary" *ngIf="authorized" routerLink="/supplier/add" routerLinkActive="activebutton">Dodaj nowego dostawcę</button>
-</div>
-
-<div>
   <mat-form-field>
     <input matInput type="text" (keyup)="doFilter($any($event.target).value)" placeholder="Szukaj">
   </mat-form-field>
@@ -33,8 +29,8 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header="supplierAbbr">Skrót</th>
       <td mat-cell *matCellDef="let element">
 
-        <a *ngIf="authorized" class="button" routerLink="/supplier/{{element.supplierId}}/edit" routerLinkActive="activebutton">{{element.supplierAbbr}}</a>
-        <a *ngIf="!authorized" class="button" routerLink="/supplier/{{element.supplierId}}" routerLinkActive="activebutton">{{element.supplierAbbr}}</a>
+        <a *ngIf="authorized" class="button" routerLink="../supplier/{{element.supplierId}}/edit" routerLinkActive="activebutton">{{element.supplierAbbr}}</a>
+        <a *ngIf="!authorized" class="button" routerLink="../supplier/{{element.supplierId}}" routerLinkActive="activebutton">{{element.supplierAbbr}}</a>
       </td>
     </ng-component>
     <ng-component matColumnDef="supplierName">

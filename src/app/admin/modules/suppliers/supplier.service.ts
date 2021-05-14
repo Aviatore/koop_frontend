@@ -5,7 +5,7 @@ import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import {Guid} from 'guid-typescript';
 import {UserName} from './userName';
 import {catchError} from 'rxjs/operators';
-import {AppUrl} from '../urls/app-url';
+import {AppUrl} from '../../../urls/app-url';
 
 const supplierOptions: object = {
   headers: new HttpHeaders().set('Content-Type', 'application/json-patch+json'),
