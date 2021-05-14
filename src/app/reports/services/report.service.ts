@@ -21,8 +21,16 @@ export class ReportService {
   constructor(private http: HttpClient) {
   }
 
-  getReportCoopDept(): Observable<CoopDept[]> {
-    return this.http.get<CoopDept[]>(`${AppUrl.BASE_URL}Report/Cooperators/Debt`);
+  getReportCoopDept(): Observable<CoopDept[]| Info> {
+    return this.http.get<CoopDept[] | Info>(`${AppUrl.BASE_URL}Report/Cooperators/Debt`)
+      .pipe(map(res => {
+          if ('info' in res) {
+            return res;
+          } else {
+            return res;
+          }
+        }),
+        catchError(this.handleError));
   }
 
   getReportForPackers(): Observable<PackList[] | Info> {

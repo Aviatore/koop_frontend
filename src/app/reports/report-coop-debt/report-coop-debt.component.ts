@@ -7,6 +7,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {SupplierReceivables} from '../models/supplier-receivables';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import {Info} from '../models/info';
 
 @Component({
   selector: 'app-report-coop-debt',
@@ -29,6 +30,9 @@ export class ReportCoopDebtComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  info: Info;
+  problem: string;
+
   constructor(private service: ReportService) {
     this.getDataFromObservable();
   }
@@ -39,16 +43,32 @@ export class ReportCoopDebtComponent implements OnInit, AfterViewInit {
   getDataFromObservable(): void {
     this.service.getReportCoopDept()
       .subscribe((data) => {
-        this.dataSource = new MatTableDataSource(data);
-      });
+          if ('info' in data) {
+            this.info = data;
+            this.problem = undefined;
+            this.dataSource = undefined;
+          } else {
+            this.info = undefined;
+            this.problem = undefined;
+            this.dataSource = new MatTableDataSource(data);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          }
+        },
+        error => {
+          this.problem = error.error;
+          this.problem = undefined;
+          this.dataSource = undefined;
+        });
   }
 
   ngAfterViewInit(): void {
-    this.service.getReportCoopDept()
+    this.getDataFromObservable();
+    /*this.service.getReportCoopDept()
       .subscribe((data) => {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-      });
+      });*/
   }
 }
