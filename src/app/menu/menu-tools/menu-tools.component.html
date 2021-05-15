@@ -1,0 +1,9 @@
+<button mat-button [matMenuTriggerFor]="menu" class="top-link">Narzędzia</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item *ngIf="visibility.set([role.ADMIN, role.KOTY])" routerLink="{{urls.admin}}">Admin panel</button>
+  <button mat-menu-item *ngIf="visibility.set([role.DEFAULT])" routerLink="{{urls.user}}">Mój profil</button>
+  <button mat-menu-item *ngIf="visibility.set([role.DEFAULT])" routerLink="{{urls.getCoopOrders}}">Historia zamówień</button>
+  <button mat-menu-item *ngIf="visibility.set([role.KOTY, role.ADMIN])" routerLink="{{urls.getCoopLastOrder}}">Edycja zamówienia</button>
+  <button mat-menu-item *ngIf="visibility.set([role.OPRO, role.KOTY, role.ADMIN])" routerLink="{{urls.getStore}}">Magazyn</button>
+  <button mat-menu-item *ngIf="visibility.set([role.OPRO, role.KOTY, role.ADMIN])" routerLink="{{urls.getSupplierStore}}">Dostępność produków</button>
+</mat-menu>

@@ -3,23 +3,53 @@
     <mat-icon>home</mat-icon>
     <span class="nav-caption">Home</span>
   </a>
-  <a mat-list-item [routerLink]="[urls.getUnits]" (click)="onSidenavClose()">
-    <mat-icon>euro_symbol</mat-icon>
-    <span class="nav-caption">Units</span>
-  </a>
-  <mat-list-item [mat-menu-trigger-for]="menu">
+  <mat-list-item *ngIf="visibility.set([role.ADMIN, role.PACZKERS, role.KOTY, role.SKARBNIK])" [mat-menu-trigger-for]="menu">
     <mat-icon>description</mat-icon>
     <a matline>Raporty</a>
   </mat-list-item>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink="{{urls.getReportCoopDebt}}" (click)="onSidenavClose()">Długi kooperantów</button>
-    <button mat-menu-item routerLink="{{urls.getReportPackList}}" (click)="onSidenavClose()">Dla paczkersów</button>
-    <button mat-menu-item routerLink="{{urls.getReportSupReceivables}}" (click)="onSidenavClose()">Należności dostawców</button>
-    <button mat-menu-item routerLink="{{urls.getReportGrandeOrder}}" (click)="onSidenavClose()">Zamówienie Grande</button>
-    <button mat-menu-item routerLink="{{urls.getReportOrderBySupplier}}" (click)="onSidenavClose()">Zamówienia od dostawców</button>
+    <button mat-menu-item *ngIf="visibility.set([role.ADMIN, role.KOTY, role.SKARBNIK])"
+            routerLink="{{urls.getReportCoopDebt}}" (click)="onSidenavClose()">Długi kooperantów
+    </button>
+    <button mat-menu-item *ngIf="visibility.set([role.ADMIN, role.KOTY, role.SKARBNIK])"
+            routerLink="{{urls.getReportSupReceivables}}" (click)="onSidenavClose()">Należności dostawców
+    </button>
+    <button mat-menu-item *ngIf="visibility.set([role.ADMIN, role.KOTY, role.PACZKERS])"
+            routerLink="{{urls.getReportPackList}}" (click)="onSidenavClose()">Dla paczkersów
+    </button>
+    <button mat-menu-item *ngIf="visibility.set([role.ADMIN, role.KOTY, role.SKARBNIK])"
+            routerLink="{{urls.getReportGrandeOrder}}" (click)="onSidenavClose()">Zamówienie Grande
+    </button>
+    <button mat-menu-item *ngIf="visibility.set([role.ADMIN, role.KOTY, role.SKARBNIK])"
+            routerLink="{{urls.getReportOrderBySupplier}}" (click)="onSidenavClose()">Zamówienia od dostawców
+    </button>
   </mat-menu>
-  <a mat-list-item [routerLink]="[urls.getLogin]" (click)="onSidenavClose()">
+  <mat-list-item *ngIf="visibility.set([role.DEFAULT])" [mat-menu-trigger-for]="menuTool">
+    <mat-icon>settings</mat-icon>
+    <a matline>Narzędzia</a>
+  </mat-list-item>
+  <mat-menu #menuTool="matMenu">
+    <button mat-menu-item *ngIf="visibility.set([role.ADMIN, role.KOTY])"
+            routerLink="{{urls.admin}}" (click)="onSidenavClose()">Admin panel
+    </button>
+    <button mat-menu-item *ngIf="visibility.set([role.DEFAULT])"
+            routerLink="{{urls.user}}" (click)="onSidenavClose()">Mój profil
+    </button>
+    <button mat-menu-item *ngIf="visibility.set([role.DEFAULT])"
+            routerLink="{{urls.getCoopOrders}}" (click)="onSidenavClose()">Historia zamówień
+    </button>
+    <button mat-menu-item *ngIf="visibility.set([role.KOTY, role.ADMIN])"
+            routerLink="{{urls.getCoopLastOrder}}" (click)="onSidenavClose()">Edycja zamówienia
+    </button>
+    <button mat-menu-item *ngIf="visibility.set([role.OPRO, role.KOTY, role.ADMIN])"
+            routerLink="{{urls.getStore}}" (click)="onSidenavClose()">Magazyn
+    </button>
+    <button mat-menu-item *ngIf="visibility.set([role.OPRO, role.KOTY, role.ADMIN])"
+            routerLink="{{urls.getSupplierStore}}" (click)="onSidenavClose()">Dostępność produków
+    </button>
+  </mat-menu>
+  <a mat-list-item [routerLink]="[urls.getLogin]" (click)="LoginAction(); onSidenavClose()">
     <mat-icon>account_circle</mat-icon>
-    <span class="nav-caption">Login</span>
+    <span class="nav-caption">{{(isTokenExpired() ? 'login' : 'logout') | titlecase}}</span>
   </a>
 </mat-nav-list>
