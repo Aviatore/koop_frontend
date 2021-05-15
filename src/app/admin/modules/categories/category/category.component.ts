@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Info} from '../../stores/models/info';
+import {Info} from '../../../../stores/models/info';
 import {MatTableDataSource} from '@angular/material/table';
 import {Category} from '../models/category';
 import {MatPaginator} from '@angular/material/paginator';
@@ -9,7 +9,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {CategoryEditAddDialogComponent} from '../category-edit-add-dialog/category-edit-add-dialog.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {UploadImgDialogComponent} from '../upload-img-dialog/upload-img-dialog.component';
-import {AppUrl} from '../../urls/app-url';
+import {AppUrl} from '../../../../urls/app-url';
 
 @Component({
   selector: 'app-category',

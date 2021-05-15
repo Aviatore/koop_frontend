@@ -5,7 +5,7 @@ import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {AppUrl} from './urls/app-url';
-import {CategoriesComponent } from './categories/categories.component';
+import {CategoriesComponent } from './admin/modules/categories/categories.component';
 import {AdminComponent} from './admin/admin/admin.component';
 import {ProductComponent} from './shop/product/product.component';
 import {UserComponent} from './user-panel/user/user.component';

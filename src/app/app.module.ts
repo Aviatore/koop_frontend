@@ -33,7 +33,7 @@ import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator'
 import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
 import {MaterialModule} from './material/material.module';
-import { CategoriesComponent } from './categories/categories.component';
+import { CategoriesComponent } from './admin/modules/categories/categories.component';
 import { ProductComponent } from './shop/product/product.component';
 import {CategoriesService} from './services/categories.service';
 import {AdminModule} from './admin/admin.module';
@@ -46,7 +46,7 @@ import {LoggerService} from './services/logger.service';
 import {UserPanelModule} from './user-panel/user-panel.module';
 import { EmailFormComponent } from './password-reset/email-form/email-form.component';
 import {PasswordResetModule} from './password-reset/password-reset.module';
-import {CategoryModule} from './categories/category.module';
+import {CategoryModule} from './admin/modules/categories/category.module';
 import {JwtParserService} from './services/jwt-parser.service';
 import {BasketViewModule} from './basket-view/basket-view.module';
 import {MatBadgeModule} from '@angular/material/badge';
@@ -115,7 +115,6 @@ registerLocaleData(localePL);
     }),
     CoopOrderModule,
     StoreModule,
-    CategoryModule,
     BasketViewModule,
     AdminModule,
     ShopModule,

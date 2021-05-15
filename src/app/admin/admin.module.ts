@@ -23,6 +23,7 @@ import { CategorySelectorComponent } from './category-selector/category-selector
 import { AvailQuantSelectorComponent } from './avail-quant-selector/avail-quant-selector.component';
 import {SuppliersModule} from './modules/suppliers/suppliers.module';
 import {OrderGrandeModule} from './modules/order-grande/order-grande.module';
+import {CategoryModule} from './modules/categories/category.module';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import {OrderGrandeModule} from './modules/order-grande/order-grande.module';
     MatChipsModule,
     OrderGrandeModule,
     MatIconModule,
+    CategoryModule,
     MatAutocompleteModule,
     SuppliersModule,
     MatSlideToggleModule,
