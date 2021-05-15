@@ -11,6 +11,8 @@ export class AppUrl {
 
   public static readonly HOME_PAGE_URL = 'home';
 
+  public static readonly EMPTYIMAGE = AppUrl.DOMAIN + 'Resources/koop_no_image.svg';
+
   public static readonly ROUTE = {
     // Example below with passing args to path
     // getUrl: (userId: string, param: string) => `/user/${userId}/${param}`
@@ -32,7 +34,9 @@ export class AppUrl {
     user: 'user',
     passwordReset: 'password-reset',
     getCategories: 'categories',
-    getBasketView: 'basket-view'
+    getBasketView: 'basket-view',
+    getAllSuppliers: 'allsuppliers',
+    getOrdersAll: 'orders/all'
   };
 
 }

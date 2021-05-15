@@ -6,9 +6,16 @@
         </div>-->
       <div class="col-md-8 border-right">
         <div class="py-0">
-          <div class="d-flex justify-content-between align-items-center mb-0">
-            <h2 class="text-right">Nowy produkt</h2>
+
+          <div class="row mt-0">
+            <div class="col-md-4">
+              <div class="d-flex justify-content-between align-items-center mb-0">
+                <h2 class="text-right" *ngIf="!productId">Nowy produkt</h2>
+                <h2 class="text-right" *ngIf="productId">Edycja produktu</h2>
+              </div>
+            </div>
           </div>
+
           <div class="row mt-0">
             <div class="col-md-6">
               <mat-form-field>
@@ -20,9 +27,11 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
-              picture ...
-            </div>
+            <!--<div class="col-md-6">
+              <input type="file" accept="image/*" style="display: none" (change)="uploadFile($event)" #file>
+              <i class="fas fa-image fa-3x text-secondary" style="cursor: pointer;" (click)="file.click()" *ngIf="!imageSelected"></i>
+              <img src="#" *ngIf="imageSelected" (click)="file.click()" #img>
+            </div>-->
           </div>
 
           <div class="row mt-2">
@@ -121,6 +130,14 @@
 
       <div class="col-md-4 mt-5">
         <div class="row mb-0">
+          <div class="col-md-12 rounded-3 image-container d-flex justify-content-center align-content-center green">
+            <input type="file" accept="image/*" style="display: none" (change)="uploadFile($event)" #file>
+            <i class="fas fa-image fa-3x text-secondary align-self-center" style="cursor: pointer;" (click)="file.click()" *ngIf="!imageSelected" matTooltip="Dodaj zdjęcie"></i>
+            <div class="image">
+              <img src="#" class="image align-self-center close-badge" *ngIf="imageSelected" (click)="file.click()" matTooltip="Zmień zdjęcie" style="cursor: pointer;" #img>
+              <i class="far fa-times-circle close" *ngIf="imageSelected" style="cursor: pointer;" (click)="removeImage()"></i>
+            </div>
+          </div>
           <div class="col-md-12 mt-5">
             <div class="mb-1"></div>
             <app-category-selector [class.is-invalid]="submitted && field.category.invalid && field.category.touched"

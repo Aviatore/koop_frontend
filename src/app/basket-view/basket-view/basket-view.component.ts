@@ -23,7 +23,7 @@ export class BasketViewComponent implements OnInit {
     // 'lastName',
     'productName',
     // 'description',
-    'unit',
+    // 'unit',
     // 'orderStatus',
     'decreaseButton',
     'quantity',
@@ -68,7 +68,13 @@ export class BasketViewComponent implements OnInit {
           err => {
             this.info = undefined;
             this.dataSource = undefined;
-            this.problem = err.error.errors;
+            if (err.error.error !== undefined) {
+              this.problem = err.error.error;
+            } else if (err.message !== undefined) {
+              this.problem = err.message;
+            } else {
+              this.problem = 'Unknown Error';
+            }
           });
     }
   }
