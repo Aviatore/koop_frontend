@@ -6,7 +6,7 @@ import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import {Guid} from 'guid-typescript';
 import {catchError} from 'rxjs/operators';
 import {OrderGrande} from './order-grande';
-import {AppUrl} from '../urls/app-url';
+import {AppUrl} from '../../../urls/app-url';
 
 const orderGrandeOptions: object = {
   headers: new HttpHeaders().set('Content-Type', 'application/json-patch+json'),

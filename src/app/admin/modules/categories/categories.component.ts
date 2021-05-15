@@ -4,7 +4,7 @@ import {CategoryService} from './services/category.service';
 import {Category} from './models/category';
 import {Info} from './models/info';
 import {MatTableDataSource} from '@angular/material/table';
-import {AppUrl} from '../urls/app-url';
+import {AppUrl} from '../../../urls/app-url';
 
 @Component({
   selector: 'app-categories',

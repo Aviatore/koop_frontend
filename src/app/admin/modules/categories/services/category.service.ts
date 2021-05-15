@@ -3,7 +3,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {Category} from '../models/category';
 import {Info} from '../models/info';
-import {AppUrl} from '../../urls/app-url';
+import {AppUrl} from '../../../../urls/app-url';
 import {catchError, map} from 'rxjs/operators';
 
 @Injectable({

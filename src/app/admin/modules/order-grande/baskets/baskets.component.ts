@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {Basket} from '../basket';
 import {OrderGrandeService} from '../order-grande.service';
 import {MatTableDataSource} from '@angular/material/table';
-import {PackList} from '../../reports/models/pack-list';
+import {PackList} from '../../../../reports/models/pack-list';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {jsPDF} from 'jspdf';

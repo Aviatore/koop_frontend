@@ -26,6 +26,7 @@ export class OrderMakerService {
   getProductAvailQuantitiesUrl = AppUrl.BASE_URL + 'test/product/availQuantities';
   getOrderQuantityUrl = AppUrl.BASE_URL + 'test/order/orderedItems/count';
   productAvailability = AppUrl.BASE_URL + 'test/product/isAvailable';
+  checkOrderStatusUrl = AppUrl.BASE_URL + 'test/order/checkStatus';
   errorResponse: ErrorResponse;
   constructor(private httpClient: HttpClient) {
     this.orderedItemsCount = new BehaviorSubject<number>(0);
@@ -69,6 +70,11 @@ export class OrderMakerService {
     return this.httpClient.get<HttpResponse<Observable<ErrorResponse[]>>>(this.productAvailability, {
       params: new HttpParams().set('productId', productId)
     }).pipe(
+      catchError(this.handleError.bind(this)));
+  }
+
+  checkOrderStatus(): Observable<any> {
+    return this.httpClient.get<HttpResponse<Observable<ErrorResponse[]>>>(this.checkOrderStatusUrl).pipe(
       catchError(this.handleError.bind(this)));
   }
 
