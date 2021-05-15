@@ -57,18 +57,12 @@ export class ReportCoopDebtComponent implements OnInit, AfterViewInit {
         },
         error => {
           this.problem = error.error;
-          this.problem = undefined;
+          this.info = undefined;
           this.dataSource = undefined;
         });
   }
 
   ngAfterViewInit(): void {
     this.getDataFromObservable();
-    /*this.service.getReportCoopDept()
-      .subscribe((data) => {
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      });*/
   }
 }
