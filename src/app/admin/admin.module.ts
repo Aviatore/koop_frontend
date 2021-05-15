@@ -21,6 +21,9 @@ import { ProductCreatorComponent } from './product-editor/product-creator.compon
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { CategorySelectorComponent } from './category-selector/category-selector.component';
 import { AvailQuantSelectorComponent } from './avail-quant-selector/avail-quant-selector.component';
+import {SuppliersModule} from './modules/suppliers/suppliers.module';
+import {OrderGrandeModule} from './modules/order-grande/order-grande.module';
+import {CategoryModule} from './modules/categories/category.module';
 
 
 @NgModule({
@@ -46,13 +49,16 @@ import { AvailQuantSelectorComponent } from './avail-quant-selector/avail-quant-
     MatPaginatorModule,
     MatSortModule,
     MatInputModule,
-    AdminRoutingModule,
     MatTooltipModule,
     MatSelectModule,
     MatChipsModule,
+    OrderGrandeModule,
     MatIconModule,
+    CategoryModule,
     MatAutocompleteModule,
-    MatSlideToggleModule
+    SuppliersModule,
+    MatSlideToggleModule,
+    AdminRoutingModule
   ]
 })
 export class AdminModule { }

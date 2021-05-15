@@ -33,11 +33,15 @@ a.logo-link:link, a.logo-link:visited, a.logo-link:hover, a.logo-link:active {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 @media (max-width: 959px) {
   mat-toolbar {
     border-radius: 0px;
   }
+}
+
+.basket {
+  font-size: 1.6em;
 }

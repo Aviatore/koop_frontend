@@ -8,6 +8,9 @@ export interface Product {
   unit: string;
   categoryNames: any;
   available: boolean;
+  picture: string;
+  productId: string;
+  blocked: boolean;
 }
 
 @Injectable({
