@@ -1,5 +1,11 @@
 <h2 class="text-center px-2 txt-shadow">Raport Długów Kooperantów</h2>
-<div class="table-responsive-sm px-2">
+<div *ngIf="info !== undefined" class="text-center w-100 text-danger mt-5">
+  {{info.info}}
+</div>
+<div *ngIf="problem !== undefined" class="text-center w-100 text-danger mt-5">
+  {{problem}}
+</div>
+<div *ngIf="dataSource !== undefined" class="table-responsive-sm px-2">
   <table mat-table [dataSource]="dataSource" matSort class="table-striped mat-elevation-z10">
     <ng-component matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
@@ -30,6 +36,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 </div>
-<div class="mx-auto px-2 mat-elevation-z10">
+<div *ngIf="dataSource !== undefined" class="mx-auto px-2 mat-elevation-z10">
   <mat-paginator [pageSizeOptions]="itemsPerPage"></mat-paginator>
 </div>

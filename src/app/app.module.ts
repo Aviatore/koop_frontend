@@ -74,6 +74,7 @@ import { OrderDetailComponent } from './admin/modules/order-grande/order-detail/
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {OrderGrandeModule} from './admin/modules/order-grande/order-grande.module';
 import { TestComponent } from './test/test.component';
+import { MenuToolsComponent } from './menu/menu-tools/menu-tools.component';
 
 registerLocaleData(localePL);
 
@@ -91,7 +92,8 @@ registerLocaleData(localePL);
     HamburgerMenuComponent,
     CategoriesComponent,
     EmailFormComponent,
-    TestComponent
+    TestComponent,
+    MenuToolsComponent
   ],
   imports: [
     BrowserModule,
