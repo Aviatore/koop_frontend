@@ -130,8 +130,7 @@ export class CoopLastOrderComponent implements OnInit, AfterViewInit {
     if (message !== undefined && message.includes('The ordered item has been deleted (order ID:')) {
       message = 'Produkt został usuniety z zamówienia.';
       snackBarCss = 'snack-bar-green';
-    }
-    if (message !== undefined && message.includes('There is no product ordered with the given ID:')) {
+    } else if (message !== undefined && message.includes('There is no product ordered with the given ID:')) {
       message = 'Nie ma takiego produktu w zamówieniu.';
     }
     this.snackBarDel.open(message, action, {

@@ -1,0 +1,56 @@
+table {
+  width: 100%;
+}
+
+.mat-header-cell {
+  font-size: 1em;
+  color: #fff;
+  background-color: rgb(3, 130, 17);
+  text-align: center;
+  padding: 0 5px 0 5px;
+  white-space: nowrap;
+}
+
+.mat-column-actionButtons {
+  text-align: center;
+}
+
+.mat-column-picture {
+  text-align: center;
+}
+
+.mat-cell {
+  padding: 0 5px 0 5px;
+}
+
+::ng-deep .mat-sort-header-arrow {
+  color: #aeef9b !important;
+}
+
+.edit-button:hover {
+  color: rgb(3, 130, 17);
+}
+
+.add-button {
+  margin-left: -6px;
+}
+
+.add-button:hover {
+  color: rgb(3, 130, 17);
+}
+
+.add-picture-button:hover {
+  color: rgb(3, 130, 17);
+}
+
+::ng-deep .tooltip-green {
+  background: rgb(3, 130, 17) !important;
+}
+
+@media only screen and (max-width: 600px) {
+  ::ng-deep .tooltip-green {
+    display: none !important;
+  }
+}
+
+

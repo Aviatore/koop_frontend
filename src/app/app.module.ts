@@ -29,11 +29,15 @@ import {AppPaginatorConfig} from './app-paginator-config';
 import {LOCALE_ID} from '@angular/core';
 import {registerLocaleData} from '@angular/common';
 import localePL from '@angular/common/locales/pl';
-import {MatPaginatorIntl} from '@angular/material/paginator';
+import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
 import { LayoutComponent } from './layout/layout.component';
 import { HamburgerMenuComponent } from './menu/hamburger-menu/hamburger-menu.component';
 import {MaterialModule} from './material/material.module';
+import { CategoriesComponent } from './admin/modules/categories/categories.component';
+import { ProductComponent } from './shop/product/product.component';
+import {CategoriesService} from './services/categories.service';
 import {AdminModule} from './admin/admin.module';
+import {ProductService} from './services/product.service';
 import {CoopOrderModule} from './coop-order/coop-order.module';
 import {JwtModule} from '@auth0/angular-jwt';
 import {StoreModule} from './stores/store.module';
@@ -41,7 +45,35 @@ import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 import {LoggerService} from './services/logger.service';
 import {UserPanelModule} from './user-panel/user-panel.module';
 import { EmailFormComponent } from './password-reset/email-form/email-form.component';
-import {PasswordResetModule} from "./password-reset/password-reset.module";
+import {PasswordResetModule} from './password-reset/password-reset.module';
+import {CategoryModule} from './admin/modules/categories/category.module';
+import {JwtParserService} from './services/jwt-parser.service';
+import {BasketViewModule} from './basket-view/basket-view.module';
+import {MatBadgeModule} from '@angular/material/badge';
+import { OrderDialogComponent } from './shop/order-dialog/order-dialog.component';
+import {MatOptionModule} from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
+import {ShopModule} from './shop/shop.module';
+
+export function tokenGetter(): string | null {
+  return localStorage.getItem('token');
+}
+import {MatMenuModule} from '@angular/material/menu';
+import { SuppliersListComponent } from './admin/modules/suppliers/suppliers-list/suppliers-list.component';
+import { SupplierDetailComponent } from './admin/modules/suppliers/supplier-detail/supplier-detail.component';
+import {MatTableModule} from '@angular/material/table';
+import { SuppliersModule } from './admin/modules/suppliers/suppliers.module';
+import { SupplierInfoComponent } from './admin/modules/suppliers/supplier-info/supplier-info.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+// import { OrderGrandeComponent } from './order-grande/order-grande.component';
+import { OrderGrandeRoutingModule } from './admin/modules/order-grande/order-grande-routing.module';
+import { OrdersListComponent } from './admin/modules/order-grande/orders-list/orders-list.component';
+import { OrderDetailComponent } from './admin/modules/order-grande/order-detail/order-detail.component';
+// import { BasketsComponent } from './order-grande/baskets/baskets.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {OrderGrandeModule} from './admin/modules/order-grande/order-grande.module';
+import { TestComponent } from './test/test.component';
 
 registerLocaleData(localePL);
 
@@ -57,7 +89,9 @@ registerLocaleData(localePL);
     PageNotFoundComponent,
     LayoutComponent,
     HamburgerMenuComponent,
+    CategoriesComponent,
     EmailFormComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
@@ -72,16 +106,37 @@ registerLocaleData(localePL);
     NgbModule,
     MaterialModule,
     ReportModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        allowedDomains: [],
+        disallowedRoutes: []
+      }
+    }),
     CoopOrderModule,
     StoreModule,
+    BasketViewModule,
     AdminModule,
+    ShopModule,
     UserPanelModule,
     PasswordResetModule,
+    MatBadgeModule,
+    MatOptionModule,
+    MatDialogModule,
+    MaterialModule,
+    MatMenuModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatSelectModule,
     AppRoutingModule
   ],
   providers: [
     UnitsService,
     CookieService,
+    CategoriesService,
+    JwtParserService,
     {provide: LOCALE_ID, useValue: 'pl'},
     { provide: MatPaginatorIntl, useValue: AppPaginatorConfig() },
     {

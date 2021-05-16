@@ -8,15 +8,10 @@
       <mat-label class="mat-input-label">Ilość w magazynie</mat-label>
       <input type="number" matInput [value]="data.amountInMagazine.toString()" min="0" #itemAmountInMagazine>
     </mat-form-field>
-    <mat-divider class="py-2"></mat-divider>
-    <mat-form-field appearance="fill">
-      <mat-label class="mat-input-label">Max ilość w magazynie</mat-label>
-      <input type="number" matInput [value]="data.amountMax.toString()" min="0" #itemAmountMax>
-    </mat-form-field>
   </div>
   <mat-divider></mat-divider>
 </div>
 <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
   <button mat-raised-button mat-dialog-close class="cancel-button">Anuluj</button>
-  <button mat-raised-button (click)="editProduct(data.productId, itemAmountInMagazine.value, itemAmountMax.value)" [mat-dialog-close]="true" color="warn">Edytuj</button>
+  <button mat-raised-button (click)="editProduct(data.productId, itemAmountInMagazine.value)" [mat-dialog-close]="true" color="warn">Edytuj</button>
 </div>

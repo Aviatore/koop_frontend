@@ -1,7 +1,8 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {Component, EventEmitter, Input, OnInit, ViewChild} from '@angular/core';
+import {Observable, of, Subject} from 'rxjs';
 import {MatSelect, MatSelectChange} from '@angular/material/select';
 import {UsersService} from '../admin-services/users.service';
+import {map} from 'rxjs/operators';
 
 
 @Component({
@@ -12,15 +13,27 @@ import {UsersService} from '../admin-services/users.service';
 export class RoleSelectorComponent implements OnInit {
   filteredRoles: Observable<string[]>;
   allRoles: string[] = [];
+  @Input() userRoles: string[];
   @ViewChild('roleSelect') roleSelect: MatSelect;
   @Input() userData;
+  @Input() onUserDataUpdated: Subject<any>;
   constructor(private usersService: UsersService) { }
 
   ngOnInit(): void {
-    this.usersService.GetALlRoles().subscribe(rolesResult => {
+    this.usersService.GetALlRoles().pipe(map(p => p.filter(o => o.name !== 'Default'))).subscribe(rolesResult => {
       rolesResult.forEach(role => this.allRoles.push(role.name));
 
-      this.filteredRoles = of(this.allRoles.filter(p => !this.userData.get('role').value.includes(p)).slice());
+      // Subscribe to the Subject provided as an Input to listen.
+      // When the userData is updated the Subject sends empty data by the next() method
+      // which triggers filling-up filteredRoles.
+      if (this.onUserDataUpdated) {
+        this.onUserDataUpdated.subscribe(() => {
+          this.filteredRoles = of(this.allRoles.filter(p => !this.userData.get('role').value.includes(p)).slice());
+          this.userRoles = this.userData.get('role').value.filter(p => p !== 'Default');
+        });
+      } else {
+        this.filteredRoles = of(this.allRoles.filter(p => !this.userData.get('role').value.includes(p)).slice());
+      }
     });
   }
 
@@ -30,6 +43,8 @@ export class RoleSelectorComponent implements OnInit {
     this.userData.patchValue({
       role: rolesTmp
     });
+
+    this.userRoles = this.userData.get('role').value.filter(p => p !== 'Default');
 
     this.roleSelect.value = '';
 

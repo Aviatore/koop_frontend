@@ -9,7 +9,7 @@ import {UniqueEmailValidator} from '../admin-validators/async-validators';
 import {UniqueUserNameValidator} from '../admin-validators/userName-validator';
 import {LoggerService} from '../../services/logger.service';
 import {Roles} from '../admin-interfaces/roles';
-import {delay} from "rxjs/operators";
+import {delay, map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-edit',
@@ -23,6 +23,7 @@ export class UserCreateComponent implements OnInit {
   alertVisibility: number;
   funds: Observable<Funds[]>;
   roles: Observable<Roles[]>;
+  userRoles: string[];
   userData;
 
   constructor(private formBuilder: FormBuilder,
@@ -123,6 +124,7 @@ export class UserCreateComponent implements OnInit {
           this.us.errorResponse = result.body;
           console.log(JSON.stringify(result.body));
           this.showAlert().subscribe(this.userData.reset());
+          this.userRoles = [];
         }
       });
     }

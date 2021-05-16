@@ -1,6 +1,6 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {UsersService} from '../admin-services/users.service';
-import {Observable, of} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {Funds} from '../admin-interfaces/funds';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {UniqueUserNameValidator} from '../admin-validators/userName-validator';
@@ -36,6 +36,7 @@ export class UserEditComponent implements OnInit {
 
   us: UsersService;
   userData;
+  UserDataUpdated: Subject<any> = new Subject();
 
   constructor(private formBuilder: FormBuilder,
               private usersService: UsersService,
@@ -108,6 +109,9 @@ export class UserEditComponent implements OnInit {
           id: result.id,
           role: rolesTmp
         });
+
+        // Informs the role-selector component that the userData were already updated
+        this.UserDataUpdated.next();
       });
     });
 
