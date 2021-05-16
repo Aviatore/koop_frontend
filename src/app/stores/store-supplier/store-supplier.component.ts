@@ -11,9 +11,9 @@ import {MatSort} from '@angular/material/sort';
 import {SupplierProductsList} from '../models/supplier-products-list';
 import {SupplierStore} from '../models/supplier-store';
 import {MatDialog} from '@angular/material/dialog';
-import {StoreEditDialogComponent} from '../store-edit-dialog/store-edit-dialog.component';
 import {StoreSupplierEditDialogComponent} from '../store-supplier-edit-dialog/store-supplier-edit-dialog.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {errorObject} from 'rxjs/internal-compatibility';
 
 @Component({
   selector: 'app-store-supplier',
@@ -113,7 +113,11 @@ export class StoreSupplierComponent implements OnInit, AfterViewInit {
             this.info = undefined;
             this.supplierStore = undefined;
             this.dataSource = undefined;
-            this.problem = err.error.detail;
+            if (err.message !== undefined) {
+              this.problem = err.message;
+            } else {
+              this.problem = 'Unknown Error';
+            }
           });
     }
   }

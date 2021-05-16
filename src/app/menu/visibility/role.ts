@@ -4,7 +4,7 @@ export enum Role {
   KOTY = 'Koty',
   OPRO = 'OpRo',
   PACZKERS = 'Paczkers',
-  ROZWARZACZ = 'Rozwarzacz',
+  ROZWAZACZ = 'Rozważacz',
   SKARBNIK = 'Skarbnik',
   WPROWADZACZ = 'Wprowadzacz'
 }
