@@ -13,7 +13,7 @@ import {map} from 'rxjs/operators';
 export class RoleSelectorComponent implements OnInit {
   filteredRoles: Observable<string[]>;
   allRoles: string[] = [];
-  userRoles: string[];
+  @Input() userRoles: string[];
   @ViewChild('roleSelect') roleSelect: MatSelect;
   @Input() userData;
   @Input() onUserDataUpdated: Subject<any>;

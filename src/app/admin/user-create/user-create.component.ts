@@ -23,6 +23,7 @@ export class UserCreateComponent implements OnInit {
   alertVisibility: number;
   funds: Observable<Funds[]>;
   roles: Observable<Roles[]>;
+  userRoles: string[];
   userData;
 
   constructor(private formBuilder: FormBuilder,
@@ -123,6 +124,7 @@ export class UserCreateComponent implements OnInit {
           this.us.errorResponse = result.body;
           console.log(JSON.stringify(result.body));
           this.showAlert().subscribe(this.userData.reset());
+          this.userRoles = [];
         }
       });
     }
