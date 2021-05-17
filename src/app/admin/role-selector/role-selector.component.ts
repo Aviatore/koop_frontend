@@ -64,6 +64,8 @@ export class RoleSelectorComponent implements OnInit {
       role: rolesTmp
     });
 
+    this.userRoles = this.userData.get('role').value.filter(p => p !== 'Default');
+
     this.filteredRoles = of(this.allRoles.filter(p => !this.userData.get('role').value.includes(p)).slice());
 
     const userCurrentRoles: string[] = this.userData.get('role').value;

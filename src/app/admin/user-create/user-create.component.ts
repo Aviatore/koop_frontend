@@ -76,7 +76,7 @@ export class UserCreateComponent implements OnInit {
       debt: [''],
       fundId: ['', Validators.required],
       info: [''],
-      role: [[], Validators.required]
+      role: [[]]
     });
   }
 

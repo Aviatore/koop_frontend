@@ -87,7 +87,7 @@ export class UserEditComponent implements OnInit {
       fundId: ['', Validators.required],
       info: [''],
       id: [null],
-      role: [[], Validators.required]
+      role: [[]]
     });
 
     this.us.GetUserById(this.userId).subscribe(result => {
