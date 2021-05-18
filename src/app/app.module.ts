@@ -47,6 +47,9 @@ import {UserPanelModule} from './user-panel/user-panel.module';
 import { EmailFormComponent } from './password-reset/email-form/email-form.component';
 import {PasswordResetModule} from './password-reset/password-reset.module';
 import {Visibility} from './menu/visibility/visibility';
+import {MatSelectModule} from '@angular/material/select';
+import { ProductDialogComponent } from './product-dialog/product-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 registerLocaleData(localePL);
 
@@ -65,6 +68,7 @@ registerLocaleData(localePL);
     CategoriesComponent,
     ProductComponent,
     EmailFormComponent,
+    ProductDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,7 +88,9 @@ registerLocaleData(localePL);
     AdminModule,
     UserPanelModule,
     PasswordResetModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [
     UnitsService,

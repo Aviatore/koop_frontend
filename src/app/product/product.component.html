@@ -1,16 +1,23 @@
 <h2 *ngFor="let product of products | async; let i = index" class="text-center px-2 txt-shadow">
   <span *ngIf="i<1">{{product.categoryNames[0]}}</span>
 </h2>
-
 <div class="album py-5 bg-light">
   <div class="container">
+    <mat-form-field appearance="fill">
+      <mat-label>Sortuj według</mat-label>
+      <mat-select [(value)]="selected" (selectionChange)="Sort(SortDirEnumToString(selected))">
+        <mat-option [value]="sortD.name">Nazwa produktu</mat-option>
+        <mat-option [value]="sortD.price">Cena produktu</mat-option>
+        <mat-option [value]="sortD.unit">Jednostka produktu</mat-option>
+      </mat-select>
+    </mat-form-field>
     <div class="row">
       <div *ngFor="let product of products | async" class="col-md-4">
         <div *ngIf="product.available" class="card mb-4 box-shadow">
           <img class="card-img-top" alt="Thumbnail [100%x225]" src="../../assets/img/test.png" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
           <div class="card-body">
             <p class="card-text">
-              {{product.productName}}
+              {{product.productName}} <button mat-icon-button (click)="openDialog(product.productId)"><mat-icon>open_in_new</mat-icon></button>
             </p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
