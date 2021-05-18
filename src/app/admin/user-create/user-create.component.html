@@ -115,7 +115,7 @@
       <div class="col-md-4 mt-5">
         <div class="mb-1"></div>
         <app-role-selector [class.is-invalid]="submitted && field.role.invalid && field.role.touched"
-                           [userData]="userData"></app-role-selector>
+                           [userData]="userData" [userRoles]="userRoles"></app-role-selector>
         <div *ngIf="submitted && field.role.invalid && field.role.touched" class="text-danger small error">
           <div *ngIf="field.role.errors.required">Użytkownik musi mieć wybraną co najmniej jedną rolę</div>
         </div>

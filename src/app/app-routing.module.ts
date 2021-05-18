@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {UnitComponent} from './unit/unit.component';
+import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {AppUrl} from './urls/app-url';
-import {CategoriesComponent } from './categories/categories.component';
+import {CategoriesComponent } from './admin/modules/categories/categories.component';
 import {AdminComponent} from './admin/admin/admin.component';
-import {ProductComponent} from './product/product.component';
+import {ProductComponent} from './shop/product/product.component';
 import {UserComponent} from './user-panel/user/user.component';
 import {EmailFormComponent} from './password-reset/email-form/email-form.component';
+import {TestComponent} from './test/test.component';
 
 const routes: Routes = [
   { path: AppUrl.ROUTE.getUnits, component: UnitComponent },
@@ -18,6 +20,10 @@ const routes: Routes = [
   { path: AppUrl.ROUTE.admin, component: AdminComponent },
   { path: AppUrl.ROUTE.user, component: UserComponent },
   { path: AppUrl.ROUTE.passwordReset, component: EmailFormComponent },
+  {
+    path: 'test',
+    component: TestComponent
+  },
   { path: '',   redirectTo: AppUrl.HOME_PAGE_URL, pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

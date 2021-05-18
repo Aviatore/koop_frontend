@@ -1,0 +1,13 @@
+<mat-form-field>
+  <mat-chip-list #chipList>
+    <mat-chip *ngFor="let item of productData.get('availQuantity').value" selectable="true" removable="true" (removed)="remove(item)">
+      {{item.quantity}}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+  <mat-label for="availQuant" style="padding-bottom: 5px;">Dostępne ilości</mat-label>
+  <input type="number" matInput placeholder="Podaj ilość" [matChipInputFor]="chipList"
+         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+         [matChipInputAddOnBlur]="false"
+         (matChipInputTokenEnd)="add($event)" #categoryInput>
+</mat-form-field>

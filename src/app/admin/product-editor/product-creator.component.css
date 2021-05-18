@@ -1,0 +1,101 @@
+body {
+  background: rgb(99, 39, 120)
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #079500
+}
+
+.profile-button {
+  background: #076d00;
+  box-shadow: none;
+  border: none
+}
+
+.profile-button:hover {
+  background: #079500
+}
+
+.profile-button:focus {
+  background: #079500;
+  box-shadow: none
+}
+
+.profile-button:active {
+  background: #079500;
+  box-shadow: none
+}
+
+.back:hover {
+  color: #079500;
+  cursor: pointer
+}
+
+.labels {
+  font-size: 11px
+}
+
+.add-experience:hover {
+  background: #BA68C8;
+  color: #fff;
+  cursor: pointer;
+  border: solid 1px #BA68C8
+}
+
+.auto-resize {
+  min-width: 100%;
+}
+
+img {
+  width: 80%;
+}
+
+label {
+  font-size: 11px;
+}
+
+.error {
+  transform: translateY(-15px);
+}
+
+
+
+/deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: #3fe56f;
+}
+
+/deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: #079500;
+}
+
+.image-container {
+  height: 150px;
+  width: 90%;
+  padding: 0;
+}
+
+.image {
+  position: relative;
+
+}
+
+.close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+}
+
+.close:hover {
+  color: red;
+}
+
+img {
+  border-radius: 5px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.green {
+  border: 1px solid #079500;
+}

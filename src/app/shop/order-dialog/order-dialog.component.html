@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Zamówienie</h1>
+<div mat-dialog-content>
+  <span>Wybierz ilość zamawianego produktu: {{data.productName}}</span>
+  <mat-form-field>
+    <mat-label for="category" style="padding-bottom: 5px;">Ilość</mat-label>
+    <mat-select id="category" (selectionChange)="selected($event)" [(ngModel)]="data.quantities">
+      <mat-option *ngFor="let quantity of availableQuantities | async" [value]="quantity.quantity">
+        {{quantity.quantity}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Anuluj</button>
+  <button mat-button [mat-dialog-close]="data.quantities" cdkFocusInitial>Ok</button>
+</div>

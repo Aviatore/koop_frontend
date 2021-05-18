@@ -5,14 +5,19 @@
   <span class="navi-bar-spacer"></span>
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
     <ul fxLayout fxLayoutGap="15px" class="navigation-items">
-      <li><button mat-button [routerLink]="[urls.getUnits]" class="top-link">Units</button></li>
-      <li *ngIf="visibility.set([role.ADMIN, role.OPRO, role.PACZKERS])">
+      <li><button mat-button [routerLink]="[urls.getHome]" class="top-link">Home</button></li>
+      <li *ngIf="visibility.set([role.ADMIN, role.PACZKERS, role.KOTY, role.SKARBNIK])">
         <app-report-dropdown-menu></app-report-dropdown-menu>
       </li>
-      <li><button mat-button [routerLink]="[urls.admin]" class="top-link">Admin</button></li>
+      <li *ngIf="visibility.set([role.DEFAULT])">
+        <app-menu-tools></app-menu-tools>
+      </li>
       <li><button mat-button  [routerLink]="[urls.getLogin]" class="top-link"
-              (click)="LoginAction()">{{(this.loginService.loginResult ? 'logout' : 'login') | titlecase}}</button></li>
+              (click)="LoginAction()">{{(isTokenExpired() ? 'login' : 'logout') | titlecase}}</button></li>
     </ul>
+  </div>
+  <div *ngIf="visibility.set([role.DEFAULT])">
+    <app-basket-icon></app-basket-icon>
   </div>
   <div fxHide.gt-xs>
     <button mat-icon-button (click)="onToggleSidenav()">
@@ -20,19 +25,3 @@
     </button>
   </div>
 </mat-toolbar>
-
-<!--<ul>
-  <li><a [routerLink]="['home']">Home</a></li>
-  <li><a [routerLink]="['login']"
-         (click)="LoginAction()">{{(this.loginService.loginResult ? 'logout' : 'login') | titlecase}}</a></li>
-  <li><a [routerLink]="['units']">Units</a></li>
-  <li>
-    <app-report-dropdown-menu></app-report-dropdown-menu>
-  </li>
-  <li>
-    <app-counter [timer]="tokenTimer" name="Token"></app-counter>
-  </li>
-  <li>
-    <app-counter [timer]="refTokenTimer" name="RefToken"></app-counter>
-  </li>
-</ul>-->
