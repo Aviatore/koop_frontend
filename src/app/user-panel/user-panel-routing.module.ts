@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {UserComponent} from './user/user.component';
 import {UserEditComponent} from '../admin/user-edit/user-edit.component';
+import {PasswordResetComponent} from './password-reset/password-reset.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
         path: 'edit',
         component: UserEditComponent,
         data: {adminMode: false}
+      },
+      {
+        path: 'password-reset',
+        component: PasswordResetComponent
       }
     ]
   }

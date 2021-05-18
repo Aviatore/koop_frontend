@@ -13,7 +13,7 @@ import {map} from 'rxjs/operators';
 export class RoleSelectorComponent implements OnInit {
   filteredRoles: Observable<string[]>;
   allRoles: string[] = [];
-  userRoles: string[];
+  @Input() userRoles: string[];
   @ViewChild('roleSelect') roleSelect: MatSelect;
   @Input() userData;
   @Input() onUserDataUpdated: Subject<any>;
@@ -63,6 +63,8 @@ export class RoleSelectorComponent implements OnInit {
     this.userData.patchValue({
       role: rolesTmp
     });
+
+    this.userRoles = this.userData.get('role').value.filter(p => p !== 'Default');
 
     this.filteredRoles = of(this.allRoles.filter(p => !this.userData.get('role').value.includes(p)).slice());
 

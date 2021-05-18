@@ -11,8 +11,8 @@ import {SupplierInfoComponent} from './modules/suppliers/supplier-info/supplier-
 import {OrdersListComponent} from './modules/order-grande/orders-list/orders-list.component';
 import {OrderDetailComponent} from './modules/order-grande/order-detail/order-detail.component';
 import {BasketsComponent} from './modules/order-grande/baskets/baskets.component';
-import {AppUrl} from "../urls/app-url";
-import {CategoryComponent} from "./modules/categories/category/category.component";
+import {AppUrl} from '../urls/app-url';
+import {CategoryComponent} from './modules/categories/category/category.component';
 
 const routes: Routes = [
   {
