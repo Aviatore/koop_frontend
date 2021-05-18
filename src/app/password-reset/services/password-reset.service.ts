@@ -56,7 +56,24 @@ export class PasswordResetService {
       password
     };
 
-    const url = PasswordResetUrls.SetNewPassword;
+    const url = PasswordResetUrls.SelfSetNewPassword;
+
+    return this.httpClient.post<HttpResponse<Observable<PasswordErrorResponse>>>(url, data, httpRequestOptions).pipe(
+      catchError(this.handleError.bind(this))
+    );
+  }
+
+  selfResetPassword(userId: string, password: string): Observable<any> {
+    console.log(...this.logger.info('Sending request to reset password ...'));
+    const data: IPasswordReset = {
+      email: null,
+      hostname: null,
+      token: null,
+      userId,
+      password
+    };
+
+    const url = PasswordResetUrls.SelfSetNewPassword;
 
     return this.httpClient.post<HttpResponse<Observable<PasswordErrorResponse>>>(url, data, httpRequestOptions).pipe(
       catchError(this.handleError.bind(this))
