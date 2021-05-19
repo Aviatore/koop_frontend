@@ -8,6 +8,13 @@ import {OrderDialogComponent, OrderDialogData} from '../order-dialog/order-dialo
 import {OrderMakerService} from '../services/order-maker.service';
 import {takeUntil} from 'rxjs/operators';
 import {ErrorResponse} from '../../admin/admin-interfaces/errorResponse';
+import {ProductDialogComponent} from '../product-dialog/product-dialog.component';
+
+export enum SortDirections {
+  name,
+  price,
+  unit,
+}
 
 @Component({
   selector: 'app-product',
@@ -22,6 +29,10 @@ export class ProductComponent implements OnInit, OnDestroy {
   quantities: number;
   orderStatus: ErrorResponse;
 
+  selected: string;
+  sortD = SortDirections;
+  categoryIdFromRoute: string;
+
   constructor(private productS: ProductService,
               private route: ActivatedRoute,
               private router: Router,
@@ -30,12 +41,47 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
-    const categoryIdFromRoute = String(routeParams.get('categoryId'));
+    this.categoryIdFromRoute = String(routeParams.get('categoryId'));
     console.log(`Getting products ...`);
-    this.products = this.productS.GetProducts(categoryIdFromRoute).pipe(takeUntil(this.onDestroy$));
+    this.products = this.productS.GetProducts(this.categoryIdFromRoute).pipe(takeUntil(this.onDestroy$));
     console.log(this.products);
     this.orderMakerService.checkOrderStatus().subscribe(result => {
       this.orderStatus = result;
+    });
+  }
+
+  Sort(orderBy: string): void {
+    this.products = this.productS.GetProducts(this.categoryIdFromRoute, orderBy);
+  }
+
+  SortDirEnumToString(orderBy: string): string {
+    let direction: string;
+    const ord = Number(orderBy);
+    switch (ord) {
+      case SortDirections.name:
+        direction = 'name';
+        break;
+      case SortDirections.price:
+        direction = 'price';
+        break;
+      case SortDirections.unit:
+        direction = 'unit';
+        break;
+      default:
+        direction = 'name';
+        break;
+    }
+    return direction;
+  }
+  openDialog(productId: number): void {
+    const dialogRef = this.dialog.open(ProductDialogComponent, {
+      data: {
+        productID: productId,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
     });
   }
 

@@ -1,0 +1,30 @@
+<div mat-dialog-content *ngIf="product | async as dataD">
+  <h1 mat-dialog-title>{{dataD.productName}}</h1>
+  <ul class="list-group" style="">
+    <li class="list-group-item">
+      <span class="dialog-table-row-title">Nazwa:</span>
+      {{dataD.productName}}
+    </li>
+    <li class="list-group-item">
+      <span class="dialog-table-row-title">Cena:</span>
+      {{dataD.price}}
+    </li>
+    <li class="list-group-item">
+      <span class="dialog-table-row-title">Ilość w magazynie:</span>
+      {{dataD.amountInMagazine}}
+    </li>
+    <li class="list-group-item">
+      <span class="dialog-table-row-title">Maksymalna ilość:</span>
+      {{dataD.amountMax}}
+    </li>
+    <li class="list-group-item">
+      <span class="dialog-table-row-title">Opis:</span>
+      {{dataD.description}}
+      <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non lacus iaculis, ullamcorper lacus quis, scelerisque arcu. Suspendisse leo purus, posuere vitae nulla sit amet, tincidunt volutpat nisi. Phasellus malesuada, nibh quis pretium ullamcorper, nisi elit bibendum nisl, eget rutrum tortor eros nec diam. Aliquam turpis lacus, elementum et facilisis at, pretium a purus. Aliquam consequat faucibus nibh, id scelerisque lectus elementum a. Quisque tristique sed justo eu venenatis. Donec efficitur, quam id sagittis dapibus, nisl turpis egestas tellus, vitae mattis tellus tortor vel lorem. Donec hendrerit dignissim orci sed sagittis. Integer nec orci a arcu bibendum fringilla. Curabitur vel ante suscipit, commodo lectus a, tempus nulla. Pellentesque imperdiet diam turpis, sed scelerisque elit viverra vitae. Aliquam at felis vel dolor lobortis egestas. Nullam nisi felis, sagittis sed malesuada sed, congue pellentesque dui. Sed volutpat facilisis placerat. Etiam scelerisque et diam non rhoncus. Nam facilisis ultricies lacus, nec commodo nulla-->
+    </li>
+<!--    <li class="list-group-item">
+      <span class="dialog-table-row-title">Dostawca:</span>
+      {{dataD.supplier}}
+    </li>-->
+  </ul>
+</div>
