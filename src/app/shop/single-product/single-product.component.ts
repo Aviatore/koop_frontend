@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {Product} from '../../services/product.service';
 import {Router} from '@angular/router';
 import {AppUrl} from '../../urls/app-url';
@@ -9,6 +9,9 @@ import {Observable, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {ErrorResponse} from '../../admin/admin-interfaces/errorResponse';
 import {BasketViewService} from '../../basket-view/services/basket-view.service';
+import {ProductDialogComponent} from '../product-dialog/product-dialog.component';
+import {Role} from '../../menu/visibility/role';
+import {Visibility} from '../../menu/visibility/visibility';
 
 @Component({
   selector: 'app-single-product',
@@ -19,10 +22,14 @@ export class SingleProductComponent implements OnInit, OnDestroy {
   private onDestroy$: Subject<void> = new Subject<void>();
   @Input() product: Product;
   @Input() orderStatusContainer: ErrorResponse;
+
   orderStatus: string;
   orderStart: string;
   isClosed: boolean;
   isBlocked: boolean;
+
+  role = Role;
+  visibility = Visibility;
 
   emptyImage = AppUrl.EMPTYIMAGE;
   domain = AppUrl.DOMAIN;
@@ -88,6 +95,18 @@ export class SingleProductComponent implements OnInit, OnDestroy {
           this.basketViewService.editBasketQuantity();
         });
       }
+    });
+  }
+
+  openInfoDialog(productId: string): void {
+    const dialogRef = this.dialog.open(ProductDialogComponent, {
+      data: {
+        productID: productId,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
     });
   }
 
