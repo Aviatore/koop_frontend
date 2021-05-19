@@ -10,6 +10,8 @@ import {takeUntil} from 'rxjs/operators';
 import {ErrorResponse} from '../../admin/admin-interfaces/errorResponse';
 import {BasketViewService} from '../../basket-view/services/basket-view.service';
 import {ProductDialogComponent} from '../product-dialog/product-dialog.component';
+import {Role} from '../../menu/visibility/role';
+import {Visibility} from '../../menu/visibility/visibility';
 
 @Component({
   selector: 'app-single-product',
@@ -25,6 +27,9 @@ export class SingleProductComponent implements OnInit, OnDestroy {
   orderStart: string;
   isClosed: boolean;
   isBlocked: boolean;
+
+  role = Role;
+  visibility = Visibility;
 
   emptyImage = AppUrl.EMPTYIMAGE;
   domain = AppUrl.DOMAIN;

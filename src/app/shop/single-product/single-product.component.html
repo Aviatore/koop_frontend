@@ -1,5 +1,5 @@
 <div class="card mb-4 box-shadow">
-  <div class="edit" style="">
+  <div class="edit" style="" *ngIf="visibility.set([role.ADMIN, role.KOTY])">
     <i class="far fa-edit p-1 edit" style="float: right" (click)="editProduct(product.productId)"></i>
   </div>
   <!--<img class="card-img-top" alt="Thumbnail [100%x225]" src="../../assets/img/test.png" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">-->
