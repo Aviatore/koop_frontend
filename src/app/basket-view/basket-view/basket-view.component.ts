@@ -56,6 +56,7 @@ export class BasketViewComponent implements OnInit {
               this.info = data;
               this.dataSource = undefined;
               this.problem = undefined;
+              this.arraySource = undefined;
             } else {
               this.info = undefined;
               this.problem = undefined;
@@ -68,6 +69,7 @@ export class BasketViewComponent implements OnInit {
           err => {
             this.info = undefined;
             this.dataSource = undefined;
+            this.arraySource = undefined;
             if (err.error.error !== undefined) {
               this.problem = err.error.error;
             } else if (err.message !== undefined) {
@@ -141,7 +143,25 @@ export class BasketViewComponent implements OnInit {
     return this.arraySource.map(t => t.quantity).reduce((acc, value) => acc + value, 0);
   }
 
+  getFund(): number | null {
+    if (this.arraySource.length > 0){
+      return this.arraySource.map(f => f.fund)[0];
+    }
+    return null;
+  }
+
   getTotalPrice(): number {
     return this.arraySource.map(t => t.price).reduce((acc, value) => acc + value, 0);
+  }
+
+  getTotalPriceWithFound(): number | null {
+    const totalPrice = this.getTotalPrice();
+    const fund = this.getFund();
+    let totalPriceFound: number | null;
+    if (fund !== null) {
+      totalPriceFound = totalPrice + (totalPrice * (fund / 100));
+      return totalPriceFound;
+    }
+    return null;
   }
 }
