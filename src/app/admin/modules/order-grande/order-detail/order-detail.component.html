@@ -1,44 +1,56 @@
 <!--<div *ngIf="order | async">-->
 <div>
   <mat-card >
-    <div>
-      <mat-card-title>Dodaj nowe zamówienie</mat-card-title>
+    <div class="d-flex justify-content-between align-items-center mb-0">
+      <h2 class="text-right">Dodaj nowe zamówienie</h2>
     </div>
 
     <div>
       <form [formGroup]="orderData" autocomplete="off" novalidate (ngSubmit)="onSubmit()">
         <mat-card-content>
 
-          <mat-form-field>
-            <input matInput [matDatepicker]="picker1" placeholder="Data otwarcia zamówienia" required formControlName="orderStartDate" id="orderStartDate"
-                   readonly (click)="picker1.open()">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-            <mat-error *ngIf="hasError('orderStartDate', 'required')">Musisz wybrać datę</mat-error>
-          </mat-form-field>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <mat-form-field>
+                <input matInput [matDatepicker]="picker1" placeholder="Data otwarcia zamówienia" required formControlName="orderStartDate" id="orderStartDate"
+                       readonly (click)="picker1.open()">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <mat-error *ngIf="hasError('orderStartDate', 'required')">Musisz wybrać datę</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
 
-          <mat-form-field>
-            <input matInput [matDatepicker]="picker2" placeholder="Data zamknięcia zamówienia" required formControlName="orderStopDate" id="orderStopDate"
-                   readonly (click)="picker2.open()">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-            <mat-error *ngIf="hasError('orderStopDate', 'required')">Musisz wybrać datę</mat-error>
-          </mat-form-field>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <mat-form-field>
+                <input matInput [matDatepicker]="picker2" placeholder="Data zamknięcia zamówienia" required formControlName="orderStopDate" id="orderStopDate"
+                       readonly (click)="picker2.open()">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error *ngIf="hasError('orderStopDate', 'required')">Musisz wybrać datę</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
 
-          <mat-form-field>
-            <mat-label>Status</mat-label>
-            <mat-select formControlName="orderStatusName" id="orderStatusName" required>
-              <mat-option value="" disabled>-</mat-option>
-              <mat-option *ngFor="let stat of statuses | async" [value]="stat">
-                {{stat}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+<!--          <div class="row mt-2">-->
+<!--            <div class="col-md-6">-->
+<!--              <mat-form-field>-->
+<!--                <mat-label>Status</mat-label>-->
+<!--                <mat-select formControlName="orderStatusName" id="orderStatusName" required>-->
+<!--                  <mat-option value="" disabled>-</mat-option>-->
+<!--                  <mat-option *ngFor="let stat of statuses | async" [value]="stat">-->
+<!--                    {{stat}}-->
+<!--                  </mat-option>-->
+<!--                </mat-select>-->
+<!--              </mat-form-field>-->
+<!--            </div>-->
+<!--          </div>-->
 
 
         </mat-card-content>
         <mat-card-actions align="center">
-          <button mat-raised-button color="primary" [disabled]="!orderData.valid">Zapisz</button>
+          <button mat-raised-button class="btn btn-primary profile-button" [disabled]="!orderData.valid">Zapisz</button>
           <!--        <button type="button"> mat-raised-button color="warn" (click)="onCancel()">Cancel</button>-->
         </mat-card-actions>
       </form>
