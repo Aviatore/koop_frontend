@@ -50,21 +50,14 @@ export class SupplierService {
       );
   }
 
-  toggleAvail(supplierId: Guid): void {
+  toggleAvail(supplierId: Guid): Observable<any> {
     console.log(`Raw data: ${JSON.stringify(supplierId)}`);
-    this.http.get<any>(`${AppUrl.BASE_URL}Supplier/supplier/${supplierId}/toggleAvail`, supplierOptions)
-      .subscribe(
-        (response) => console.log(response),
-        (error) => console.log(error)
-      );
+    return this.http.get<any>(`${AppUrl.BASE_URL}Supplier/supplier/${supplierId}/toggleAvail`, supplierOptions);
   }
 
-  toggleBlocked(supplierId: Guid): void {
+  toggleBlocked(supplierId: Guid): Observable<any> {
     console.log(`Raw data: ${JSON.stringify(supplierId)}`);
-    this.http.get<any>(`${AppUrl.BASE_URL}Supplier/supplier/${supplierId}/toggleBlocked`, supplierOptions)
-      .subscribe(
-        (response) => console.log(response),
-        (error) => console.log(error)
-      );
+    return this.http.get<any>(`${AppUrl.BASE_URL}Supplier/supplier/${supplierId}/toggleBlocked`, supplierOptions);
   }
+
 }

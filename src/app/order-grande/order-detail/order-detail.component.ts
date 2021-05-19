@@ -31,7 +31,7 @@ export class OrderDetailComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.statuses = this.orderGrandeService.getStatuses();
+    // this.statuses = this.orderGrandeService.getStatuses();
 
     this.orderData = this.formBuilder.group({
     orderId: ['00000000-0000-0000-0000-000000000000'],
@@ -46,7 +46,7 @@ export class OrderDetailComponent implements OnInit {
       ]
     }],
     orderStatusId: ['00000000-0000-0000-0000-000000000000'],
-    orderStatusName: ['', {
+    orderStatusName: ['Zaplanowane', {
       validators: [
         Validators.required
       ]

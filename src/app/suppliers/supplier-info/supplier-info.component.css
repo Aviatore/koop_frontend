@@ -1,0 +1,133 @@
+table {
+  width: 100%;
+}
+
+i {
+  cursor: pointer;
+  color: #636363;
+}
+
+.next-btn {
+  float:right;
+}
+
+.barButton {
+  margin-left: 5%;
+}
+.fa-user-slash:hover {
+  color: red;
+}
+
+.fa-user-edit:hover {
+  color: #0e7619;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: green !important;
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: green !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: green !important;;
+}
+
+:host ::ng-deep .mat-sort-header-container {
+  display: flex;
+  justify-content: center;
+}
+
+.mat-header-cell {
+  font-size: 1em;
+  color: #fff;
+  background-color: rgb(3, 130, 17);
+  text-align: center !important;
+  padding: 0 5px 0 5px;
+  white-space: nowrap;
+}
+
+a {
+  color: #222223;
+}
+
+.mat-cell {
+  padding: 0 5px 0 5px;
+  text-align: center;
+}
+
+::ng-deep .mat-sort-header-arrow {
+  color: #aeef9b !important;
+}
+
+body {
+  background: rgb(99, 39, 120)
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #079500
+}
+
+.profile-button {
+  background: #076d00;
+  box-shadow: none;
+  border: none
+}
+
+.profile-button:hover {
+  background: #079500
+}
+
+.profile-button:focus {
+  background: #079500;
+  box-shadow: none
+}
+
+.profile-button:active {
+  background: #079500;
+  box-shadow: none
+}
+
+.back:hover {
+  color: #079500;
+  cursor: pointer
+}
+
+.labels {
+  font-size: 11px
+}
+
+.add-experience:hover {
+  background: #BA68C8;
+  color: #fff;
+  cursor: pointer;
+  border: solid 1px #BA68C8
+}
+
+.auto-resize {
+  min-width: 100%;
+}
+
+img {
+  width: 80%;
+}
+
+label {
+  font-size: 11px;
+}
+
+.error {
+  transform: translateY(-15px);
+}
+
+.statusBar {
+  margin-top: 5vh;
+  border: solid #0a7f13 1px;
+  /*border-color: #0a7f13;*/
+  text-align: center;
+}

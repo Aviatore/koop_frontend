@@ -8,6 +8,8 @@ import Util from '../../util';
 import {Observable} from 'rxjs';
 import {Guid} from 'guid-typescript';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {CoopLastOrderEditDialogComponent} from '../../coop-order/coop-last-order-edit-dialog/coop-last-order-edit-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-orders-list',
@@ -17,10 +19,11 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class OrdersListComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'orderId',
+    // 'orderId',
     'orderStartDate',
     'orderStopDate',
-    'orderStatusName'
+    'orderStatusName',
+    'action'
   ];
 
 
@@ -32,6 +35,7 @@ export class OrdersListComponent implements OnInit {
 
   statusVisibility = false;
   activeOrderId: Guid;
+  activeOrderStartDate: string;
   currentStatus: string;
   authorized = false;
 
@@ -109,7 +113,7 @@ export class OrdersListComponent implements OnInit {
   openSnackBarInfo(message: string, action?: string): void {
     let snackBarCss = 'snack-bar-red';
     if (message !== undefined && message.includes('Good')) {
-      message = 'Ilości produktu zostały zmienione.';
+      message = 'Status zamówienia został zmieniony.';
       snackBarCss = 'snack-bar-green';
     }
     this.snackBarInfo.open(message, action, {
@@ -118,4 +122,17 @@ export class OrdersListComponent implements OnInit {
     });
   }
 
+
+  openStatusBar(orderId: Guid, activeOrderStartDate: string): void {
+    if (this.activeOrderId === orderId)
+    {
+      this.statusVisibility = !this.statusVisibility;
+    }
+    else
+    {
+      this.statusVisibility = true;
+      this.activeOrderId = orderId;
+      this.activeOrderStartDate = activeOrderStartDate;
+    }
+  }
 }

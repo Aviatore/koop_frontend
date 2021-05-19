@@ -1,8 +1,10 @@
 <h2 class="text-md-center px-2 txt-shadow">Zamówienia tygodniowe</h2>
+
 <div>
-  <button type="button" class="btn btn-primary" *ngIf="authorized" routerLink="/order/add" routerLinkActive="activebutton">Zaplanuj nowe zamówienie</button>
-  <button type="button" class="btn btn-primary" *ngIf="authorized" routerLink="/order/baskets" routerLinkActive="activebutton">Zobacz koszyki</button>
+  <button type="button" class="btn btn-primary profile-button" routerLink="/order/add" routerLinkActive="activebutton">Zaplanuj nowe zamówienie</button>
+  <button type="button" class="btn btn-primary profile-button next-btn" routerLink="/order/baskets" routerLinkActive="activebutton">Zobacz koszyki</button>
 </div>
+
 
 <div>
   <mat-form-field>
@@ -10,31 +12,22 @@
   </mat-form-field>
 </div>
 
-<div *ngIf="statusVisibility">
-  Zmień status zamówienia {{activeOrderId }}
-  <mat-form-field>
-<!--    <mat-label>Zmień status zamówienia {{activeOrderId}}</mat-label>-->
-    <mat-select>
-      <mat-option value="" disabled>-</mat-option>
-      <mat-option *ngFor="let status of statuses | async" [value]="status" (click)="currentStatus = status">
-        {{status}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <button type="button" class="btn btn-primary" (click)="changeStatus(activeOrderId, currentStatus); statusVisibility=!statusVisibility">Zmień status</button>
-</div>
+
 
 <div class="table-responsive-sm px-2">
   <table mat-table [dataSource]="dataSource" matSort class="table-striped mat-elevation-z10">
-    <ng-component matColumnDef="orderId">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="orderId">ID zamówienia</th>
-      <td mat-cell *matCellDef="let element">
-        <a *ngIf="authorized" class="button" routerLink="/supplier/{{element.supplierId}}/edit" routerLinkActive="activebutton">{{element.orderId}}</a>
-      </td>
-    </ng-component>
+<!--    <ng-component matColumnDef="orderId">-->
+<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header="orderId">ID zamówienia</th>-->
+<!--      <td mat-cell *matCellDef="let element">-->
+<!--        <a *ngIf="authorized" class="button" routerLink="/supplier/{{element.supplierId}}/edit" routerLinkActive="activebutton">{{element.orderId}}</a>-->
+<!--      </td>-->
+<!--    </ng-component>-->
     <ng-component matColumnDef="orderStartDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="orderStartDate">Data otwarcia</th>
-      <td mat-cell *matCellDef="let element">{{element.orderStartDate}}</td>
+      <td mat-cell *matCellDef="let element">{{element.orderStartDate}}
+<!--        <a class="button" routerLink="/order/{{element.orderId}}/edit" routerLinkActive="activebutton">{{element.orderStartDate}}</a>-->
+      </td>
+
     </ng-component>
     <ng-component matColumnDef="orderStopDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="orderStopDate">Data zamknięcia</th>
@@ -42,9 +35,19 @@
     </ng-component>
     <ng-component matColumnDef="orderStatusName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="orderStatusName">Status</th>
-      <td mat-cell *matCellDef="let element" (click)="statusVisibility = !statusVisibility; activeOrderId = element.orderId">{{element.orderStatusName}}</td>
+      <td mat-cell *matCellDef="let element">{{element.orderStatusName}}</td>
     </ng-component>
 
+    <ng-component matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Akcja</th>
+      <td mat-cell *matCellDef="let element">
+          <span class="text-nowrap">
+            <button mat-icon-button (click)="openStatusBar(element.orderId, element.orderStartDate)" class="edit-button">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </span>
+      </td>
+    </ng-component>
 
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -53,4 +56,18 @@
 </div>
 <div class="mx-auto px-2 mat-elevation-z10">
   <mat-paginator [pageSizeOptions]="itemsPerPage"></mat-paginator>
+</div>
+
+<div class="statusBar" *ngIf="statusVisibility">
+  Zmień status zamówienia z dnia {{activeOrderStartDate}}:
+  <mat-form-field>
+    <!--    <mat-label>Zmień status zamówienia {{activeOrderId}}</mat-label>-->
+    <mat-select>
+      <mat-option value="" disabled>-</mat-option>
+      <mat-option *ngFor="let status of statuses | async" [value]="status" (click)="currentStatus = status">
+        {{status}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button type="button" class="btn btn-primary profile-button barButton" (click)="changeStatus(activeOrderId, currentStatus); statusVisibility=!statusVisibility">Zmień status</button>
 </div>
