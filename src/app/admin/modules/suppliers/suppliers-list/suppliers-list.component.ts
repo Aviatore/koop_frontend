@@ -9,9 +9,9 @@ import {MatSort} from '@angular/material/sort';
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 
 
-import Util from '../../util';
 import {OrderGrandeService} from '../../order-grande/order-grande.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import Util from '../../../../util';
 
 @Component({
   selector: 'app-suppliers-list',

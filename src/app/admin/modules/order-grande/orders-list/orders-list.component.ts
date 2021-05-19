@@ -8,8 +8,8 @@ import Util from '../../../../util';
 import {Observable} from 'rxjs';
 import {Guid} from 'guid-typescript';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {CoopLastOrderEditDialogComponent} from '../../coop-order/coop-last-order-edit-dialog/coop-last-order-edit-dialog.component';
-import {MatDialog} from '@angular/material/dialog';
+/*import {CoopLastOrderEditDialogComponent} from '../../coop-order/coop-last-order-edit-dialog/coop-last-order-edit-dialog.component';
+import {MatDialog} from '@angular/material/dialog';*/
 
 @Component({
   selector: 'app-orders-list',
