@@ -12,6 +12,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { SingleProductComponent } from './single-product/single-product.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {ProductDialogComponent} from './product-dialog/product-dialog.component';
+import {AppModule} from '../app.module';
+import {AppPipesModuleModule} from '../app-pipes-module/app-pipes-module.module';
 
 
 @NgModule({
@@ -21,14 +23,15 @@ import {ProductDialogComponent} from './product-dialog/product-dialog.component'
     ProductDialogComponent,
     SingleProductComponent
   ],
-    imports: [
-        CommonModule,
-        MatDialogModule,
-        MatSelectModule,
-        FormsModule,
-        MatButtonModule,
-        MatTooltipModule,
-        ShopRoutingModule
-    ]
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatSelectModule,
+    FormsModule,
+    MatButtonModule,
+    MatTooltipModule,
+    AppPipesModuleModule,
+    ShopRoutingModule
+  ]
 })
 export class ShopModule { }

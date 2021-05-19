@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {Product} from '../../services/product.service';
 import {Router} from '@angular/router';
 import {AppUrl} from '../../urls/app-url';
