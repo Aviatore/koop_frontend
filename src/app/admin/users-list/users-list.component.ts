@@ -7,6 +7,8 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {LoggerService} from '../../services/logger.service';
 import {tap} from 'rxjs/operators';
+import {CoopLastOrderEditDialogComponent} from '../../coop-order/coop-last-order-edit-dialog/coop-last-order-edit-dialog.component';
+import {Guid} from 'guid-typescript';
 
 @Component({
   selector: 'app-users-list',
@@ -87,4 +89,20 @@ export class UsersListComponent implements OnInit, AfterViewInit {
       }, 1000);
     });
   }
+
+  // openEditDialog(orderId: Guid, status: string): void {
+  //   const dialogRef = this.editDialog.open(CoopLastOrderEditDialogComponent, {
+  //     data: {
+  //       orderId,
+  //       status
+  //     }
+  //   });
+  //
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     this.getCoopLastGrande(this.coopId);
+  //     if (result.msg !== undefined) {
+  //       this.openSnackBarEdit(result.msg);
+  //     }
+  //   });
+  // }
 }
