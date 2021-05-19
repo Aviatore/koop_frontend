@@ -20,6 +20,7 @@ export class BasketViewService {
               private jwtHelper: JwtHelperService) {
   }
 
+  // The method changes the number on the cart icon
   editBasketQuantity(): void {
     const userId = localStorage.getItem('login_userId');
     this.getQuantityOfProducts(userId)
@@ -40,7 +41,7 @@ export class BasketViewService {
         catchError(this.handleError));
   }
 
-  getQuantityOfProducts(userId: string): Observable<number> {
+  private getQuantityOfProducts(userId: string): Observable<number> {
     let quantity: number;
     if (this.isUserLogin()) {
       return this.getProductsInBasket(userId).pipe(
