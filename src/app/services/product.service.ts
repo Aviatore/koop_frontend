@@ -20,8 +20,8 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
-  GetProducts(categoryIdFromRoute): Observable<Product[]> {
+  GetProducts(categoryIdFromRoute, sort = 'name'): Observable<Product[]> {
     // tslint:disable-next-line:max-line-length
-    return this.httpClient.get<Product[]>('http://localhost:5000/api/Test/products?orderBy=name&start=1&&orderDir=asc&categoryId=' + categoryIdFromRoute);
+    return this.httpClient.get<Product[]>(`http://localhost:5000/api/Test/products?orderBy=${sort}&start=0&&orderDir=asc&categoryId=${categoryIdFromRoute}`);
   }
 }

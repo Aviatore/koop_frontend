@@ -4,6 +4,15 @@
 
 <div class="album py-5 bg-light">
   <div class="container">
+    <mat-form-field appearance="fill">
+      <mat-label>Sortuj według</mat-label>
+      <mat-select [(value)]="selected" (selectionChange)="Sort(SortDirEnumToString(selected))">
+        <mat-option [value]="sortD.name">Nazwa produktu</mat-option>
+        <mat-option [value]="sortD.price">Cena produktu</mat-option>
+        <mat-option [value]="sortD.unit">Jednostka produktu</mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <div class="row">
       <div *ngFor="let product of products | async" class="col-md-4">
         <app-single-product [product]="product" [orderStatusContainer]="orderStatus"></app-single-product>
