@@ -10,6 +10,7 @@ export interface Product {
   available: boolean;
   picture: string;
   productId: string;
+  blocked: boolean;
 }
 
 @Injectable({

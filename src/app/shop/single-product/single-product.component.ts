@@ -22,6 +22,7 @@ export class SingleProductComponent implements OnInit, OnDestroy {
   orderStatus: string;
   orderStart: string;
   isClosed: boolean;
+  isBlocked: boolean;
 
   emptyImage = AppUrl.EMPTYIMAGE;
   domain = AppUrl.DOMAIN;

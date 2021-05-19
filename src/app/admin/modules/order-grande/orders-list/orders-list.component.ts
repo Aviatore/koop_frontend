@@ -14,7 +14,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   templateUrl: './orders-list.component.html',
   styleUrls: ['./orders-list.component.css']
 })
-export class OrdersListComponent implements OnInit {
+export class OrdersListComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = [
     'orderId',
