@@ -36,6 +36,7 @@ export class ProductCreatorComponent implements OnInit {
   productId: string;
   ProductDataUpdated: BehaviorSubject<any> = new BehaviorSubject<any>('');
   imageSelected = false;
+  @ViewChild('price') price: ElementRef;
   @ViewChild('img') img: ElementRef;
   @ViewChild('file') file: ElementRef;
   changePicture = new BehaviorSubject('');
@@ -126,6 +127,8 @@ export class ProductCreatorComponent implements OnInit {
               console.log(`Image: ${result.picture}`);
               this.changePicture.next(this.domain + result.picture);
             }
+
+            this.onEditPrice();
           });
         });
       });
@@ -217,6 +220,14 @@ export class ProductCreatorComponent implements OnInit {
         }
       });*/
     }
+  }
+
+  onEditPrice(): void {
+    this.price.nativeElement.value = Number(this.price.nativeElement.value).toFixed(2);
+  }
+
+  onSelectPrice(): void {
+    this.price.nativeElement.select();
   }
 
   showAlert(): Observable<any> {

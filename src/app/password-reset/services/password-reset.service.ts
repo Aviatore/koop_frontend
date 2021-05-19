@@ -56,7 +56,7 @@ export class PasswordResetService {
       password
     };
 
-    const url = PasswordResetUrls.SelfSetNewPassword;
+    const url = PasswordResetUrls.SetNewPassword;
 
     return this.httpClient.post<HttpResponse<Observable<PasswordErrorResponse>>>(url, data, httpRequestOptions).pipe(
       catchError(this.handleError.bind(this))
