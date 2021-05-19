@@ -11,12 +11,14 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import { SingleProductComponent } from './single-product/single-product.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {ProductDialogComponent} from './product-dialog/product-dialog.component';
 
 
 @NgModule({
   declarations: [
     ProductComponent,
     OrderDialogComponent,
+    ProductDialogComponent,
     SingleProductComponent
   ],
     imports: [
@@ -25,8 +27,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
         MatSelectModule,
         FormsModule,
         MatButtonModule,
-        ShopRoutingModule,
-        MatTooltipModule
+        MatTooltipModule,
+        ShopRoutingModule
     ]
 })
 export class ShopModule { }

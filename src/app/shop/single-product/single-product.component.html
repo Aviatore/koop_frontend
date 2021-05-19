@@ -6,8 +6,9 @@
   <img class="card-img-top" alt="Thumbnail [100%x225]"
        [src]="(product.picture === null || product.picture === '') ? emptyImage : domain + product.picture"
        data-holder-rendered="true"
-       style="height: 225px; width: 100%; display: block;" [class.noimage]="(product.picture === null || product.picture === '')"
-       [class.img-gray]="!available">
+       style="height: 225px; width: 100%; display: block; cursor: pointer" [class.noimage]="(product.picture === null || product.picture === '')"
+       [class.img-gray]="!available"
+       (click)="openInfoDialog(product.productId)">
   <div class="card-body">
     <p class="card-text">
       {{product.productName}}

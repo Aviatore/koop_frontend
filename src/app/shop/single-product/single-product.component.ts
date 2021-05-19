@@ -9,6 +9,7 @@ import {Observable, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {ErrorResponse} from '../../admin/admin-interfaces/errorResponse';
 import {BasketViewService} from '../../basket-view/services/basket-view.service';
+import {ProductDialogComponent} from '../product-dialog/product-dialog.component';
 
 @Component({
   selector: 'app-single-product',
@@ -19,6 +20,7 @@ export class SingleProductComponent implements OnInit, OnDestroy {
   private onDestroy$: Subject<void> = new Subject<void>();
   @Input() product: Product;
   @Input() orderStatusContainer: ErrorResponse;
+
   orderStatus: string;
   orderStart: string;
   isClosed: boolean;
@@ -88,6 +90,18 @@ export class SingleProductComponent implements OnInit, OnDestroy {
           this.basketViewService.editBasketQuantity();
         });
       }
+    });
+  }
+
+  openInfoDialog(productId: string): void {
+    const dialogRef = this.dialog.open(ProductDialogComponent, {
+      data: {
+        productID: productId,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
     });
   }
 
