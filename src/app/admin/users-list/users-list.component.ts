@@ -7,6 +7,10 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {LoggerService} from '../../services/logger.service';
 import {tap} from 'rxjs/operators';
+import {CoopLastOrderEditDialogComponent} from '../../coop-order/coop-last-order-edit-dialog/coop-last-order-edit-dialog.component';
+import {Guid} from 'guid-typescript';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {UserCreatedComponent} from '../snackbars/user-created/user-created.component';
 
 @Component({
   selector: 'app-users-list',
@@ -26,7 +30,8 @@ export class UsersListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private usersService: UsersService,
-              private logger: LoggerService) { }
+              private logger: LoggerService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.us = this.usersService;
@@ -64,7 +69,8 @@ export class UsersListComponent implements OnInit, AfterViewInit {
       complete: () => {
         this.removeRow(user);
         this.dataSource._updateChangeSubscription();
-        this.showAlert().subscribe();
+        this.openSnackBar(this.us.errorResponse.detail, this.us.errorResponse.status);
+        // this.showAlert().subscribe();
       }
     });
   }
@@ -72,6 +78,16 @@ export class UsersListComponent implements OnInit, AfterViewInit {
   removeRow(row: User): void {
     const index = this.dataSource.data.findIndex(p => p === row);
     this.dataSource.data.splice(index, 1);
+  }
+
+  openSnackBar(msg: string, status: number): void {
+    this.snackBar.openFromComponent(UserCreatedComponent, {
+      duration: status !== 0 ? 3000 : null,
+      panelClass: status === 200 ? 'snack-bar-green' : status === 500 ? 'snack-bar-red' : 'working',
+      data: {
+        message: msg
+      }
+    });
   }
 
   showAlert(): Observable<any> {
@@ -87,4 +103,20 @@ export class UsersListComponent implements OnInit, AfterViewInit {
       }, 1000);
     });
   }
+
+  // openEditDialog(orderId: Guid, status: string): void {
+  //   const dialogRef = this.editDialog.open(CoopLastOrderEditDialogComponent, {
+  //     data: {
+  //       orderId,
+  //       status
+  //     }
+  //   });
+  //
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     this.getCoopLastGrande(this.coopId);
+  //     if (result.msg !== undefined) {
+  //       this.openSnackBarEdit(result.msg);
+  //     }
+  //   });
+  // }
 }

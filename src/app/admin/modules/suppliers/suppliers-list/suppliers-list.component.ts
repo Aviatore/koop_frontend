@@ -9,6 +9,8 @@ import {MatSort} from '@angular/material/sort';
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 
 
+import {OrderGrandeService} from '../../order-grande/order-grande.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import Util from '../../../../util';
 
 @Component({
@@ -29,11 +31,12 @@ export class SuppliersListComponent implements OnInit, AfterViewInit {
     // 'id',
     'supplierAbbr',
     'supplierName',
-    'email',
-    'phone',
-    'oproFullName',
+    // 'email',
+    // 'phone',
+    // 'oproFullName',
     'available',
-    'blocked'
+    'blocked',
+    'action'
   ];
 
   dataSource: MatTableDataSource<Supplier>;
@@ -45,15 +48,16 @@ export class SuppliersListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private supplierService: SupplierService) {
-    this.getDataFromObservable();
-    this.checkAuthorization();
+  constructor(private supplierService: SupplierService,
+              private snackBarInfo: MatSnackBar) {
+    // this.getDataFromObservable();
+    // this.checkAuthorization();
   }
 
 
   ngOnInit(): void {
-    // this.checkAuthorization();
-    // this.suppliers = this.supplierService.getSuppliers();
+    this.getDataFromObservable();
+    this.checkAuthorization();
   }
 
   public doFilter = (value: string) => {
@@ -75,6 +79,18 @@ export class SuppliersListComponent implements OnInit, AfterViewInit {
       this.authorized = false;
       console.log('authorized: ' + this.authorized);
     }
+  }
+
+  openSnackBarInfo(message: string, action?: string): void {
+    let snackBarCss = 'snack-bar-red';
+    if (message !== undefined && message.includes('Good')) {
+      message = 'Dostawca zaktualizowany.';
+      snackBarCss = 'snack-bar-green';
+    }
+    this.snackBarInfo.open(message, action, {
+      duration: 3000,
+      panelClass: snackBarCss
+    });
   }
 
   getDataFromObservable(): void {
@@ -103,7 +119,17 @@ export class SuppliersListComponent implements OnInit, AfterViewInit {
   {
     this.supplierId = Id;
     console.log(`${this.supplierId}`);
-    this.supplierService.toggleAvail(this.supplierId);
+    this.supplierService.toggleAvail(this.supplierId)
+      .subscribe(
+        (response) => {
+          console.log(response);
+          this.openSnackBarInfo('Good');
+        },
+        (error) => {
+          console.log(error);
+          this.openSnackBarInfo('Bad');
+        }
+      );
   }
 
   toggleBlocked(Id: Guid): void

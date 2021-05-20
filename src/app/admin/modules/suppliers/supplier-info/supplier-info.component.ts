@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 import {Supplier} from '../supplier';
 import {switchMap, tap} from 'rxjs/operators';
 import {ActivatedRoute, ParamMap} from '@angular/router';
+import {MatTableDataSource} from '@angular/material/table';
+
 
 @Component({
   selector: 'app-supplier-info',
@@ -16,6 +18,37 @@ export class SupplierInfoComponent implements OnInit {
   supplier: Observable<Supplier>;
   id: string;
 
+  displayedColumns: string[] = [
+    // 'id',
+    'supplierAbbr',
+    'supplierName',
+    // 'email',
+    // 'phone',
+    'description',
+    'oproFullName',
+    'available',
+    'blocked'
+  ];
+
+  dataSource: MatTableDataSource<Observable<Supplier>>;
+
+  // sup: Supplier = {
+  //   supplierId: null,
+  //   picture: null,
+  //   receivables: -100,
+  //   orderClosingDate: new Date(),
+  //   oproId: null,
+  //   supplierAbbr: 'TEST',
+  //   supplierName: 'TESTowy fgs',
+  //   email: 'em@em.pl',
+  //   blocked: true,
+  //   available: true,
+  //   description: 'asfksdhfid shgflish  dfghskdhgls dhglkdsnflkm nsd dskfhldak elhfladflkdsmfkl ',
+  //   oproFullName: 'Tomasz Kot',
+  //   phone: '12345425'
+  // };
+
+
 
   constructor(private supplierService: SupplierService,
               private route: ActivatedRoute) { }
@@ -25,6 +58,8 @@ export class SupplierInfoComponent implements OnInit {
     this.id = this.route.snapshot.params.id;
 
     this.supplier = this.supplierService.getSupplier(this.id);
+    this.dataSource = new MatTableDataSource([this.supplier]);
+
   }
 
 }
