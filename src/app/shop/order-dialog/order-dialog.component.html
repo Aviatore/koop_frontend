@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Zamówienie</h1>
 <div mat-dialog-content>
-  <span>Wybierz ilość zamawianego produktu: {{data.productName}}</span>
+  <span>Wybierz ilość zamawianego produktu: {{data.productName}}</span><br>
   <mat-form-field>
     <mat-label for="category" style="padding-bottom: 5px;">Ilość</mat-label>
     <mat-select id="category" (selectionChange)="selected($event)" [(ngModel)]="data.quantities">

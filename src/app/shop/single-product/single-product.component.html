@@ -20,7 +20,7 @@
       </div>
       <span class="button badge bg-primary" (click)="openDialog(product.productName, product.productId)" style="cursor: pointer" *ngIf="available && !isClosed && !product.blocked">Dodaj do koszyka</span>
       <span class="badge bg-secondary" (click)="openDialog(product.productName, product.productId)" style="cursor: not-allowed" *ngIf="!available && !isClosed && !product.blocked">Produkt niedostępny</span>
-      <span class="badge bg-secondary" (click)="openDialog(product.productName, product.productId)" style="cursor: not-allowed" *ngIf="product.blocked">Produkt zablokowany</span>
+      <span class="badge bg-secondary" (click)="openDialog(product.productName, product.productId)" style="cursor: not-allowed" *ngIf="product.blocked && !isClosed">Produkt zablokowany</span>
       <span class="badge bg-secondary" (click)="openDialog(product.productName, product.productId)" style="cursor: not-allowed" *ngIf="isClosed" [matTooltip]="orderStart">Sklep zamknięty</span>
     </div>
     <div class="warning" [class.collapsed]="!(alertVisibility > 0)">
