@@ -13,4 +13,5 @@ export interface ProductInBasket {
   quantity: number;
   price: number;
   unitPrice: number;
+  fund: number;
 }

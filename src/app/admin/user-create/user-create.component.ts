@@ -3,13 +3,15 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {User} from '../admin-interfaces/user';
 import {UsersService} from '../admin-services/users.service';
 import {RxwebValidators} from '@rxweb/reactive-form-validators';
-import {interval, Observable, of} from 'rxjs';
+import {BehaviorSubject, interval, Observable, of, Subject} from 'rxjs';
 import {Funds} from '../admin-interfaces/funds';
 import {UniqueEmailValidator} from '../admin-validators/async-validators';
 import {UniqueUserNameValidator} from '../admin-validators/userName-validator';
 import {LoggerService} from '../../services/logger.service';
 import {Roles} from '../admin-interfaces/roles';
 import {delay, map} from 'rxjs/operators';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {UserCreatedComponent} from '../snackbars/user-created/user-created.component';
 
 @Component({
   selector: 'app-user-edit',
@@ -17,20 +19,23 @@ import {delay, map} from 'rxjs/operators';
   styleUrls: ['./user-create.component.css']
 })
 export class UserCreateComponent implements OnInit {
-  alertVisibilityTimeSec = 5;
+  alertVisibilityTimeSec = 3;
   us: UsersService;
   submitted = false;
   alertVisibility: number;
   funds: Observable<Funds[]>;
   roles: Observable<Roles[]>;
   userRoles: string[];
+  UserDataUpdated: BehaviorSubject<any>;
   userData;
 
   constructor(private formBuilder: FormBuilder,
               private usersService: UsersService,
-              private logger: LoggerService) { }
+              private logger: LoggerService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.UserDataUpdated = new BehaviorSubject<any>('');
     this.funds = this.usersService.GetAllUnits();
     this.roles = this.usersService.GetALlRoles();
     this.us = this.usersService;
@@ -78,6 +83,8 @@ export class UserCreateComponent implements OnInit {
       info: [''],
       role: [[]]
     });
+
+    this.UserDataUpdated.next('');
   }
 
   get firstName(): any {
@@ -111,10 +118,11 @@ export class UserCreateComponent implements OnInit {
         control.markAsTouched({onlySelf: true});
       });
     } else {
+      this.openSnackBar('Tworzenie nowego użytkownika. Proszę czekać ...', 0);
       this.submitted = false;
 
-      this.us.errorResponse.detail = 'Tworzenie nowego użytkownika. Proszę czekać ...';
-      this.us.errorResponse.status = 300;
+/*      this.us.errorResponse.detail = 'Tworzenie nowego użytkownika. Proszę czekać ...';
+      this.us.errorResponse.status = 300;*/
       this.alertVisibility = 1;
 
       const user: User = this.userData.getRawValue();
@@ -123,14 +131,53 @@ export class UserCreateComponent implements OnInit {
         next: result => {
           this.us.errorResponse = result.body;
           console.log(JSON.stringify(result.body));
-          this.showAlert().subscribe(this.userData.reset());
-          this.userRoles = [];
+          this.openSnackBar(this.us.errorResponse.detail, this.us.errorResponse.status);
+          this.resetForm();
+          /*this.showAlert().subscribe({
+            complete: () => {
+              this.resetForm();
+              this.userRoles = [];
+            }
+          });*/
         }
       });
     }
   }
 
-  showAlert(): Observable<any> {
+  openSnackBar(msg: string, status: number): void {
+    this.snackBar.openFromComponent(UserCreatedComponent, {
+      duration: status !== 0 ? 3000 : null,
+      panelClass: status === 200 ? 'snack-bar-green' : status === 500 ? 'snack-bar-red' : 'working',
+      data: {
+        message: msg
+      }
+    });
+  }
+
+  resetForm(): void {
+    this.userData.setValue({
+      firstName: '',
+      lastName: '',
+      userName: '',
+      phoneNumber: '',
+      email: '',
+      newPassword: '',
+      repeatPassword: '',
+      debt: '',
+      fundId: '',
+      info: '',
+      role: []
+    });
+
+    Object.keys(this.userData.controls).forEach(field => {
+      const control = this.userData.get(field);
+      control.markAsUntouched({onlySelf: true});
+    });
+
+    this.UserDataUpdated.next('');
+  }
+
+/*  showAlert(): Observable<any> {
     return new Observable(observer => {
       this.alertVisibility = this.alertVisibilityTimeSec;
 
@@ -139,8 +186,9 @@ export class UserCreateComponent implements OnInit {
 
         if (this.alertVisibility === 0) {
           clearInterval(handler);
+          observer.complete();
         }
       }, 1000);
     });
-  }
+  }*/
 }
