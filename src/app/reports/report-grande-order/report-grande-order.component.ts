@@ -70,7 +70,7 @@ export class ReportGrandeOrderComponent implements OnInit, AfterViewInit {
     const tmpArray: string[] = [];
     this._filter(startDate, endDate).forEach(x => {
       x.forEach(item => {
-        tmpArray.push(`${item.orderStartDate}`.split('T')[0]);
+        tmpArray.push(`${item.orderStartDate}`.replace('T', ' '));
       });
     });
 
