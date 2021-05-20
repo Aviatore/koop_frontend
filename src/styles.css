@@ -54,3 +54,11 @@ body {
   /*change color of underline when focused*/
   background-color: green !important;;
 }
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: #076d00 !important;
+}
+
+checkbox {
+  border-color: #076d00 !important;
+}

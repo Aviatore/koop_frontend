@@ -11,6 +11,8 @@ import {ActivatedRoute} from '@angular/router';
 import {delay} from 'rxjs/operators';
 import {Product} from '../admin-interfaces/product';
 import {AppUrl} from '../../urls/app-url';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {UserCreatedComponent} from '../snackbars/user-created/user-created.component';
 
 
 export enum Test {
@@ -25,7 +27,7 @@ export enum Test {
 })
 export class ProductCreatorComponent implements OnInit {
   domain = AppUrl.DOMAIN;
-  alertVisibilityTimeSec = 5;
+  alertVisibilityTimeSec = 3;
   submitted = false;
   alertVisibility: number;
   ps: ProductsService;
@@ -45,7 +47,8 @@ export class ProductCreatorComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private productsService: ProductsService,
               private router: ActivatedRoute,
-              private logger: LoggerService) { }
+              private logger: LoggerService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.changePicture.pipe(delay(10)).subscribe(value => {
@@ -186,10 +189,31 @@ export class ProductCreatorComponent implements OnInit {
         control.markAsTouched({onlySelf: true});
       });
     } else {
+      /*this.showAlert().subscribe({
+        complete: () => {
+          console.log('ok');
+          console.log(`Category before: ${JSON.stringify(this.productData.get('category').value)}`);
+          if (!this.productId) {
+            this.productData.reset();
+            this.productData.patchValue({
+              category: []
+            });
+            this.productData.patchValue({
+              availQuantity: []
+            });
+            this.productData.patchValue({
+              picture: null
+            });
+            this.ProductDataUpdated.next('');
+          }
+        }
+      });
+      return;*/
       this.submitted = false;
 
-      this.ps.errorResponse.detail = 'Przetwarzanie danych. Proszę czekać ...';
-      this.ps.errorResponse.status = 300;
+      this.openSnackBar('Przetwarzanie danych. Proszę czekać ...', 0);
+/*      this.ps.errorResponse.detail = 'Przetwarzanie danych. Proszę czekać ...';
+      this.ps.errorResponse.status = 300;*/
       this.alertVisibility = 1;
 
       this.productData.patchValue({
@@ -203,7 +227,19 @@ export class ProductCreatorComponent implements OnInit {
         next: result => {
           console.log(...this.logger.info(`Response body: ${JSON.stringify(result.body)}`));
           this.ps.errorResponse = result.body;
-          this.showAlert().subscribe();
+          this.openSnackBar(this.ps.errorResponse.detail, this.ps.errorResponse.status);
+          if (!this.productId) {
+            this.resetForm();
+          }
+/*          this.showAlert().subscribe({
+            complete: () => {
+              console.log('ok');
+              console.log(`Category before: ${JSON.stringify(this.productData.get('category').value)}`);
+              if (!this.productId) {
+                this.resetForm();
+              }
+            }
+          });*/
         }
       });
 
@@ -226,8 +262,46 @@ export class ProductCreatorComponent implements OnInit {
     this.price.nativeElement.value = Number(this.price.nativeElement.value).toFixed(2);
   }
 
-  onSelectPrice(): void {
-    this.price.nativeElement.select();
+  onSelectHighlight(elem): void {
+    elem.select();
+  }
+
+  resetForm(): void {
+    this.productData.setValue({
+      productId: '00000000-0000-0000-0000-000000000000',
+      productName: '',
+      price: 0,
+      picture: '',
+      blocked: false,
+      unitId: '',
+      available: false,
+      amountMax: 0,
+      description: '',
+      supplierId: '',
+      deposit: 0,
+      magazine: false,
+      availQuantity: [],
+      category: []
+    });
+
+    this.removeImage();
+
+    Object.keys(this.productData.controls).forEach(field => {
+      const control = this.productData.get(field);
+      control.markAsUntouched({onlySelf: true});
+    });
+
+    this.ProductDataUpdated.next('');
+  }
+
+  openSnackBar(msg: string, status: number): void {
+    this.snackBar.openFromComponent(UserCreatedComponent, {
+      duration: status !== 0 ? 3000 : null,
+      panelClass: status === 200 ? 'snack-bar-green' : status === 500 ? 'snack-bar-red' : 'working',
+      data: {
+        message: msg
+      }
+    });
   }
 
   showAlert(): Observable<any> {
@@ -240,6 +314,7 @@ export class ProductCreatorComponent implements OnInit {
 
         if (this.alertVisibility === 0) {
           clearInterval(handler);
+          observer.complete();
         }
       }, 1000);
     });

@@ -25,6 +25,7 @@ import {SuppliersModule} from './modules/suppliers/suppliers.module';
 import {OrderGrandeModule} from './modules/order-grande/order-grande.module';
 import {CategoryModule} from './modules/categories/category.module';
 import {AppPipesModuleModule} from '../app-pipes-module/app-pipes-module.module';
+import { UserCreatedComponent } from './snackbars/user-created/user-created.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {AppPipesModuleModule} from '../app-pipes-module/app-pipes-module.module'
     RoleSelectorComponent,
     ProductCreatorComponent,
     CategorySelectorComponent,
-    AvailQuantSelectorComponent
+    AvailQuantSelectorComponent,
+    UserCreatedComponent
   ],
   exports: [
     AdminComponent,
