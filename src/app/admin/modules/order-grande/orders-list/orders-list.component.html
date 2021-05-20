@@ -24,14 +24,14 @@
 <!--    </ng-component>-->
     <ng-component matColumnDef="orderStartDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="orderStartDate">Data otwarcia</th>
-      <td mat-cell *matCellDef="let element">{{element.orderStartDate}}
+      <td mat-cell *matCellDef="let element">{{element.orderStartDate | date}}
 <!--        <a class="button" routerLink="/order/{{element.orderId}}/edit" routerLinkActive="activebutton">{{element.orderStartDate}}</a>-->
       </td>
 
     </ng-component>
     <ng-component matColumnDef="orderStopDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="orderStopDate">Data zamknięcia</th>
-      <td mat-cell *matCellDef="let element">{{element.orderStopDate}}</td>
+      <td mat-cell *matCellDef="let element">{{element.orderStopDate | date}}</td>
     </ng-component>
     <ng-component matColumnDef="orderStatusName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="orderStatusName">Status</th>
