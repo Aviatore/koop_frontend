@@ -95,8 +95,8 @@ export class OrderDetailComponent implements OnInit {
         this.showAlert().subscribe();
       });
 
-      this.router.navigate(['orders/all']);
-  };
+      this.router.navigate(['admin/orders/all']);
+    }
   }
 }
 
